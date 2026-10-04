@@ -13,10 +13,10 @@ interface SiteConfig {
 }
 
 export const SITE: SiteConfig = {
-  name: 'Steve Donald Compaoré',
-  email: 'docompaore2@gmail.com',
+  name: 'Steeve Donald Compaoré',
+  email: 'dosteeve2@gmail.com',
   githubUser: 'dosteeve2-hash',
-  linkedinUrl: '',
+  linkedinUrl: 'https://www.linkedin.com/in/steeve-donald-compaor%C3%A9-65ba13296/',
   cvAvailable: false,
 }
 
@@ -25,7 +25,7 @@ export function githubUrl(): string {
 }
 
 export function cvPdfPath(locale: Locale): string {
-  return `/cv/Steve-Donald-Compaore-CV-${locale}.pdf`
+  return `/cv/Steeve-Donald-Compaore-CV-${locale}.pdf`
 }
 
 export function cvHref(locale: Locale): string {

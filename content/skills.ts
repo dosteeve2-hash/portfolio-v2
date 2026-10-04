@@ -1,10 +1,11 @@
 import { same, type Localized } from './locales'
 
-export type SkillLevel = 'master' | 'comfortable' | 'learning'
+export type SkillLevel = 'veryGood' | 'good' | 'average'
 
 export interface Skill {
   readonly name: Localized
-  readonly level: SkillLevel
+  readonly level?: SkillLevel
+  readonly note?: Localized
 }
 
 export interface SkillGroup {
@@ -13,75 +14,42 @@ export interface SkillGroup {
   readonly items: readonly Skill[]
 }
 
-// Niveaux provisoires : à confirmer par Steve avant toute diffusion.
+const underOneYear: Localized = { fr: 'moins d’un an', en: 'under a year', tr: '1 yıldan az' }
+const oneToThree: Localized = { fr: '1 à 3 ans', en: '1 to 3 years', tr: '1-3 yıl' }
+
+// Niveaux auto-évalués dans le CV de Steeve. Un outil sans `level` est listé sans note.
 export const skillGroups: readonly SkillGroup[] = [
   {
-    id: 'fullstack',
-    title: {
-      fr: 'Développement full stack',
-      en: 'Full stack development',
-      tr: 'Full stack geliştirme',
-    },
-    items: [
-      { name: same('TypeScript'), level: 'comfortable' },
-      { name: same('Next.js'), level: 'comfortable' },
-      { name: same('Node.js'), level: 'comfortable' },
-      { name: same('Python'), level: 'comfortable' },
-      { name: same('PostgreSQL'), level: 'comfortable' },
-      { name: same('Tailwind CSS'), level: 'comfortable' },
-    ],
-  },
-  {
     id: 'ai',
-    title: {
-      fr: "Intégration d'IA",
-      en: 'AI integration',
-      tr: 'Yapay zekâ entegrasyonu',
-    },
+    title: { fr: 'Intelligence artificielle', en: 'Artificial intelligence', tr: 'Yapay zekâ' },
     items: [
       {
-        name: {
-          fr: 'API de modèles de langage',
-          en: 'Language model APIs',
-          tr: 'Dil modeli API’leri',
-        },
-        level: 'comfortable',
-      },
-      {
-        name: { fr: 'Agents et workflows', en: 'Agents and workflows', tr: 'Ajanlar ve iş akışları' },
-        level: 'comfortable',
-      },
-      {
-        name: {
-          fr: 'Vibe coding encadré',
-          en: 'Supervised vibe coding',
-          tr: 'Denetimli vibe coding',
-        },
-        level: 'comfortable',
+        name: { fr: 'Intelligence artificielle', en: 'Artificial intelligence', tr: 'Yapay zekâ' },
+        level: 'veryGood',
+        note: oneToThree,
       },
     ],
   },
   {
-    id: 'deploy',
-    title: { fr: 'Déploiement', en: 'Deployment', tr: 'Dağıtım' },
+    id: 'languages',
+    title: { fr: 'Langages', en: 'Programming languages', tr: 'Programlama dilleri' },
     items: [
-      { name: same('Vercel'), level: 'comfortable' },
-      { name: same('Git / GitHub'), level: 'comfortable' },
-      { name: same('Neon / Supabase'), level: 'comfortable' },
+      { name: same('C#'), level: 'good', note: underOneYear },
+      { name: same('Python'), level: 'average', note: underOneYear },
+      { name: same('JavaScript'), level: 'average', note: underOneYear },
+      { name: same('Java'), level: 'average', note: oneToThree },
     ],
   },
   {
-    id: 'security',
-    title: {
-      fr: 'Sécurité applicative de base',
-      en: 'Basic application security',
-      tr: 'Temel uygulama güvenliği',
-    },
+    id: 'tools',
+    title: { fr: 'Outils utilisés', en: 'Tools I use', tr: 'Kullandığım araçlar' },
     items: [
-      { name: { fr: 'Validation Zod', en: 'Zod validation', tr: 'Zod doğrulama' }, level: 'comfortable' },
-      { name: { fr: 'Authentification', en: 'Authentication', tr: 'Kimlik doğrulama' }, level: 'comfortable' },
-      { name: { fr: 'En-têtes HTTP', en: 'HTTP headers', tr: 'HTTP başlıkları' }, level: 'comfortable' },
-      { name: same('OWASP'), level: 'learning' },
+      { name: same('Next.js') },
+      { name: same('TypeScript') },
+      { name: same('Tailwind CSS') },
+      { name: same('PostgreSQL (Neon, Supabase)') },
+      { name: same('Vercel') },
+      { name: same('Git / GitHub') },
     ],
   },
 ]

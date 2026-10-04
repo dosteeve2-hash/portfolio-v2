@@ -3,9 +3,9 @@ import type { Dictionary } from './types'
 // TODO relecture TR : traduction à faire relire par un locuteur natif.
 export const tr: Dictionary = {
   meta: {
-    title: 'Steve Donald Compaoré — La forge du futur',
+    title: 'Steeve Donald Compaoré — La forge du futur',
     description:
-      'Bilgisayar bilimleri öğrencisi Steve Donald Compaoré’nin portfolyosu: full stack geliştirme, yapay zekâ entegrasyonu ve otomasyon. 2027 yaz stajlarına açığım.',
+      'Bilgisayar bilimleri öğrencisi Steeve Donald Compaoré’nin portfolyosu: full stack geliştirme, yapay zekâ entegrasyonu ve otomasyon. 2027 yaz stajlarına açığım.',
   },
   brand: { name: 'La forge du futur', slogan: 'Geleceğin şekillendiği yer.' },
   nav: {
@@ -30,7 +30,7 @@ export const tr: Dictionary = {
       'Bilgisayar bilimleri öğrencisiyim; fikirden yayına kadar eksiksiz web uygulamaları geliştiriyor ve yapay zekâyı bunlara entegre ediyorum.',
     cv: 'CV’mi indir',
     contact: 'Benimle iletişime geç',
-    portraitAlt: 'Steve Donald Compaoré’nin portresi',
+    portraitAlt: 'Steeve Donald Compaoré’nin portresi',
   },
   about: {
     title: 'Hakkımda',
@@ -40,11 +40,12 @@ export const tr: Dictionary = {
       'Ayrıca yapay zekâ ajanlarını yönetiyorum: bir yönetici birkaç modele iş devrediyor; böylece kod incelemesinden ve testlerden vazgeçmeden daha hızlı teslim ediyorum.',
       'Türkiye’de (İstanbul, Tokat) veya uzaktan 2027 yaz stajı arıyorum.',
     ],
+    languagesTitle: 'Diller',
   },
   skills: {
     title: 'Yetenekler',
-    intro: 'Her araç için üç basamakta dürüst bir seviye.',
-    levels: { master: 'Uzman', comfortable: 'Rahatım', learning: 'Öğreniyorum' },
+    intro: 'Seviyeler CV’mden gelir; projelerimde kullandığım araçlar puansız listelenir.',
+    levels: { veryGood: 'Çok iyi', good: 'İyi', average: 'Orta' },
   },
   projects: {
     title: 'Projeler',
@@ -84,8 +85,13 @@ export const tr: Dictionary = {
     title: 'Yolculuk',
     items: [
       {
-        period: 'Devam ediyor',
-        title: 'Bilgisayar bilimleri lisansı, 3. sınıf',
+        period: '2022 – 2023',
+        title: 'Ön lisans',
+        text: 'Lisanstan önceki ilk aşama.',
+      },
+      {
+        period: '2023 – günümüz',
+        title: 'Bilgisayar Bilimleri Mühendisliği lisansı',
         text: 'Tokat Gaziosmanpaşa Üniversitesi, Türkiye.',
       },
       {
@@ -118,6 +124,8 @@ export const tr: Dictionary = {
     text: 'CV’m henüz yayımlanmadı. Şimdilik bana yazın, size göndereyim.',
     back: 'Ana sayfaya dön',
     contact: 'Benimle iletişime geç',
+    draftTitle: 'Onay bekleyen taslak',
+    draftText: 'İnceleme aşamasındaki sürümlerin önizlemesi. Henüz resmî olarak yayımlanmadı.',
   },
   notFound: {
     title: 'Sayfa bulunamadı',

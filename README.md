@@ -1,4 +1,4 @@
-# La forge du futur — portfolio de Steve Donald Compaoré
+# La forge du futur — portfolio de Steeve Donald Compaoré
 
 Next.js (App Router), TypeScript strict, Tailwind CSS 4, Motion. Trilingue FR / EN / TR.
 
@@ -24,7 +24,7 @@ npx tsc --noEmit
 
 - **Un texte** : `content/fr.ts`, `content/en.ts`, `content/tr.ts` (même structure, typée par `content/types.ts`). Le turc attend une relecture native.
 - **Un projet** : `content/projects.ts`.
-- **Une compétence ou son niveau** : `content/skills.ts` (`master`, `comfortable`, `learning`). Niveaux provisoires, à confirmer.
+- **Une compétence ou son niveau** : `content/skills.ts` . Niveaux issus du CV (`veryGood`, `good`, `average`) ; un `level` absent = outil sans niveau chiffré.
 - **Une certification** : ajouter un objet à `content/certifications.ts` (`title`, `issuer`, `date` au format `AAAA-MM`, `verifyUrl`, `pdfUrl` optionnels). Tant que la liste est vide, un état « Mise à jour en cours » s'affiche.
-- **Contact, LinkedIn, CV** : `content/site.ts`. `linkedinUrl` vide masque le bloc LinkedIn. Pour activer le CV, déposer `public/cv/Steve-Donald-Compaore-CV-{fr|en|tr}.pdf` puis passer `cvAvailable` à `true` ; sinon le bouton mène à la page « CV bientôt disponible ».
+- **Contact, LinkedIn, CV** : `content/site.ts`. `linkedinUrl` vide masque le bloc LinkedIn. Pour activer le CV, déposer `public/cv/Steeve-Donald-Compaore-CV-{fr|en|tr}.pdf` puis passer `cvAvailable` à `true` ; sinon le bouton mène à la page « CV bientôt disponible ».
 - **Photo** : remplacer `public/portrait.jpg` (ou changer `PORTRAIT_SRC` et le cadrage `PORTRAIT_FOCUS` dans `content/site.ts`).

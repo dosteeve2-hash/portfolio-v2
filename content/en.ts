@@ -2,9 +2,9 @@ import type { Dictionary } from './types'
 
 export const en: Dictionary = {
   meta: {
-    title: 'Steve Donald Compaoré — La forge du futur',
+    title: 'Steeve Donald Compaoré — La forge du futur',
     description:
-      'Portfolio of Steve Donald Compaoré, computer science student: full stack development, AI integration and automation. Open to summer 2027 internships.',
+      'Portfolio of Steeve Donald Compaoré, computer science student: full stack development, AI integration and automation. Open to summer 2027 internships.',
   },
   brand: { name: 'La forge du futur', slogan: 'Where the future gets forged.' },
   nav: {
@@ -29,7 +29,7 @@ export const en: Dictionary = {
       'A computer science student building complete web applications and weaving AI into them, from idea to deployment.',
     cv: 'Download my CV',
     contact: 'Get in touch',
-    portraitAlt: 'Portrait of Steve Donald Compaoré',
+    portraitAlt: 'Portrait of Steeve Donald Compaoré',
   },
   about: {
     title: 'About',
@@ -39,11 +39,12 @@ export const en: Dictionary = {
       'I also orchestrate AI agents: a manager delegates to several models so I ship faster, without giving up code review or testing.',
       'I am looking for a summer 2027 internship in Turkey (Istanbul, Tokat) or remotely.',
     ],
+    languagesTitle: 'Languages',
   },
   skills: {
     title: 'Skills',
-    intro: 'An honest level for each tool, on three degrees.',
-    levels: { master: 'Proficient', comfortable: 'Comfortable', learning: 'Learning' },
+    intro: 'Levels come from my CV; tools I use in my projects are listed without a rating.',
+    levels: { veryGood: 'Very good', good: 'Good', average: 'Average' },
   },
   projects: {
     title: 'Projects',
@@ -83,9 +84,14 @@ export const en: Dictionary = {
     title: 'Journey',
     items: [
       {
-        period: 'Ongoing',
-        title: 'BSc in Computer Science, year 3',
-        text: 'Tokat Gaziosmanpaşa University, Turkey.',
+        period: '2022 – 2023',
+        title: 'Short-cycle higher education (associate)',
+        text: 'First cycle before the bachelor’s degree.',
+      },
+      {
+        period: '2023 – present',
+        title: 'BSc in Computer Science Engineering',
+        text: 'Tokat Gaziosmanpaşa University, Türkiye.',
       },
       {
         period: 'Projects',
@@ -117,6 +123,8 @@ export const en: Dictionary = {
     text: 'My CV is not published yet. In the meantime, write to me and I will send it over.',
     back: 'Back to home',
     contact: 'Get in touch',
+    draftTitle: 'Draft to validate',
+    draftText: 'Preview of the versions under review. They are not officially published yet.',
   },
   notFound: {
     title: 'Page not found',

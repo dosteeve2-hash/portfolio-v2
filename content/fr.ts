@@ -2,9 +2,9 @@ import type { Dictionary } from './types'
 
 export const fr: Dictionary = {
   meta: {
-    title: 'Steve Donald Compaoré — La forge du futur',
+    title: 'Steeve Donald Compaoré — La forge du futur',
     description:
-      "Portfolio de Steve Donald Compaoré, étudiant en informatique : développement full stack, intégration d'IA et automatisation. Ouvert aux stages d'été 2027.",
+      "Portfolio de Steeve Donald Compaoré, étudiant en informatique : développement full stack, intégration d'IA et automatisation. Ouvert aux stages d'été 2027.",
   },
   brand: { name: 'La forge du futur', slogan: 'Là où le futur commence.' },
   nav: {
@@ -29,7 +29,7 @@ export const fr: Dictionary = {
       "Étudiant en informatique, je construis des applications web complètes et j'y intègre l'IA, de l'idée jusqu'au déploiement.",
     cv: 'Télécharger mon CV',
     contact: 'Me contacter',
-    portraitAlt: 'Portrait de Steve Donald Compaoré',
+    portraitAlt: 'Portrait de Steeve Donald Compaoré',
   },
   about: {
     title: 'À propos',
@@ -39,11 +39,12 @@ export const fr: Dictionary = {
       "J'orchestre aussi des agents IA : un manager délègue à plusieurs modèles pour que je livre plus vite, sans renoncer à la relecture ni aux tests.",
       "Je cherche un stage d'été 2027 en Turquie (Istanbul, Tokat) ou à distance.",
     ],
+    languagesTitle: 'Langues',
   },
   skills: {
     title: 'Compétences',
-    intro: 'Un niveau honnête pour chaque outil, en trois degrés.',
-    levels: { master: 'Maîtrise', comfortable: "À l'aise", learning: 'En apprentissage' },
+    intro: 'Niveaux issus de mon CV ; les outils que j’utilise dans mes projets sont listés sans note.',
+    levels: { veryGood: 'Très bien', good: 'Bien', average: 'Moyen' },
   },
   projects: {
     title: 'Projets',
@@ -84,9 +85,14 @@ export const fr: Dictionary = {
     title: 'Parcours',
     items: [
       {
-        period: 'En cours',
-        title: "Licence d'informatique, 3e année",
-        text: 'Université de Tokat Gaziosmanpaşa, Turquie.',
+        period: '2022 – 2023',
+        title: 'Études supérieures courtes (associate)',
+        text: 'Premier cycle avant la licence.',
+      },
+      {
+        period: '2023 – aujourd’hui',
+        title: 'Licence en génie informatique',
+        text: 'Université de Tokat Gaziosmanpaşa, Türkiye.',
       },
       {
         period: 'Projets',
@@ -118,6 +124,8 @@ export const fr: Dictionary = {
     text: "Mon CV n'est pas encore publié. En attendant, écrivez-moi et je vous l'envoie.",
     back: "Retour à l'accueil",
     contact: 'Me contacter',
+    draftTitle: 'Brouillon à valider',
+    draftText: 'Aperçu des versions en cours de relecture. Elles ne sont pas encore publiées officiellement.',
   },
   notFound: {
     title: 'Page introuvable',

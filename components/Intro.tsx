@@ -122,7 +122,7 @@ export default function Intro({ dict }: IntroProps) {
                 animate={{ y: 0 }}
                 transition={{ delay: 1.7, duration: 0.5, ease: EASE }}
               >
-                Steve Donald Compaoré
+                Steeve Donald Compaoré
               </motion.p>
             </div>
             <div className="overflow-hidden px-1 pb-1 text-center">

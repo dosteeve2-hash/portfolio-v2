@@ -4,7 +4,7 @@ import type { Dictionary } from '@/content/types'
 import Reveal from './Reveal'
 import Section from './Section'
 
-const pips: Readonly<Record<SkillLevel, number>> = { master: 3, comfortable: 2, learning: 1 }
+const pips: Readonly<Record<SkillLevel, number>> = { veryGood: 3, good: 2, average: 1 }
 
 function Pips({ level }: { readonly level: SkillLevel }) {
   return (
@@ -19,7 +19,7 @@ function Pips({ level }: { readonly level: SkillLevel }) {
 export default function Skills({ locale, dict }: { readonly locale: Locale; readonly dict: Dictionary }) {
   return (
     <Section id="skills" index={3} label={dict.nav.skills} title={dict.skills.title} intro={dict.skills.intro}>
-      <div className="grid gap-5 md:grid-cols-2">
+      <div className="grid gap-5 md:grid-cols-3">
         {skillGroups.map((group, index) => (
           <Reveal key={group.id} delay={index * 0.08}>
             <div className="h-full rounded-2xl border border-line2 bg-bg3 p-6">
@@ -31,10 +31,13 @@ export default function Skills({ locale, dict }: { readonly locale: Locale; read
                     className="flex items-center justify-between gap-4 border-b border-line pb-3 last:border-b-0 last:pb-0"
                   >
                     <span className="text-text">{item.name[locale]}</span>
-                    <span className="flex shrink-0 items-center gap-2 font-mono text-[11px] text-text2">
-                      <Pips level={item.level} />
-                      {dict.skills.levels[item.level]}
-                    </span>
+                    {item.level ? (
+                      <span className="flex shrink-0 items-center gap-2 font-mono text-[11px] text-text2">
+                        <Pips level={item.level} />
+                        {dict.skills.levels[item.level]}
+                        {item.note ? <span className="text-text3">· {item.note[locale]}</span> : null}
+                      </span>
+                    ) : null}
                   </li>
                 ))}
               </ul>

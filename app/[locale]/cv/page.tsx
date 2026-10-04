@@ -4,7 +4,8 @@ import Footer from '@/components/Footer'
 import Header from '@/components/Header'
 import { getDictionary } from '@/content'
 import { isLocale } from '@/content/locales'
-import { SITE } from '@/content/site'
+import { locales } from '@/content/locales'
+import { cvPdfPath, SITE } from '@/content/site'
 
 export default async function CvPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
@@ -24,6 +25,17 @@ export default async function CvPage({ params }: { params: Promise<{ locale: str
             <Cta href={`/${locale}`} variant="ghost">
               {dict.cvPage.back}
             </Cta>
+          </div>
+          <div className="mt-12 rounded-2xl border border-line2 bg-bg3 p-6">
+            <p className="font-mono text-xs uppercase tracking-[0.2em] text-gold">{dict.cvPage.draftTitle}</p>
+            <p className="mt-2 text-sm text-text2">{dict.cvPage.draftText}</p>
+            <div className="mt-4 flex flex-wrap justify-center gap-3">
+              {locales.map((code) => (
+                <Cta key={code} href={cvPdfPath(code)} variant="ghost">
+                  PDF {code.toUpperCase()}
+                </Cta>
+              ))}
+            </div>
           </div>
         </div>
       </main>

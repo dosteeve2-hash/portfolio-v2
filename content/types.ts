@@ -36,7 +36,7 @@ export interface Dictionary {
     readonly contact: string
     readonly portraitAlt: string
   }
-  readonly about: { readonly title: string; readonly paragraphs: readonly string[] }
+  readonly about: { readonly title: string; readonly paragraphs: readonly string[]; readonly languagesTitle: string }
   readonly skills: {
     readonly title: string
     readonly intro: string
@@ -86,6 +86,8 @@ export interface Dictionary {
     readonly text: string
     readonly back: string
     readonly contact: string
+    readonly draftTitle: string
+    readonly draftText: string
   }
   readonly notFound: { readonly title: string; readonly text: string; readonly back: string }
   readonly footer: { readonly rights: string }
