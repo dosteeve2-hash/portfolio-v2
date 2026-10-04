@@ -35,7 +35,7 @@ export const tr: Dictionary = {
   about: {
     title: 'Hakkımda',
     paragraphs: [
-      'Tokat Gaziosmanpaşa Üniversitesi’nde bilgisayar bilimleri 3. sınıf öğrencisiyim. Burkina Faso’luyum ve Tokat’ta yaşıyorum.',
+      'Tokat Gaziosmanpaşa Üniversitesi’nde bilgisayar bilimleri öğrencisiyim. Burkina Faso’luyum ve Tokat’ta yaşıyorum.',
       'Yazılımı uçtan uca geliştiriyorum: arayüz, API, veritabanı ve dağıtım.',
       'Ayrıca yapay zekâ ajanlarını yönetiyorum: bir yönetici birkaç modele iş devrediyor; böylece kod incelemesinden ve testlerden vazgeçmeden daha hızlı teslim ediyorum.',
       'Türkiye’de (İstanbul, Tokat) veya uzaktan 2027 yaz stajı arıyorum.',

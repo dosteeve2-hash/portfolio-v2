@@ -34,7 +34,7 @@ export const fr: Dictionary = {
   about: {
     title: 'À propos',
     paragraphs: [
-      "Je suis étudiant en 3e année d'informatique à l'Université de Tokat Gaziosmanpaşa, en Turquie. Burkinabè, je vis à Tokat.",
+      "Je suis étudiant en informatique à l'Université de Tokat Gaziosmanpaşa, en Turquie. Burkinabè, je vis à Tokat.",
       "Je construis des logiciels de bout en bout : interface, API, base de données et déploiement.",
       "J'orchestre aussi des agents IA : un manager délègue à plusieurs modèles pour que je livre plus vite, sans renoncer à la relecture ni aux tests.",
       "Je cherche un stage d'été 2027 en Turquie (Istanbul, Tokat) ou à distance.",

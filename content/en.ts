@@ -34,7 +34,7 @@ export const en: Dictionary = {
   about: {
     title: 'About',
     paragraphs: [
-      'I am a third-year computer science student at Tokat Gaziosmanpaşa University in Turkey. I am from Burkina Faso and live in Tokat.',
+      'I am a computer science student at Tokat Gaziosmanpaşa University in Turkey. I am from Burkina Faso and live in Tokat.',
       'I build software end to end: interface, API, database and deployment.',
       'I also orchestrate AI agents: a manager delegates to several models so I ship faster, without giving up code review or testing.',
       'I am looking for a summer 2027 internship in Turkey (Istanbul, Tokat) or remotely.',
