@@ -1,0 +1,30 @@
+# La forge du futur — portfolio de Steve Donald Compaoré
+
+Next.js (App Router), TypeScript strict, Tailwind CSS 4, Motion. Trilingue FR / EN / TR.
+
+## Lancer
+
+```powershell
+npm install
+npm run dev -- -p 3100   # http://localhost:3100  (redirige vers /fr, /en ou /tr)
+npm run build
+npm run lint
+npx tsc --noEmit
+```
+
+## Structure
+
+- `app/[locale]/` : pages (accueil, `cv`, 404) et layout racine (polices, `lang`, métadonnées).
+- `proxy.ts` : détection de langue (cookie `NEXT_LOCALE`, puis `Accept-Language`) et redirection vers `/fr|/en|/tr`.
+- `content/` : tous les textes et données. Jamais de texte en dur dans `components/`.
+- `components/` : sections, intro chorégraphiée, braises (canvas), schéma animé.
+- `lib/` : état de l'intro, coordonnées du schéma de l'orchestrateur.
+
+## Modifier le contenu
+
+- **Un texte** : `content/fr.ts`, `content/en.ts`, `content/tr.ts` (même structure, typée par `content/types.ts`). Le turc attend une relecture native.
+- **Un projet** : `content/projects.ts`.
+- **Une compétence ou son niveau** : `content/skills.ts` (`master`, `comfortable`, `learning`). Niveaux provisoires, à confirmer.
+- **Une certification** : ajouter un objet à `content/certifications.ts` (`title`, `issuer`, `date` au format `AAAA-MM`, `verifyUrl`, `pdfUrl` optionnels). Tant que la liste est vide, un état « Mise à jour en cours » s'affiche.
+- **Contact, LinkedIn, CV** : `content/site.ts`. `linkedinUrl` vide masque le bloc LinkedIn. Pour activer le CV, déposer `public/cv/Steve-Donald-Compaore-CV-{fr|en|tr}.pdf` puis passer `cvAvailable` à `true` ; sinon le bouton mène à la page « CV bientôt disponible ».
+- **Photo** : remplacer `public/portrait.jpg` (ou changer `PORTRAIT_SRC` et le cadrage `PORTRAIT_FOCUS` dans `content/site.ts`).

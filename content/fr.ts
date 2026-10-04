@@ -1,0 +1,128 @@
+import type { Dictionary } from './types'
+
+export const fr: Dictionary = {
+  meta: {
+    title: 'Steve Donald Compaoré — La forge du futur',
+    description:
+      "Portfolio de Steve Donald Compaoré, étudiant en informatique : développement full stack, intégration d'IA et automatisation. Ouvert aux stages d'été 2027.",
+  },
+  brand: { name: 'La forge du futur', slogan: 'Là où le futur commence.' },
+  nav: {
+    label: 'Navigation principale',
+    skipToContent: 'Aller au contenu',
+    home: 'Accueil',
+    about: 'À propos',
+    skills: 'Compétences',
+    projects: 'Projets',
+    architecture: 'Architecture',
+    certifications: 'Certifications',
+    journey: 'Parcours',
+    contact: 'Contact',
+    openMenu: 'Ouvrir le menu',
+    closeMenu: 'Fermer le menu',
+  },
+  language: { label: 'Choisir la langue' },
+  badge: 'Ouvert aux stages · Été 2027',
+  intro: { skip: "Passer l'introduction" },
+  hero: {
+    subtitle:
+      "Étudiant en informatique, je construis des applications web complètes et j'y intègre l'IA, de l'idée jusqu'au déploiement.",
+    cv: 'Télécharger mon CV',
+    contact: 'Me contacter',
+    portraitAlt: 'Portrait de Steve Donald Compaoré',
+  },
+  about: {
+    title: 'À propos',
+    paragraphs: [
+      "Je suis étudiant en 3e année d'informatique à l'Université de Tokat Gaziosmanpaşa, en Turquie. Burkinabè, je vis à Tokat.",
+      "Je construis des logiciels de bout en bout : interface, API, base de données et déploiement.",
+      "J'orchestre aussi des agents IA : un manager délègue à plusieurs modèles pour que je livre plus vite, sans renoncer à la relecture ni aux tests.",
+      "Je cherche un stage d'été 2027 en Turquie (Istanbul, Tokat) ou à distance.",
+    ],
+  },
+  skills: {
+    title: 'Compétences',
+    intro: 'Un niveau honnête pour chaque outil, en trois degrés.',
+    levels: { master: 'Maîtrise', comfortable: "À l'aise", learning: 'En apprentissage' },
+  },
+  projects: {
+    title: 'Projets',
+    intro: 'Quatre réalisations, dont une preuve de ma façon de travailler avec des agents IA.',
+    visit: 'Voir le projet',
+    featured: 'Preuve phare',
+    noPublicLink: 'Démonstration sur demande',
+  },
+  architecture: {
+    title: "Architecture de l'orchestrateur",
+    intro:
+      'Un manager reçoit les demandes, choisit le bon agent, bascule sur un autre si un quota est atteint et consigne chaque délégation.',
+    svgTitle: "Schéma de l'orchestrateur multi-agents",
+    svgDesc:
+      "Le manager est au centre. GitHub et Telegram l'alimentent en demandes. Il délègue à Copilot, Gemini, Codex et Ollama, avec un repli automatique entre agents, et écrit chaque délégation dans un journal.",
+    nodes: {
+      github: { title: 'GitHub', sub: 'canal' },
+      telegram: { title: 'Telegram', sub: 'canal' },
+      manager: { title: 'Manager', sub: 'routage' },
+      copilot: { title: 'Copilot' },
+      gemini: { title: 'Gemini' },
+      codex: { title: 'Codex' },
+      ollama: { title: 'Ollama', sub: 'local' },
+      journal: { title: 'Journal de délégation' },
+    },
+    fallback: 'quota atteint → repli',
+  },
+  certifications: {
+    title: 'Certifications',
+    intro: 'Chaque certification sera accompagnée de son lien de vérification.',
+    emptyTitle: 'Mise à jour en cours',
+    emptyText:
+      "Les certifications apparaîtront ici dès qu'elles auront été vérifiées. Rien n'est affiché avant.",
+    verify: 'Vérifier',
+    viewPdf: 'Voir le PDF',
+  },
+  journey: {
+    title: 'Parcours',
+    items: [
+      {
+        period: 'En cours',
+        title: "Licence d'informatique, 3e année",
+        text: 'Université de Tokat Gaziosmanpaşa, Turquie.',
+      },
+      {
+        period: 'Projets',
+        title: 'Applications en ligne',
+        text: 'UEEMT-Tokat, CompTrack et AURA Pro sont déployés et accessibles depuis la section Projets.',
+      },
+      {
+        period: 'Récemment',
+        title: "Orchestration d'agents IA",
+        text: 'Un banc multi-agents : un manager, quatre agents, un repli automatique en cas de quota et un journal de délégation.',
+      },
+      {
+        period: 'Été 2027',
+        title: 'Objectif : un stage',
+        text: 'En Turquie (Istanbul, Tokat) ou à distance.',
+      },
+    ],
+  },
+  contact: {
+    title: 'Contact',
+    text: "Un stage, une mission ou une question ? Écrivez-moi, je réponds volontiers.",
+    email: 'E-mail',
+    github: 'GitHub',
+    linkedin: 'LinkedIn',
+    cv: 'Télécharger mon CV',
+  },
+  cvPage: {
+    title: 'CV bientôt disponible',
+    text: "Mon CV n'est pas encore publié. En attendant, écrivez-moi et je vous l'envoie.",
+    back: "Retour à l'accueil",
+    contact: 'Me contacter',
+  },
+  notFound: {
+    title: 'Page introuvable',
+    text: "Cette page n'existe pas ou n'existe plus.",
+    back: "Retour à l'accueil",
+  },
+  footer: { rights: 'Tous droits réservés.' },
+}
