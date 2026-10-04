@@ -6,8 +6,10 @@ import type { Locale } from '@/content/locales'
 import { cvHref, SITE } from '@/content/site'
 import type { Dictionary } from '@/content/types'
 import { useIntroPhase } from '@/lib/introStore'
+import { mascotText } from '@/content/mascotText'
 import Cta from './Cta'
 import Portrait from './Portrait'
+import TypedLine from './TypedLine'
 
 const Embers = dynamic(() => import('./Embers'), { ssr: false })
 
@@ -70,16 +72,14 @@ export default function Hero({ locale, dict }: HeroProps) {
             {SITE.name}
           </motion.h1>
 
-          <motion.p
-            data-hero
-            custom={2}
-            variants={variants}
-            initial="hide"
-            animate={state}
-            className="mt-3 font-display text-2xl italic text-gold2 sm:text-3xl"
-          >
-            {dict.brand.slogan}
-          </motion.p>
+          <motion.div data-hero custom={2} variants={variants} initial="hide" animate={state} className="mt-3">
+            <TypedLine
+              lead={dict.brand.slogan}
+              labels={mascotText[locale].heroLabels}
+              start={phase === 'done'}
+              reduceMotion={reduce ?? false}
+            />
+          </motion.div>
 
           <motion.div
             data-hero

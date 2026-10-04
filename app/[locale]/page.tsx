@@ -1,6 +1,8 @@
 import { notFound } from 'next/navigation'
 import About from '@/components/About'
 import Architecture from '@/components/Architecture'
+import Atmosphere from '@/components/Atmosphere'
+import MascotLoader from '@/components/mascot/MascotLoader'
 import Certifications from '@/components/Certifications'
 import Contact from '@/components/Contact'
 import Footer from '@/components/Footer'
@@ -39,6 +41,8 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         <Contact locale={locale} dict={dict} />
       </main>
       <Footer dict={dict} />
+      <Atmosphere />
+      <MascotLoader locale={locale} />
     </>
   )
 }

@@ -22,7 +22,7 @@ export default function Skills({ locale, dict }: { readonly locale: Locale; read
       <div className="grid gap-5 md:grid-cols-3">
         {skillGroups.map((group, index) => (
           <Reveal key={group.id} delay={index * 0.08}>
-            <div className="h-full rounded-2xl border border-line2 bg-bg3 p-6">
+            <div data-spotlight className="h-full rounded-2xl border border-line2 bg-bg3 p-6">
               <h3 className="font-display text-xl font-bold italic text-gold2">{group.title[locale]}</h3>
               <ul className="mt-5 space-y-3">
                 {group.items.map((item) => (

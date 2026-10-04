@@ -12,6 +12,7 @@ export default function Projects({ locale, dict }: { readonly locale: Locale; re
           <li key={project.id} className={project.featured ? 'md:col-span-2' : undefined}>
             <Reveal delay={index * 0.08} className="h-full">
               <article
+                data-spotlight
                 className={`group flex h-full flex-col rounded-2xl border p-6 transition-all duration-300 hover:-translate-y-1 md:p-8 ${
                   project.featured
                     ? 'border-gold/50 bg-gradient-to-br from-bg3 to-bg2 shadow-[0_0_40px_-12px_rgba(240,168,50,0.35)]'

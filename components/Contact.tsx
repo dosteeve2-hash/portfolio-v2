@@ -31,6 +31,7 @@ export default function Contact({ locale, dict }: { readonly locale: Locale; rea
           {channels.map((channel) => (
             <li key={channel.label}>
               <a
+                data-spotlight
                 href={channel.href}
                 {...(channel.href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                 className="block h-full rounded-2xl border border-line2 bg-bg3 p-5 transition-colors hover:border-gold"

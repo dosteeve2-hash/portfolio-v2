@@ -2,6 +2,8 @@ import type { Locale } from './locales'
 
 export const PORTRAIT_SRC = '/portrait.jpg'
 
+export const MASCOT_NAME = 'Steeve'
+
 export const PORTRAIT_FOCUS = { position: '43% 50%', scale: 1.3 } as const
 
 interface SiteConfig {

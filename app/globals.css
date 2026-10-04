@@ -83,12 +83,138 @@ html[data-intro='seen'] .intro-root {
   display: none;
 }
 
+
+/* --- Mascotte --- */
+.mascot-svg {
+  display: block;
+  overflow: visible;
+}
+.mascot-breathe {
+  transform-origin: 120px 270px;
+  animation: mascot-breathe 4.6s ease-in-out infinite;
+}
+.mascot-bob {
+  transform-origin: 120px 190px;
+}
+.mascot-svg[data-expr='laugh'] .mascot-bob {
+  animation: mascot-laugh 0.34s ease-in-out infinite;
+}
+.mascot-hand {
+  opacity: 0;
+  transform: translateY(46px);
+  transition:
+    opacity 0.26s ease,
+    transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+}
+.mascot-svg[data-hand='wave'] .hand-wave,
+.mascot-svg[data-hand='chin'] .hand-chin,
+.mascot-svg[data-hand='thumb'] .hand-thumb {
+  opacity: 1;
+  transform: none;
+}
+.mascot-wave {
+  transform-origin: 210px 190px;
+}
+.mascot-svg[data-hand='wave'] .mascot-wave {
+  animation: mascot-wave 0.9s ease-in-out infinite;
+}
+.mascot-zzz {
+  animation: mascot-zzz 2.6s ease-in-out infinite;
+}
+
+@keyframes mascot-breathe {
+  0%,
+  100% {
+    transform: translateY(0) scale(1, 1);
+  }
+  50% {
+    transform: translateY(-1.4px) scale(1.006, 1.012);
+  }
+}
+@keyframes mascot-laugh {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-2.4px);
+  }
+}
+@keyframes mascot-wave {
+  0%,
+  100% {
+    transform: rotate(-9deg);
+  }
+  50% {
+    transform: rotate(13deg);
+  }
+}
+@keyframes mascot-zzz {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+.mascot-caret {
+  animation: mascot-caret 1s steps(1) infinite;
+}
+@keyframes mascot-caret {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* --- Projecteur sur les cartes --- */
+@media (hover: hover) and (pointer: fine) {
+  [data-spotlight] {
+    position: relative;
+  }
+  [data-spotlight]::before,
+  [data-spotlight]::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+  }
+  [data-spotlight]::before {
+    background: radial-gradient(280px circle at var(--mx, 50%) var(--my, 50%), rgba(240, 168, 50, 0.12), transparent 70%);
+  }
+  [data-spotlight]::after {
+    padding: 1px;
+    background: radial-gradient(200px circle at var(--mx, 50%) var(--my, 50%), rgba(247, 192, 96, 0.95), transparent 70%);
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask:
+      linear-gradient(#000 0 0) content-box exclude,
+      linear-gradient(#000 0 0);
+  }
+  [data-spotlight]:hover::before,
+  [data-spotlight]:hover::after {
+    opacity: 1;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
   .intro-root {
     display: none;
+  }
+  .mascot-breathe,
+  .mascot-bob,
+  .mascot-wave,
+  .mascot-zzz {
+    animation: none !important;
   }
   *,
   *::before,

@@ -28,3 +28,11 @@ npx tsc --noEmit
 - **Une certification** : ajouter un objet à `content/certifications.ts` (`title`, `issuer`, `date` au format `AAAA-MM`, `verifyUrl`, `pdfUrl` optionnels). Tant que la liste est vide, un état « Mise à jour en cours » s'affiche.
 - **Contact, LinkedIn, CV** : `content/site.ts`. `linkedinUrl` vide masque le bloc LinkedIn. Pour activer le CV, déposer `public/cv/Steeve-Donald-Compaore-CV-{fr|en|tr}.pdf` puis passer `cvAvailable` à `true` ; sinon le bouton mène à la page « CV bientôt disponible ».
 - **Photo** : remplacer `public/portrait.jpg` (ou changer `PORTRAIT_SRC` et le cadrage `PORTRAIT_FOCUS` dans `content/site.ts`).
+
+## Mascotte et assistant
+
+- `components/mascot/` : personnage SVG (`MascotFigure`, expressions dans `pose.ts`), mascotte flottante (`Mascot`, chargée en différé par `MascotLoader`), panneau de discussion (`AssistantPanel`).
+- Page de revue non référencée : `/fr/mascot-lab` (toutes les expressions, boutons pour les déclencher).
+- `content/assistantKb.ts` : base de connaissances de l'assistant (intentions, mots-clés FR/EN/TR, réponses construites à partir de `content/` et `content/cv-data.json`). `lib/assistant.ts` : moteur local de mots-clés, sans réseau.
+- Textes de l'interface de la mascotte et libellés de l'accueil : `content/mascotText.ts`. Nom du personnage : `MASCOT_NAME` dans `content/site.ts`.
+- Lumière du curseur et projecteur des cartes : `components/Atmosphere.tsx` (carte avec l'attribut `data-spotlight`). Écriture progressive de l'accueil : `components/TypedLine.tsx`.
