@@ -36,7 +36,7 @@ export default function Header({ locale, dict, immediate = false }: HeaderProps)
       initial={false}
       animate={{ opacity: visible ? 1 : 0, y: visible ? 0 : -12 }}
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-      className="fixed inset-x-0 top-0 z-40 border-b border-line/80 bg-bg/80 backdrop-blur-md"
+      className="fixed inset-x-0 top-0 z-40 border-b border-line/80 bg-bg"
     >
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-3 px-4 sm:px-6">
         <Link

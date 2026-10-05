@@ -20,6 +20,19 @@ export interface LookVector {
   y: number
 }
 
+export interface LookTarget extends LookVector {
+  frozen: boolean
+  readonly wakers: Set<() => void>
+}
+
+export function createLookTarget(): LookTarget {
+  return { x: 0, y: 0, frozen: false, wakers: new Set() }
+}
+
+export function wakeLook(target: LookTarget): void {
+  target.wakers.forEach((wake) => wake())
+}
+
 export interface Pose {
   browLy: number
   browLt: number

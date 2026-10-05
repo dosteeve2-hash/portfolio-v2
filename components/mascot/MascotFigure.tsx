@@ -12,6 +12,7 @@ import {
   mouthGeo,
   POSE_KEYS,
   type Expression,
+  type LookTarget,
   type LookVector,
   type Pose,
 } from './pose'
@@ -281,7 +282,7 @@ function blinkFactor(elapsed: number): number {
 
 interface MascotFigureProps {
   readonly expression: Expression
-  readonly lookRef?: RefObject<LookVector>
+  readonly lookRef?: RefObject<LookTarget>
   readonly animated?: boolean
   readonly className?: string
 }
@@ -301,7 +302,6 @@ export default function MascotFigure({ expression, lookRef, animated = true, cla
   const last = useRef(0)
   const runFrame = useRef<(time: number) => void>(() => undefined)
   const kick = useRef<() => void>(() => undefined)
-  const following = lookRef !== undefined
 
   const [init] = useState(() => initialAttributes(EXPRESSION_DEFS[expression].pose))
 
@@ -333,6 +333,10 @@ export default function MascotFigure({ expression, lookRef, animated = true, cla
     runFrame.current = (time: number) => {
       raf.current = 0
       if (!alive) return
+      if (lookRef?.current?.frozen) {
+        last.current = 0
+        return
+      }
       const dt = last.current === 0 ? 16 : Math.min(64, time - last.current)
       last.current = time
       const a = 1 - Math.exp(-dt / TAU_MS)
@@ -366,7 +370,7 @@ export default function MascotFigure({ expression, lookRef, animated = true, cla
         else moving = true
       }
       applyPose(els.current, cur, ls, blink)
-      if (moving || following) {
+      if (moving) {
         raf.current = window.requestAnimationFrame(runFrame.current)
       } else {
         last.current = 0
@@ -377,13 +381,18 @@ export default function MascotFigure({ expression, lookRef, animated = true, cla
     }
     applyPose(els.current, current.current, lookSmooth.current, 1)
     kick.current()
+    const wake = () => kick.current()
+    const look = lookRef?.current
+    look?.wakers.add(wake)
 
     let blinkTimer = 0
     const scheduleBlink = () => {
       blinkTimer = window.setTimeout(
         () => {
-          blinkStart.current = performance.now()
-          kick.current()
+          if (!look?.frozen) {
+            blinkStart.current = performance.now()
+            kick.current()
+          }
           scheduleBlink()
         },
         3000 + Math.random() * 3000,
@@ -393,12 +402,13 @@ export default function MascotFigure({ expression, lookRef, animated = true, cla
 
     return () => {
       alive = false
+      look?.wakers.delete(wake)
       window.clearTimeout(blinkTimer)
       if (raf.current !== 0) window.cancelAnimationFrame(raf.current)
       raf.current = 0
       last.current = 0
     }
-  }, [animated, following, lookRef])
+  }, [animated, lookRef])
 
   const hand = EXPRESSION_DEFS[expression].hand
   const cL = CX - EYE_DX
@@ -440,19 +450,12 @@ export default function MascotFigure({ expression, lookRef, animated = true, cla
         <clipPath id={id('mouth')}>
           <path data-k="mouthClip" d="" {...init.mouthClip} />
         </clipPath>
-        <linearGradient id={id('fade')} gradientUnits="userSpaceOnUse" x1="0" y1="226" x2="0" y2="268">
-          <stop offset="0" stopColor="#fff" />
-          <stop offset="1" stopColor="#000" />
-        </linearGradient>
-        <mask id={id('fadeMask')} maskUnits="userSpaceOnUse" x="-20" y="-20" width="280" height="310">
-          <rect x="-20" y="-20" width="280" height="310" fill={`url(#${id('fade')})`} />
-        </mask>
       </defs>
 
       <circle cx="120" cy="116" r="108" fill={`url(#${id('bg')})`} stroke="#1f3054" strokeWidth="1.5" />
       <circle cx="120" cy="116" r="108" fill="none" stroke="#f0a832" strokeOpacity="0.16" strokeWidth="1" strokeDasharray="2 7" />
 
-      <g className="mascot-breathe" mask={`url(#${id('fadeMask')})`}>
+      <g className="mascot-breathe">
         <g>
           <path
             d="M6 270V242C6 215 34 203 78 195C96 192 108 191 120 191C132 191 144 192 162 195C206 203 234 215 234 242V270Z"

@@ -27,6 +27,24 @@ function spawn(width: number, height: number, fromStart: boolean): Particle {
   }
 }
 
+const SPRITE_SIZE = 64
+
+function makeSprite(): HTMLCanvasElement | null {
+  const sprite = document.createElement('canvas')
+  sprite.width = SPRITE_SIZE
+  sprite.height = SPRITE_SIZE
+  const context = sprite.getContext('2d')
+  if (!context) return null
+  const half = SPRITE_SIZE / 2
+  const gradient = context.createRadialGradient(half, half, 0, half, half, half)
+  gradient.addColorStop(0, 'rgba(247, 192, 96, 1)')
+  gradient.addColorStop(0.4, 'rgba(240, 168, 50, 0.35)')
+  gradient.addColorStop(1, 'rgba(240, 168, 50, 0)')
+  context.fillStyle = gradient
+  context.fillRect(0, 0, SPRITE_SIZE, SPRITE_SIZE)
+  return sprite
+}
+
 export default function Embers() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
@@ -39,6 +57,8 @@ export default function Embers() {
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     const cores = navigator.hardwareConcurrency ?? 4
     if (reduceMotion || cores <= 2) return
+    const sprite = makeSprite()
+    if (!sprite) return
 
     let width = 0
     let height = 0
@@ -73,17 +93,11 @@ export default function Embers() {
           continue
         }
         const progress = p.age / p.ttl
-        const alpha = Math.sin(progress * Math.PI) * 0.7
         const glow = p.radius * 5
-        const gradient = context.createRadialGradient(p.x, p.y, 0, p.x, p.y, glow)
-        gradient.addColorStop(0, `rgba(247, 192, 96, ${alpha})`)
-        gradient.addColorStop(0.4, `rgba(240, 168, 50, ${alpha * 0.35})`)
-        gradient.addColorStop(1, 'rgba(240, 168, 50, 0)')
-        context.fillStyle = gradient
-        context.beginPath()
-        context.arc(p.x, p.y, glow, 0, Math.PI * 2)
-        context.fill()
+        context.globalAlpha = Math.sin(progress * Math.PI) * 0.7
+        context.drawImage(sprite, p.x - glow, p.y - glow, glow * 2, glow * 2)
       }
+      context.globalAlpha = 1
       frame = requestAnimationFrame(draw)
     }
 

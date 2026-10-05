@@ -83,11 +83,26 @@ html[data-intro='seen'] .intro-root {
   display: none;
 }
 
+/* --- Révélation au défilement : transition composité, déclenchée par Reveal.tsx --- */
+[data-reveal] {
+  opacity: 0;
+  transform: translate3d(0, 20px, 0);
+  transition:
+    opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0s),
+    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0s);
+}
+[data-reveal][data-shown] {
+  opacity: 1;
+  transform: none;
+}
 
 /* --- Mascotte --- */
 .mascot-svg {
   display: block;
   overflow: visible;
+  /* Fondu du buste : masque CSS (composité) plutôt qu'un <mask> SVG recalculé à chaque image */
+  -webkit-mask-image: linear-gradient(to bottom, #000 83.7%, transparent 99.3%);
+  mask-image: linear-gradient(to bottom, #000 83.7%, transparent 99.3%);
 }
 .mascot-breathe {
   transform-origin: 120px 270px;
@@ -119,8 +134,13 @@ html[data-intro='seen'] .intro-root {
 .mascot-svg[data-hand='wave'] .mascot-wave {
   animation: mascot-wave 0.9s ease-in-out infinite;
 }
-.mascot-zzz {
+.mascot-svg[data-expr='sleepy'] .mascot-zzz {
   animation: mascot-zzz 2.6s ease-in-out infinite;
+}
+[data-scrolling] .mascot-breathe,
+[data-scrolling] .mascot-zzz,
+[data-scrolling] .mascot-wave {
+  animation-play-state: paused;
 }
 
 @keyframes mascot-breathe {
@@ -215,6 +235,10 @@ html[data-intro='seen'] .intro-root {
   .mascot-wave,
   .mascot-zzz {
     animation: none !important;
+  }
+  [data-reveal] {
+    transform: none !important;
+    transition-delay: 0s !important;
   }
   *,
   *::before,

@@ -1,7 +1,6 @@
 'use client'
 
-import { motion, useReducedMotion } from 'motion/react'
-import type { ReactNode } from 'react'
+import { useEffect, useRef, type CSSProperties, type ReactNode } from 'react'
 
 interface RevealProps {
   readonly children: ReactNode
@@ -9,18 +8,41 @@ interface RevealProps {
   readonly className?: string
 }
 
+// Un seul observateur pour toute la page ; l'animation est une transition CSS
+// d'opacité et de transformation, jouée par le compositeur et non image par image en JavaScript.
+let sharedObserver: IntersectionObserver | null = null
+
+function revealObserver(): IntersectionObserver {
+  if (sharedObserver) return sharedObserver
+  sharedObserver = new IntersectionObserver(
+    (entries, observer) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue
+        entry.target.setAttribute('data-shown', '')
+        observer.unobserve(entry.target)
+      }
+    },
+    { rootMargin: '0px 0px -60px 0px' },
+  )
+  return sharedObserver
+}
+
 export default function Reveal({ children, delay = 0, className }: RevealProps) {
-  const reduce = useReducedMotion()
+  const ref = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const node = ref.current
+    if (!node) return undefined
+    const observer = revealObserver()
+    observer.observe(node)
+    return () => observer.unobserve(node)
+  }, [])
+
+  const style: CSSProperties | undefined = delay > 0 ? ({ '--reveal-delay': `${delay}s` } as CSSProperties) : undefined
+
   return (
-    <motion.div
-      data-reveal
-      className={className}
-      initial={{ opacity: 0, y: reduce ? 0 : 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '0px 0px -60px 0px' }}
-      transition={{ duration: reduce ? 0.2 : 0.55, delay: reduce ? 0 : delay, ease: [0.22, 1, 0.36, 1] }}
-    >
+    <div ref={ref} data-reveal className={className} style={style}>
       {children}
-    </motion.div>
+    </div>
   )
 }

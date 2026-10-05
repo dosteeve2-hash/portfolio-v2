@@ -8,7 +8,7 @@ import { MASCOT_NAME } from '@/content/site'
 import { getDictionary } from '@/content'
 import AssistantPanel from './AssistantPanel'
 import MascotFigure from './MascotFigure'
-import { clamp, type Expression, type LookVector } from './pose'
+import { clamp, createLookTarget, wakeLook, type Expression, type LookTarget } from './pose'
 
 const STORAGE_KEY = 'mascot-hidden'
 const IDLE_MS = 30_000
@@ -77,7 +77,8 @@ export default function Mascot({ locale }: { readonly locale: Locale }) {
   const [expression, setExpression] = useState<Expression>('neutral')
   const [hintVisible, setHintVisible] = useState(false)
 
-  const lookRef = useRef<LookVector>({ x: 0, y: 0 })
+  const lookRef = useRef<LookTarget>(createLookTarget())
+  const figureRef = useRef<HTMLSpanElement>(null)
   const buttonRef = useRef<HTMLButtonElement>(null)
   const timers = useRef<number[]>([])
   const openRef = useRef(false)
@@ -85,6 +86,8 @@ export default function Mascot({ locale }: { readonly locale: Locale }) {
   const sleepingRef = useRef(false)
   const lastActivity = useRef(0)
   const lastReaction = useRef<Partial<Record<SectionKey, number>>>({})
+  const scrollingRef = useRef(false)
+  const pendingReaction = useRef<SectionKey | null>(null)
 
   const baseExpression = useCallback((): Expression => {
     if (sleepingRef.current) return 'sleepy'
@@ -184,7 +187,8 @@ export default function Mascot({ locale }: { readonly locale: Locale }) {
           if (last !== undefined && now - last < REACT_AGAIN_MS) continue
           lastReaction.current[key] = now
           if (sleepingRef.current || openRef.current) continue
-          playSteps(REACTIONS[key])
+          if (scrollingRef.current) pendingReaction.current = key
+          else playSteps(REACTIONS[key])
         }
       },
       { rootMargin: '-42% 0px -42% 0px', threshold: 0 },
@@ -197,39 +201,59 @@ export default function Mascot({ locale }: { readonly locale: Locale }) {
     if (hidden || reduced) return undefined
 
     const coarse = window.matchMedia('(pointer: coarse)').matches
+    const look = lookRef.current
     let resetTimer = 0
+    let glanceTimer = 0
+    let direction = 0
     let lastY = window.scrollY
 
+    const setLook = (x: number, y: number) => {
+      if (Math.abs(look.x - x) < 0.02 && Math.abs(look.y - y) < 0.02) return
+      look.x = x
+      look.y = y
+      wakeLook(look)
+    }
+
     const onMove = (event: PointerEvent) => {
-      if (event.pointerType === 'touch') return
+      if (event.pointerType === 'touch' || scrollingRef.current) return
       const node = buttonRef.current
       if (!node) return
       const box = node.getBoundingClientRect()
       const cx = box.left + box.width / 2
       const cy = box.top + box.height / 2
-      lookRef.current.x = clamp((event.clientX - cx) / (window.innerWidth * 0.4), -1, 1)
-      lookRef.current.y = clamp((event.clientY - cy) / (window.innerHeight * 0.4), -1, 1)
+      setLook(
+        clamp((event.clientX - cx) / (window.innerWidth * 0.4), -1, 1),
+        clamp((event.clientY - cy) / (window.innerHeight * 0.4), -1, 1),
+      )
     }
+    // Pendant le défilement, la mascotte se fige entièrement (regard, clignement, respiration) :
+    // le défilement passe en priorité. Quand il s'arrête, elle jette un coup d'œil dans le sens
+    // du mouvement puis joue sa réaction à la section atteinte.
     const onScroll = () => {
       const delta = window.scrollY - lastY
       lastY = window.scrollY
-      if (Math.abs(delta) < 2) return
-      lookRef.current.y = clamp(delta / 40, -1, 1)
-      lookRef.current.x = coarse ? Math.sin(window.scrollY / 180) * 0.35 : lookRef.current.x
+      if (Math.abs(delta) >= 2) direction = delta > 0 ? 1 : -1
+      if (!scrollingRef.current) {
+        scrollingRef.current = true
+        lookRef.current.frozen = true
+        figureRef.current?.setAttribute('data-scrolling', '')
+      }
       window.clearTimeout(resetTimer)
+      window.clearTimeout(glanceTimer)
       resetTimer = window.setTimeout(() => {
-        if (coarse) {
-          lookRef.current.x = 0
-          lookRef.current.y = 0
-        } else {
-          lookRef.current.y = 0
-        }
-      }, 650)
+        scrollingRef.current = false
+        lookRef.current.frozen = false
+        wakeLook(lookRef.current)
+        figureRef.current?.removeAttribute('data-scrolling')
+        if (direction !== 0) setLook(coarse ? 0 : lookRef.current.x, direction * 0.55)
+        direction = 0
+        glanceTimer = window.setTimeout(() => setLook(coarse ? 0 : lookRef.current.x, 0), 650)
+        const pending = pendingReaction.current
+        pendingReaction.current = null
+        if (pending && !sleepingRef.current && !openRef.current) playSteps(REACTIONS[pending])
+      }, 400)
     }
-    const onLeave = () => {
-      lookRef.current.x = 0
-      lookRef.current.y = 0
-    }
+    const onLeave = () => setLook(0, 0)
 
     window.addEventListener('pointermove', onMove, { passive: true })
     window.addEventListener('scroll', onScroll, { passive: true })
@@ -239,8 +263,11 @@ export default function Mascot({ locale }: { readonly locale: Locale }) {
       window.removeEventListener('scroll', onScroll)
       document.removeEventListener('pointerleave', onLeave)
       window.clearTimeout(resetTimer)
+      window.clearTimeout(glanceTimer)
+      scrollingRef.current = false
+      look.frozen = false
     }
-  }, [hidden, reduced])
+  }, [hidden, reduced, playSteps])
 
   useEffect(() => () => timers.current.forEach((id) => window.clearTimeout(id)), [])
 
@@ -298,7 +325,7 @@ export default function Mascot({ locale }: { readonly locale: Locale }) {
   }
 
   return (
-    <div className="pointer-events-none fixed bottom-3 right-3 z-40 flex flex-col items-end gap-3 sm:bottom-5 sm:right-5">
+    <div className="pointer-events-none fixed bottom-3 right-3 z-40 flex flex-col items-end gap-3 [contain:layout_style] sm:bottom-5 sm:right-5">
       <AnimatePresence>
         {open ? (
           <motion.div
@@ -349,7 +376,9 @@ export default function Mascot({ locale }: { readonly locale: Locale }) {
           aria-haspopup="dialog"
           className="pointer-events-auto block w-24 cursor-pointer rounded-full transition-transform duration-200 hover:scale-[1.03] active:scale-[0.97] md:w-32 xl:w-40 2xl:w-[180px]"
         >
-          <MascotFigure expression={expression} lookRef={reduced ? undefined : lookRef} animated={!reduced} />
+          <span ref={figureRef} className="block [will-change:transform]">
+            <MascotFigure expression={expression} lookRef={reduced ? undefined : lookRef} animated={!reduced} />
+          </span>
         </button>
         <button
           type="button"

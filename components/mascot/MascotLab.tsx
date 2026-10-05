@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import { mascotText } from '@/content/mascotText'
 import type { Locale } from '@/content/locales'
 import MascotFigure from './MascotFigure'
-import { EXPRESSIONS, type Expression, type LookVector } from './pose'
+import { createLookTarget, EXPRESSIONS, wakeLook, type Expression, type LookTarget } from './pose'
 
 function LabCard({
   expression,
@@ -15,7 +15,7 @@ function LabCard({
   readonly expression: Expression
   readonly label: string
   readonly play: string
-  readonly lookRef?: React.RefObject<LookVector>
+  readonly lookRef?: React.RefObject<LookTarget>
 }) {
   const [shown, setShown] = useState<Expression>(expression)
   const timer = useRef(0)
@@ -50,19 +50,21 @@ function LabCard({
 export default function MascotLab({ locale }: { readonly locale: Locale }) {
   const text = mascotText[locale]
   const [follow, setFollow] = useState(false)
-  const look = useRef<LookVector>({ x: 0, y: 0 })
+  const look = useRef<LookTarget>(createLookTarget())
 
   useEffect(() => {
     if (!follow) {
       look.current.x = 0
       look.current.y = 0
+      wakeLook(look.current)
       return undefined
     }
     const onMove = (event: PointerEvent) => {
       look.current.x = Math.max(-1, Math.min(1, (event.clientX / window.innerWidth - 0.5) * 2))
       look.current.y = Math.max(-1, Math.min(1, (event.clientY / window.innerHeight - 0.5) * 2))
+      wakeLook(look.current)
     }
-    window.addEventListener('pointermove', onMove)
+    window.addEventListener('pointermove', onMove, { passive: true })
     return () => window.removeEventListener('pointermove', onMove)
   }, [follow])
 
