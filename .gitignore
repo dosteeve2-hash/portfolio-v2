@@ -7,3 +7,6 @@ next-env.d.ts
 .vercel/
 dev.log
 .vercel
+
+start.log
+start.err
