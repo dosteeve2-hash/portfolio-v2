@@ -26,7 +26,7 @@ const SW_D = '#234a79'
 const SW_L = '#3d72b3'
 const LASH = '#150e0b'
 
-const FACE = 'M120 40C158 40 176 68 175.5 104C175 142 154 169 120 170C86 169 65 142 64.5 104C64 68 82 40 120 40Z'
+const FACE = 'M120 40C158 40 176 68 175.5 104C175.2 128 171 148 162 160C154 169 138 172 120 172C102 172 86 169 78 160C69 148 64.8 128 64.5 104C64 68 82 40 120 40Z'
 
 function seeded(seed: number): () => number {
   let s = seed
@@ -42,7 +42,7 @@ function buildHair(): { fill: string; outer: string } {
   const cx = 120
   const cy = 86
   const rx = 62.5
-  const ry = 64
+  const ry = 60
   const segments = 18
   const start = (188 * Math.PI) / 180
   const end = (352 * Math.PI) / 180
@@ -64,7 +64,7 @@ function buildHair(): { fill: string; outer: string } {
     `M66 106L${num(first[0])} ${num(first[1])}` +
     outer.slice(outer.indexOf('A')) +
     `L${num(last[0] - 1)} ${num(last[1] + 6)}L174 106` +
-    'C175 90 173 73 162 65C148 57 92 57 78 65C67 73 65 90 66 106Z'
+    'C175 90 173 73 162 65C148 59.5 92 59.5 78 65C67 73 65 90 66 106Z'
   return { fill, outer }
 }
 
@@ -78,7 +78,7 @@ function buildCurls(): string {
     const x = 70 + rand() * 100
     const y = 30 + rand() * 33
     const dx = (x - 120) / 62.5
-    const dy = (y - 86) / 64
+    const dy = (y - 86) / 60
     if (dx * dx + dy * dy > 0.82 || y > 56) continue
     const dir = rand() > 0.5 ? 1 : -1
     d += `M${num(x)} ${num(y)}q${num(dir * 2.4)} -3.2 ${num(dir * 5.2)} -0.4`
@@ -92,7 +92,7 @@ function buildStubble(): Array<{ x: number; y: number; r: number }> {
   const rand = seeded(23)
   const dots: Array<{ x: number; y: number; r: number }> = []
   let guard = 0
-  while (dots.length < 80 && guard < 6000) {
+  while (dots.length < 120 && guard < 6000) {
     guard += 1
     const x = 68 + rand() * 104
     const y = 132 + rand() * 40
@@ -105,7 +105,7 @@ function buildStubble(): Array<{ x: number; y: number; r: number }> {
     const onChin = Math.abs(x - 120) < 36 && y > 160
     const onJaw = edge > 0.7 && y > 134
     if (!onChin && !onJaw) continue
-    dots.push({ x, y, r: 0.42 + rand() * 0.34 })
+    dots.push({ x, y, r: 0.45 + rand() * 0.4 })
   }
   return dots
 }
@@ -507,11 +507,12 @@ export default function MascotFigure({ expression, lookRef, animated = true, cla
               <ellipse cx={cL} cy={EYE_Y + 1} rx="21" ry="13" fill={SKIN_D} opacity="0.32" />
               <ellipse cx={cR} cy={EYE_Y + 1} rx="21" ry="13" fill={SKIN_D} opacity="0.4" />
               <ellipse cx="120" cy="162" rx="30" ry="11" fill="#2a1a12" opacity="0.2" />
-              <ellipse cx="120" cy="141" rx="17" ry="4.2" fill="#2a1a12" opacity="0.14" />
+              <ellipse cx="120" cy="141" rx="19" ry="4.2" fill="#2a1a12" opacity="0.18" />
+              <ellipse cx="120" cy="164" rx="19" ry="7" fill="#21130d" opacity="0.2" />
               <path d="M70 128C74 148 88 160 104 164" stroke="#2a1a12" strokeOpacity="0.14" strokeWidth="9" fill="none" strokeLinecap="round" />
               <path d="M170 128C166 148 152 160 136 164" stroke="#2a1a12" strokeOpacity="0.16" strokeWidth="9" fill="none" strokeLinecap="round" />
               {STUBBLE.map((dot, index) => (
-                <circle key={index} cx={num(dot.x)} cy={num(dot.y)} r={num(dot.r)} fill="#21130d" opacity="0.3" />
+                <circle key={index} cx={num(dot.x)} cy={num(dot.y)} r={num(dot.r)} fill="#21130d" opacity="0.36" />
               ))}
               <ellipse data-k="cheekL" cx="87" cy="127" rx="14" ry="9" fill={`url(#${id('cheek')})`} opacity="0.1" {...init.cheekL} />
               <ellipse data-k="cheekR" cx="153" cy="127" rx="14" ry="9" fill={`url(#${id('cheek')})`} opacity="0.1" {...init.cheekR} />
@@ -519,14 +520,14 @@ export default function MascotFigure({ expression, lookRef, animated = true, cla
             <path d={FACE} fill="none" stroke={SKIN_D} strokeWidth="1.4" />
 
             <path d="M128 92C131 104 132 114 135.5 124" stroke={SKIN_D} strokeWidth="3.4" strokeOpacity="0.32" strokeLinecap="round" fill="none" />
-            <ellipse cx="120" cy="127" rx="8.5" ry="6" fill={SKIN_L} opacity="0.36" />
-            <path d="M103.5 128C99.5 135 103.5 142 111.5 141" stroke={SKIN_D} strokeWidth="2.2" strokeLinecap="round" fill="none" />
-            <path d="M136.5 128C140.5 135 136.5 142 128.5 141" stroke={SKIN_D} strokeWidth="2.2" strokeLinecap="round" fill="none" />
-            <ellipse cx="104.5" cy="133" rx="5" ry="7.5" fill="#2a1a12" opacity="0.2" />
-            <ellipse cx="135.5" cy="133" rx="5" ry="7.5" fill="#2a1a12" opacity="0.26" />
-            <ellipse cx="113" cy="138" rx="4.6" ry="2.7" transform="rotate(-14 113 138)" fill="#2a160f" />
-            <ellipse cx="127" cy="138" rx="4.6" ry="2.7" transform="rotate(14 127 138)" fill="#2a160f" />
-            <path d="M108 143Q120 148 132 143" stroke={SKIN_D} strokeWidth="2" strokeOpacity="0.55" strokeLinecap="round" fill="none" />
+            <ellipse cx="120" cy="127" rx="10.5" ry="7" fill={SKIN_L} opacity="0.4" />
+            <path d="M101.5 127C95.5 135 100.5 143 110.5 141.5" stroke={SKIN_D} strokeWidth="2.2" strokeLinecap="round" fill="none" />
+            <path d="M138.5 127C144.5 135 139.5 143 129.5 141.5" stroke={SKIN_D} strokeWidth="2.2" strokeLinecap="round" fill="none" />
+            <ellipse cx="102.5" cy="133" rx="5.5" ry="7.5" fill="#2a1a12" opacity="0.2" />
+            <ellipse cx="137.5" cy="133" rx="5.5" ry="7.5" fill="#2a1a12" opacity="0.26" />
+            <ellipse cx="110.8" cy="138.5" rx="5.2" ry="2.9" transform="rotate(-16 110.8 138.5)" fill="#2a160f" />
+            <ellipse cx="129.2" cy="138.5" rx="5.2" ry="2.9" transform="rotate(16 129.2 138.5)" fill="#2a160f" />
+            <path d="M106 144Q120 149.5 134 144" stroke={SKIN_D} strokeWidth="2" strokeOpacity="0.55" strokeLinecap="round" fill="none" />
 
             <path data-k="dimpleL" d="" stroke={SKIN_D} strokeWidth="1.6" strokeLinecap="round" fill="none" opacity="0" {...init.dimpleL} />
             <path data-k="dimpleR" d="" stroke={SKIN_D} strokeWidth="1.6" strokeLinecap="round" fill="none" opacity="0" {...init.dimpleR} />
@@ -575,7 +576,7 @@ export default function MascotFigure({ expression, lookRef, animated = true, cla
               <path d="M70 70C72 50 88 34 112 30" stroke={HAIR_L} strokeWidth="5" strokeLinecap="round" fill="none" opacity="0.85" />
               <path d="M84 56C92 46 104 41 118 40" stroke="#41322a" strokeWidth="2.2" strokeLinecap="round" fill="none" opacity="0.8" />
               <path d={CURLS} stroke="#46362c" strokeWidth="1.15" strokeLinecap="round" fill="none" opacity="0.7" />
-              <path d="M78 65C92 58.5 148 58.5 162 65" stroke="#0a0706" strokeWidth="2.2" fill="none" opacity="0.7" />
+              <path d="M78 65C92 61 148 61 162 65" stroke="#0a0706" strokeWidth="2.2" fill="none" opacity="0.7" />
             </g>
           </g>
         </g>

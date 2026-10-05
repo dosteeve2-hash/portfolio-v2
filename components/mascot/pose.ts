@@ -1,4 +1,4 @@
-export const EXPRESSIONS = [
+﻿export const EXPRESSIONS = [
   'neutral',
   'happy',
   'laugh',
@@ -75,14 +75,14 @@ const BASE: Pose = {
   browLt: 0,
   browRy: 0,
   browRt: 0,
-  openL: 1,
-  openR: 1,
+  openL: 0.84,
+  openR: 0.84,
   smileL: 0,
   smileR: 0,
   squint: 0,
   lookX: 0,
   lookY: 0,
-  mouthW: 13.5,
+  mouthW: 18.5,
   mouthS: 0.4,
   mouthO: 0,
   mouthR: 0,
@@ -110,7 +110,7 @@ export const EXPRESSION_DEFS: Readonly<Record<Expression, ExpressionDef>> = {
       browLy: -3,
       browRy: -3,
       squint: 0.45,
-      mouthW: 14.5,
+      mouthW: 20,
       mouthS: 1.05,
       mouthO: 0.12,
       cheeks: 0.38,
@@ -125,7 +125,7 @@ export const EXPRESSION_DEFS: Readonly<Record<Expression, ExpressionDef>> = {
       smileL: 1,
       smileR: 1,
       squint: 1,
-      mouthW: 17,
+      mouthW: 21.5,
       mouthS: 1.1,
       mouthO: 0.95,
       mouthR: 0.2,
@@ -161,7 +161,7 @@ export const EXPRESSION_DEFS: Readonly<Record<Expression, ExpressionDef>> = {
       openR: 0.95,
       lookX: 0.75,
       lookY: -0.95,
-      mouthW: 7,
+      mouthW: 9.5,
       mouthS: -0.1,
       mouthX: 6,
       cheeks: 0.05,
@@ -177,7 +177,7 @@ export const EXPRESSION_DEFS: Readonly<Record<Expression, ExpressionDef>> = {
       openR: 0,
       smileR: 1,
       squint: 0.3,
-      mouthW: 14,
+      mouthW: 18.5,
       mouthS: 1.1,
       mouthX: 1.5,
       cheeks: 0.4,
@@ -190,7 +190,7 @@ export const EXPRESSION_DEFS: Readonly<Record<Expression, ExpressionDef>> = {
       browLy: -4,
       browRy: -4,
       squint: 0.55,
-      mouthW: 15.5,
+      mouthW: 19.5,
       mouthS: 1.15,
       mouthO: 0.28,
       cheeks: 0.42,
@@ -204,7 +204,7 @@ export const EXPRESSION_DEFS: Readonly<Record<Expression, ExpressionDef>> = {
       browLy: -5,
       browRy: -5,
       squint: 0.25,
-      mouthW: 15,
+      mouthW: 20,
       mouthS: 1.1,
       mouthO: 0.5,
       mouthR: 0.15,
@@ -223,7 +223,7 @@ export const EXPRESSION_DEFS: Readonly<Record<Expression, ExpressionDef>> = {
       openR: 1.1,
       lookX: 0.5,
       lookY: -0.2,
-      mouthW: 9,
+      mouthW: 11,
       mouthS: 0.55,
       mouthO: 0.2,
       mouthR: 0.25,
@@ -243,7 +243,7 @@ export const EXPRESSION_DEFS: Readonly<Record<Expression, ExpressionDef>> = {
       openL: 0.22,
       openR: 0.22,
       lookY: 0.6,
-      mouthW: 10,
+      mouthW: 12,
       mouthS: 0.05,
       mouthO: 0.1,
       mouthR: 0.25,
@@ -301,7 +301,7 @@ export function browPath(side: 'L' | 'R', lift: number, tilt: number): string {
   for (let i = 0; i <= steps; i += 1) {
     const t = i / steps
     const u = 1 - t
-    // t=0 : extrémité externe, t=1 : extrémité interne
+    // t=0 : extrÃ©mitÃ© externe, t=1 : extrÃ©mitÃ© interne
     const x = u * u * outer.x + 2 * u * t * ctrl.x + t * t * inner.x
     const y = u * u * outer.y + 2 * u * t * ctrl.y + t * t * inner.y
     const dx = 2 * u * (ctrl.x - outer.x) + 2 * t * (inner.x - ctrl.x)
@@ -309,7 +309,7 @@ export function browPath(side: 'L' | 'R', lift: number, tilt: number): string {
     const len = Math.hypot(dx, dy) || 1
     const nx = -dy / len
     const ny = dx / len
-    const half = 1.3 + 1.9 * Math.pow(t, 0.75)
+    const half = 1.7 + 2.3 * Math.pow(t, 0.75)
     top.push(`${f(flip(x + nx * half))} ${f(y + ny * half)}`)
     bottom.push(`${f(flip(x - nx * half))} ${f(y - ny * half)}`)
   }
@@ -355,7 +355,7 @@ export function mouthGeo(pose: Pose): MouthGeo {
   const botEdgeRev = `C${f(cx + w * k)} ${f(cB)} ${f(cx - w * k)} ${f(cB)} ${f(xl)} ${f(cornerY)}`
   const interior = `M${f(xl)} ${f(cornerY)}${topEdge}${botEdgeRev}Z`
 
-  const tU = 5.2
+  const tU = 5.8
   const peakY = topMid - tU * 1.05
   const dipY = topMid - tU * 0.62
   const edgeY = cT - tU * 1.15
@@ -367,7 +367,7 @@ export function mouthGeo(pose: Pose): MouthGeo {
     `Q${f(cx + w * 0.55)} ${f(edgeY)} ${f(xr)} ${f(cornerY)}` +
     `C${f(cx + w * k)} ${f(cT)} ${f(cx - w * k)} ${f(cT)} ${f(xl)} ${f(cornerY)}Z`
 
-  const tL = 7.6
+  const tL = 10
   const lowMid = botMid + tL
   const cLow = control(lowMid, cornerY + 0.8)
   const lowerLip =
