@@ -29,7 +29,14 @@ export interface Dictionary {
   }
   readonly language: { readonly label: string }
   readonly badge: string
-  readonly intro: { readonly skip: string }
+  readonly intro: {
+    readonly skip: string
+    readonly listen: string
+    readonly mute: string
+    readonly unmute: string
+    readonly frameName: string
+    readonly roles: readonly [string, string]
+  }
   readonly hero: {
     readonly subtitle: string
     readonly cv: string

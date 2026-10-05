@@ -5,7 +5,8 @@ import dynamic from 'next/dynamic'
 import type { Locale } from '@/content/locales'
 import { cvHref, SITE } from '@/content/site'
 import type { Dictionary } from '@/content/types'
-import { useIntroPhase } from '@/lib/introStore'
+import { INTRO_NAME } from '@/content/intro'
+import { useIntroHandoff, useIntroPhase } from '@/lib/introStore'
 import { mascotText } from '@/content/mascotText'
 import Cta from './Cta'
 import Portrait from './Portrait'
@@ -29,11 +30,26 @@ function itemVariants(distance: number): Variants {
   }
 }
 
+function splitName(full: string, part: string): readonly [string, string, string] {
+  const index = full.indexOf(part)
+  if (index < 0) return [full, '', '']
+  return [full.slice(0, index), part, full.slice(index + part.length)]
+}
+
+const NAME_PARTS = splitName(SITE.name, INTRO_NAME)
+
 export default function Hero({ locale, dict }: HeroProps) {
   const phase = useIntroPhase()
+  const handoff = useIntroHandoff()
   const reduce = useReducedMotion()
   const state = phase === 'done' ? 'show' : 'hide'
   const variants = itemVariants(reduce ? 0 : 20)
+  const [nameBefore, nameMiddle, nameAfter] = NAME_PARTS
+  // Pendant le vol de l'intro, le titre se met en place (invisible, sans décalage) pour être mesuré ;
+  // à l'atterrissage il apparaît d'un coup sous le nom de l'intro, et le reste du nom se fond autour.
+  const titleTarget =
+    handoff === 'none' ? state : { opacity: handoff === 'landed' ? 1 : 0, y: 0, transition: { duration: 0 } }
+  const sideTransition = handoff === 'landed' ? { duration: 0.7, delay: 0.08, ease: [0.22, 1, 0.36, 1] as const } : { duration: 0 }
 
   return (
     <section id="top" aria-labelledby="hero-title" className="relative flex min-h-svh items-center overflow-hidden pb-16 pt-28">
@@ -66,10 +82,16 @@ export default function Hero({ locale, dict }: HeroProps) {
             custom={1}
             variants={variants}
             initial="hide"
-            animate={state}
+            animate={titleTarget}
             className="mt-6 font-display text-5xl font-black italic leading-[1.05] sm:text-6xl lg:text-7xl"
           >
-            {SITE.name}
+            <motion.span initial={false} animate={{ opacity: handoff === 'flying' ? 0 : 1 }} transition={sideTransition}>
+              {nameBefore}
+            </motion.span>
+            <span data-intro-target="name">{nameMiddle}</span>
+            <motion.span initial={false} animate={{ opacity: handoff === 'flying' ? 0 : 1 }} transition={sideTransition}>
+              {nameAfter}
+            </motion.span>
           </motion.h1>
 
           <motion.div data-hero custom={2} variants={variants} initial="hide" animate={state} className="mt-3">
@@ -83,10 +105,15 @@ export default function Hero({ locale, dict }: HeroProps) {
 
           <motion.div
             data-hero
+            data-intro-target="line"
             aria-hidden="true"
             initial={{ scaleX: 0 }}
-            animate={{ scaleX: state === 'show' ? 1 : 0 }}
-            transition={{ delay: 0.3, duration: reduce ? 0.2 : 0.9, ease: [0.22, 1, 0.36, 1] }}
+            animate={{ scaleX: state === 'show' || handoff === 'landed' ? 1 : 0 }}
+            transition={
+              handoff === 'landed'
+                ? { duration: 0 }
+                : { delay: 0.3, duration: reduce ? 0.2 : 0.9, ease: [0.22, 1, 0.36, 1] }
+            }
             className="mt-5 h-px w-40 origin-left bg-gradient-to-r from-gold via-gold2 to-transparent shadow-[0_0_14px_1px_rgba(240,168,50,0.5)]"
           />
 

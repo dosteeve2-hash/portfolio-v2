@@ -24,7 +24,15 @@ export const tr: Dictionary = {
   },
   language: { label: 'Dil seçin' },
   badge: 'Staja açığım · Yaz 2027',
-  intro: { skip: 'Girişi atla' },
+  // TODO relecture TR : libellés de l'intro (Dinle, Sesi kapat, Çerçeve, üretici).
+  intro: {
+    skip: 'Girişi atla',
+    listen: 'Dinle',
+    mute: 'Sesi kapat',
+    unmute: 'Sesi aç',
+    frameName: 'Çerçeve — Donald',
+    roles: ['yazılım mühendisi', 'üretici'],
+  },
   hero: {
     subtitle:
       'Bilgisayar bilimleri öğrencisiyim; fikirden yayına kadar eksiksiz web uygulamaları geliştiriyor ve yapay zekâyı bunlara entegre ediyorum.',

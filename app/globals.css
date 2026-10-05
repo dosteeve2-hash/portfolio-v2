@@ -63,19 +63,133 @@ body {
   border-radius: 6px;
 }
 
-.intro-line {
+.intro-rule {
+  width: min(84vw, 720px);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #f0a832 10%, #f7c060 50%, #f0a832 90%, transparent);
+  box-shadow: 0 0 14px 1px rgba(240, 168, 50, 0.45);
   transform-origin: center;
-  animation: intro-line-draw 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: intro-rule 0.5s 0.14s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.intro-ticks {
+  width: min(84vw, 720px);
+  height: 9px;
+  background:
+    repeating-linear-gradient(90deg, rgba(240, 168, 50, 0.7) 0 1px, transparent 1px 80px) top / 100% 9px no-repeat,
+    repeating-linear-gradient(90deg, rgba(240, 168, 50, 0.4) 0 1px, transparent 1px 16px) top / 100% 5px no-repeat;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 14%, #000 86%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 14%, #000 86%, transparent);
+  animation: intro-ticks 0.45s 0.32s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.intro-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background: #f7c060;
+  box-shadow: 0 0 14px 4px rgba(240, 168, 50, 0.6);
+  animation: intro-dot 0.62s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.intro-grid {
+  background-image:
+    linear-gradient(to right, rgba(245, 240, 232, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(245, 240, 232, 0.04) 1px, transparent 1px);
+  background-size: 8px 8px;
+  background-position: center;
+  -webkit-mask-image: radial-gradient(ellipse 62% 58% at 50% 50%, #000 35%, transparent 100%);
+  mask-image: radial-gradient(ellipse 62% 58% at 50% 50%, #000 35%, transparent 100%);
+  animation: intro-grid 0.7s 0.18s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-@keyframes intro-line-draw {
+@keyframes intro-dot {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  22% {
+    transform: scale(1.35);
+    opacity: 1;
+  }
+  45% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.4);
+    opacity: 0;
+  }
+}
+@keyframes intro-rule {
   from {
-    transform: scaleX(0);
-    opacity: 0.4;
+    transform: scaleX(0.01);
   }
   to {
     transform: scaleX(1);
+  }
+}
+@keyframes intro-ticks {
+  from {
+    clip-path: inset(0 50% 0 50%);
+    opacity: 0;
+  }
+  to {
+    clip-path: inset(0 0 0 0);
     opacity: 1;
+  }
+}
+@keyframes intro-grid {
+  from {
+    clip-path: circle(0% at 50% 50%);
+    opacity: 0;
+  }
+  to {
+    clip-path: circle(75% at 50% 50%);
+    opacity: 1;
+  }
+}
+
+/* --- Voix off : pastille « Écouter » et témoin de lecture --- */
+.voice-pill::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  border: 1px solid rgba(240, 168, 50, 0.5);
+  animation: voice-halo 2.4s cubic-bezier(0.22, 1, 0.36, 1) 0.6s 3;
+  opacity: 0;
+  pointer-events: none;
+}
+.voice-bars span {
+  display: block;
+  width: 2px;
+  height: 100%;
+  border-radius: 1px;
+  background: var(--color-gold);
+  transform-origin: bottom;
+  animation: voice-bar 0.9s ease-in-out infinite;
+}
+.voice-bars span:nth-child(2) {
+  animation-delay: -0.3s;
+}
+.voice-bars span:nth-child(3) {
+  animation-delay: -0.6s;
+}
+@keyframes voice-halo {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1.18, 1.45);
+    opacity: 0;
+  }
+}
+@keyframes voice-bar {
+  0%,
+  100% {
+    transform: scaleY(0.35);
+  }
+  50% {
+    transform: scaleY(1);
   }
 }
 

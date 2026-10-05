@@ -1,0 +1,27 @@
+{
+  "_note": "Source unique des voix off de l'intro. Réexécuter : py -3.11 scripts/make_intro_audio.py. TODO relecture TR : faire relire le texte turc par un locuteur natif.",
+  "maxSeconds": 5.2,
+  "locales": {
+    "fr": {
+      "text": "Bienvenue dans mon univers. Je suis Donald, ingénieur logiciel et créateur. Découvrez ce que je construis.",
+      "voice": "fr-FR-RemyMultilingualNeural",
+      "candidates": ["fr-FR-RemyMultilingualNeural", "fr-FR-HenriNeural"],
+      "rate": "+0%",
+      "marks": { "name": "Donald", "role1": "ingénieur logiciel", "role2": "créateur" }
+    },
+    "en": {
+      "text": "Welcome to my world. I'm Donald, a software engineer and creator. Come see what I build.",
+      "voice": "en-US-AndrewNeural",
+      "candidates": ["en-US-AndrewNeural", "en-US-BrianNeural"],
+      "rate": "+0%",
+      "marks": { "name": "Donald", "role1": "software engineer", "role2": "creator" }
+    },
+    "tr": {
+      "text": "Dünyama hoş geldiniz. Ben Donald; yazılım mühendisi ve üreticiyim. Neler geliştirdiğimi keşfedin.",
+      "voice": "tr-TR-AhmetNeural",
+      "candidates": ["tr-TR-AhmetNeural", "fr-FR-RemyMultilingualNeural"],
+      "rate": "+0%",
+      "marks": { "name": "Donald", "role1": "yazılım mühendisi", "role2": "üreticiyim" }
+    }
+  }
+}

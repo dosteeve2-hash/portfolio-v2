@@ -1,7 +1,9 @@
 import type { Metadata, Viewport } from 'next'
 import { Outfit, JetBrains_Mono, Playfair_Display } from 'next/font/google'
 import { notFound } from 'next/navigation'
+import IntroVoiceProvider from '@/components/intro/IntroVoice'
 import { getDictionary } from '@/content'
+import { introTimelines } from '@/content/intro'
 import { isLocale, locales } from '@/content/locales'
 import { INTRO_STORAGE_KEY } from '@/lib/introKey'
 import '../globals.css'
@@ -61,6 +63,8 @@ export default async function LocaleLayout({
 }: LocaleParams & { children: React.ReactNode }) {
   const { locale } = await params
   if (!isLocale(locale)) notFound()
+  const { intro } = getDictionary(locale)
+  const voiceLabels = { listen: intro.listen, mute: intro.mute, unmute: intro.unmute }
 
   return (
     <html
@@ -74,7 +78,11 @@ export default async function LocaleLayout({
           <style>{forceVisibleStyles}</style>
         </noscript>
       </head>
-      <body>{children}</body>
+      <body>
+        <IntroVoiceProvider src={introTimelines[locale].audio} labels={voiceLabels}>
+          {children}
+        </IntroVoiceProvider>
+      </body>
     </html>
   )
 }

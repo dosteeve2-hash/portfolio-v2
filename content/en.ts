@@ -23,7 +23,14 @@ export const en: Dictionary = {
   },
   language: { label: 'Choose language' },
   badge: 'Open to internships · Summer 2027',
-  intro: { skip: 'Skip the introduction' },
+  intro: {
+    skip: 'Skip the introduction',
+    listen: 'Listen',
+    mute: 'Mute the voice',
+    unmute: 'Unmute the voice',
+    frameName: 'Frame — Donald',
+    roles: ['software engineer', 'creator'],
+  },
   hero: {
     subtitle:
       'A computer science student building complete web applications and weaving AI into them, from idea to deployment.',

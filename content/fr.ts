@@ -23,7 +23,14 @@ export const fr: Dictionary = {
   },
   language: { label: 'Choisir la langue' },
   badge: 'Ouvert aux stages · Été 2027',
-  intro: { skip: "Passer l'introduction" },
+  intro: {
+    skip: "Passer l'introduction",
+    listen: 'Écouter',
+    mute: 'Couper la voix',
+    unmute: 'Remettre la voix',
+    frameName: 'Cadre — Donald',
+    roles: ['ingénieur logiciel', 'créateur'],
+  },
   hero: {
     subtitle:
       "Étudiant en informatique, je construis des applications web complètes et j'y intègre l'IA, de l'idée jusqu'au déploiement.",

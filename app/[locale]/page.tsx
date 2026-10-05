@@ -8,7 +8,7 @@ import Contact from '@/components/Contact'
 import Footer from '@/components/Footer'
 import Header from '@/components/Header'
 import Hero from '@/components/Hero'
-import Intro from '@/components/Intro'
+import Intro from '@/components/intro/Intro'
 import Journey from '@/components/Journey'
 import Projects from '@/components/Projects'
 import Skills from '@/components/Skills'
@@ -22,7 +22,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
 
   return (
     <>
-      <Intro dict={dict} />
+      <Intro locale={locale} dict={dict} />
       <a
         href="#about"
         className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-lg focus:bg-gold focus:px-4 focus:py-2 focus:text-bg"
