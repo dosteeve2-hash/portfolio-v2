@@ -520,3 +520,181 @@ html[data-intro='seen'] .intro-root {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* --- Boucles des projets : 6 s, transform et opacity uniquement, en pause hors écran (ReelPlayer) ---
+   Les styles de base décrivent l'image finale (le logo) : c'est elle qui reste si le mouvement est réduit.
+   Repères de temps (6 s = 100 %) : 1 s = 16,67 %. */
+.reel-anim {
+  animation-duration: 6s;
+  animation-iteration-count: infinite;
+  animation-fill-mode: both;
+  animation-timing-function: linear;
+  animation-play-state: paused;
+}
+[data-playing] .reel-anim {
+  animation-play-state: running;
+}
+
+.orch-sym,
+.orch-rot-a,
+.orch-rot-c {
+  transform-box: view-box;
+  transform-origin: 50% 50%;
+}
+.orch-ring,
+.orch-hub,
+.orch-halo,
+.orch-node,
+.orch-socket {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+}
+.orch-spoke {
+  transform-box: fill-box;
+  transform-origin: 0 50%;
+}
+.orch-rule {
+  transform-origin: left center;
+}
+.orch-rot-a {
+  transform: rotate(30deg);
+}
+.orch-rot-c {
+  transform: rotate(-30deg);
+}
+.orch-spoke-b {
+  transform: scaleX(0);
+}
+.orch-node-b,
+.orch-halo {
+  opacity: 0;
+}
+
+.orch-sym { animation-name: orch-sym; }
+.orch-ring { animation-name: orch-ring; }
+.orch-hub { animation-name: orch-hub; }
+.orch-halo { animation-name: orch-halo; }
+.orch-spoke-a { animation-name: orch-spoke-a; }
+.orch-spoke-b { animation-name: orch-spoke-b; }
+.orch-spoke-c { animation-name: orch-spoke-c; }
+.orch-spoke-d { animation-name: orch-spoke-d; }
+.orch-node-a { animation-name: orch-node-a; }
+.orch-node-b { animation-name: orch-node-b; }
+.orch-node-c { animation-name: orch-node-c; }
+.orch-node-d { animation-name: orch-node-d; }
+.orch-socket { animation-name: orch-socket; }
+.orch-rot-a { animation-name: orch-rot-a; }
+.orch-rot-c { animation-name: orch-rot-c; }
+.orch-text { animation-name: orch-text; }
+.orch-name { animation-name: orch-name; }
+.orch-rule { animation-name: orch-rule; }
+.orch-tagline { animation-name: orch-tagline; }
+
+/* Sortie commune (5,30 → 5,85 s) : tout s'efface ensemble, puis la boucle repart de rien. */
+@keyframes orch-sym {
+  0%, 88.33% { opacity: 1; transform: none; animation-timing-function: cubic-bezier(0.4, 0, 1, 1); }
+  97.5%, 100% { opacity: 0; transform: scale(0.94); }
+}
+@keyframes orch-text {
+  0%, 88.33% { opacity: 1; transform: none; animation-timing-function: cubic-bezier(0.4, 0, 1, 1); }
+  97.5%, 100% { opacity: 0; transform: translateY(-6px); }
+}
+
+/* Temps 1 — construction (0,15 → 1,5 s) : le moyeu se pose, les liens partent, les agents s'allument. */
+@keyframes orch-hub {
+  0%, 2.5% { opacity: 0; transform: scale(0); animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1); }
+  10.83%, 97.5% { opacity: 1; transform: none; }
+  97.6%, 100% { opacity: 0; transform: scale(0); }
+}
+/* L'orbite ne se referme qu'après le rééquilibrage (3,3 → 4,2 s) : le système est de nouveau stable. */
+@keyframes orch-ring {
+  0%, 55% { opacity: 0; transform: scale(0.86) rotate(-90deg); animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1); }
+  70%, 97.5% { opacity: 1; transform: none; }
+  97.6%, 100% { opacity: 0; transform: scale(0.86) rotate(-90deg); }
+}
+@keyframes orch-spoke-a {
+  0%, 7.5% { transform: scaleX(0); animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1); }
+  15.83%, 97.5% { transform: none; }
+  97.6%, 100% { transform: scaleX(0); }
+}
+@keyframes orch-spoke-c {
+  0%, 10.83% { transform: scaleX(0); animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1); }
+  19.17%, 97.5% { transform: none; }
+  97.6%, 100% { transform: scaleX(0); }
+}
+@keyframes orch-spoke-d {
+  0%, 12.5% { transform: scaleX(0); animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1); }
+  20.83%, 97.5% { transform: none; }
+  97.6%, 100% { transform: scaleX(0); }
+}
+@keyframes orch-node-a {
+  0%, 12.5% { opacity: 0; transform: scale(0); animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1); }
+  20%, 97.5% { opacity: 1; transform: none; }
+  97.6%, 100% { opacity: 0; transform: scale(0); }
+}
+@keyframes orch-node-c {
+  0%, 15.83% { opacity: 0; transform: scale(0); animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1); }
+  23.33%, 97.5% { opacity: 1; transform: none; }
+  97.6%, 100% { opacity: 0; transform: scale(0); }
+}
+@keyframes orch-node-d {
+  0%, 17.5% { opacity: 0; transform: scale(0); animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1); }
+  25%, 97.5% { opacity: 1; transform: none; }
+  97.6%, 100% { opacity: 0; transform: scale(0); }
+}
+
+/* Temps 2 — typographie (0,55 → 1,55 s) : le nom monte depuis son masque, le filet se tire, le slogan suit. */
+@keyframes orch-name {
+  0%, 9.17% { transform: translateY(110%); animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1); }
+  20.83%, 97.5% { transform: none; }
+  97.6%, 100% { transform: translateY(110%); }
+}
+@keyframes orch-rule {
+  0%, 15% { transform: scaleX(0); animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1); }
+  25%, 97.5% { transform: none; }
+  97.6%, 100% { transform: scaleX(0); }
+}
+@keyframes orch-tagline {
+  0%, 14.17% { opacity: 0; transform: translateY(10px); animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1); }
+  25.83%, 97.5% { opacity: 1; transform: none; }
+  97.6%, 100% { opacity: 0; transform: translateY(10px); }
+}
+
+/* Temps 3 — le relais (2,4 → 4,2 s) : l'agent de droite s'éteint, sa place reste vide, le moyeu émet
+   une onde, les deux voisins se rééquilibrent (léger dépassement, comme une masse), puis l'orbite se referme. */
+@keyframes orch-spoke-b {
+  0%, 9.17% { transform: scaleX(0); animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1); }
+  17.5%, 40% { transform: none; animation-timing-function: cubic-bezier(0.7, 0, 0.84, 0); }
+  45%, 100% { transform: scaleX(0); }
+}
+@keyframes orch-node-b {
+  0%, 14.17% { opacity: 0; transform: scale(0); animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1); }
+  21.67%, 40% { opacity: 1; transform: none; animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45); }
+  45%, 100% { opacity: 0; transform: scale(0.4); }
+}
+@keyframes orch-socket {
+  0%, 43.33% { opacity: 0; transform: scale(0.6); animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1); }
+  48.33%, 97.5% { opacity: 1; transform: none; }
+  97.6%, 100% { opacity: 0; transform: scale(0.6); }
+}
+@keyframes orch-halo {
+  0%, 46.67% { opacity: 0; transform: none; }
+  47.5% { opacity: 0.75; transform: scale(1.05); animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1); }
+  60%, 100% { opacity: 0; transform: scale(2.7); }
+}
+@keyframes orch-rot-a {
+  0%, 46.67% { transform: none; animation-timing-function: cubic-bezier(0.62, -0.04, 0.28, 1.14); }
+  61.67%, 97.5% { transform: rotate(30deg); }
+  97.6%, 100% { transform: none; }
+}
+@keyframes orch-rot-c {
+  0%, 46.67% { transform: none; animation-timing-function: cubic-bezier(0.62, -0.04, 0.28, 1.14); }
+  61.67%, 97.5% { transform: rotate(-30deg); }
+  97.6%, 100% { transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reel-anim {
+    animation: none !important;
+  }
+}
