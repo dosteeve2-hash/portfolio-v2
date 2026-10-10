@@ -187,7 +187,7 @@ export default function AssistantPanel({ locale, dict, reduceMotion, onMood, onC
 
   const renderAction = (action: AssistantAction) => {
     const className =
-      'inline-flex items-center gap-1.5 rounded-lg border border-gold/50 bg-gold/10 px-3 py-1.5 font-mono text-[11px] text-gold2 transition-colors hover:bg-gold/20'
+      'inline-flex items-center gap-1.5 rounded-lg border border-accent/40 bg-accent/10 px-3 py-1.5 font-mono text-[11px] text-accent transition-colors hover:bg-accent/20'
     switch (action.kind) {
       case 'scroll':
         return (
@@ -235,10 +235,10 @@ export default function AssistantPanel({ locale, dict, reduceMotion, onMood, onC
       role="dialog"
       aria-modal="false"
       aria-labelledby={titleId}
-      className="pointer-events-auto flex max-h-[min(540px,calc(100svh-12rem))] w-[min(calc(100vw-1.5rem),380px)] md:max-h-[min(540px,calc(100svh-15rem))] xl:max-h-[min(540px,calc(100svh-17rem))] flex-col overflow-hidden rounded-2xl border border-line2 bg-bg3 shadow-[0_24px_60px_-12px_rgba(0,0,0,0.7),0_0_0_1px_rgba(240,168,50,0.08)]"
+      className="pointer-events-auto flex max-h-[min(540px,calc(100svh-12rem))] w-[min(calc(100vw-1.5rem),380px)] md:max-h-[min(540px,calc(100svh-15rem))] xl:max-h-[min(540px,calc(100svh-17rem))] flex-col overflow-hidden rounded-2xl border border-line2 bg-bg3 shadow-[0_24px_60px_-16px_rgba(11,31,77,0.45),0_0_0_1px_rgba(200,144,31,0.18)]"
     >
       <div className="flex items-center justify-between gap-3 border-b border-line2 bg-bg2 px-4 py-3">
-        <h2 id={titleId} className="font-display text-lg italic text-gold2">
+        <h2 id={titleId} className="font-display text-lg italic text-navy">
           {fill(text.panelTitle, { name: MASCOT_NAME })}
         </h2>
         <button
@@ -257,11 +257,11 @@ export default function AssistantPanel({ locale, dict, reduceMotion, onMood, onC
         {messages.map((message) => (
           <div key={message.id} className={message.role === 'user' ? 'flex justify-end' : 'flex justify-start'}>
             <div className="max-w-[92%]">
-              <p className="mb-1 font-mono text-[10px] uppercase tracking-[0.16em] text-text3">
+              <p className="mb-1 font-mono text-[10px] uppercase tracking-[0.16em] text-text2">
                 {message.role === 'user' ? text.you : MASCOT_NAME}
               </p>
               {message.role === 'user' ? (
-                <p className="whitespace-pre-line rounded-xl rounded-tr-sm bg-gold px-3 py-2 text-sm text-bg">{message.text}</p>
+                <p className="whitespace-pre-line rounded-xl rounded-tr-sm bg-accent px-3 py-2 text-sm text-on-accent">{message.text}</p>
               ) : (
                 <div
                   aria-hidden={!message.done}
@@ -304,7 +304,7 @@ export default function AssistantPanel({ locale, dict, reduceMotion, onMood, onC
       </div>
 
       <div className="border-t border-line2 bg-bg2 px-4 pb-3 pt-3">
-        <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.16em] text-text3">{text.quickTitle}</p>
+        <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.16em] text-text2">{text.quickTitle}</p>
         <div className="mb-3 flex flex-wrap gap-1.5">
           {text.quick.map((question) => (
             <button
@@ -329,11 +329,11 @@ export default function AssistantPanel({ locale, dict, reduceMotion, onMood, onC
             maxLength={200}
             autoComplete="off"
             placeholder={text.placeholder}
-            className="min-w-0 flex-1 rounded-lg border border-line2 bg-bg px-3 py-2 text-sm text-text placeholder:text-text3 focus:border-gold focus:outline-none"
+            className="min-w-0 flex-1 rounded-lg border border-line2 bg-bg px-3 py-2 text-sm text-text placeholder:text-text2 focus:border-gold focus:outline-none"
           />
           <button
             type="submit"
-            className="rounded-lg bg-gold px-3.5 py-2 text-sm font-medium text-bg transition-colors hover:bg-gold2"
+            className="rounded-lg bg-accent px-3.5 py-2 text-sm font-medium text-on-accent transition-colors hover:bg-accent-hover"
           >
             {text.send}
           </button>

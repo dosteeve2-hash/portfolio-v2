@@ -27,7 +27,6 @@ export const tr: Dictionary = {
   // TODO relecture TR : libellés de l'intro (Dinle, Sesi kapat, Çerçeve, üretici).
   intro: {
     skip: 'Girişi atla',
-    listen: 'Dinle',
     mute: 'Sesi kapat',
     unmute: 'Sesi aç',
     frameName: 'Çerçeve — Donald',
@@ -57,10 +56,17 @@ export const tr: Dictionary = {
   },
   projects: {
     title: 'Projeler',
-    intro: 'Dört çalışma; biri yapay zekâ ajanlarıyla çalışma biçimimin kanıtı.',
-    visit: 'Projeyi gör',
+    intro: 'Dokuz çalışma: bir yapay zekâ ajanı tezgâhı, yayındaki uygulamalar ve hepsini birbirine bağlayan FORGE Afrika ekosistemi.',
+    visit: 'Çevrimiçi gör',
     featured: 'Öne çıkan kanıt',
     noPublicLink: 'İstek üzerine demo',
+    statuses: {
+      running: 'Çalışıyor',
+      live: 'Yayında',
+      dev: 'Geliştiriliyor',
+      proto: 'Prototip',
+      hub: 'Ekosistem',
+    },
   },
   architecture: {
     title: 'Orkestratör mimarisi',
@@ -83,11 +89,20 @@ export const tr: Dictionary = {
   },
   certifications: {
     title: 'Sertifikalar',
-    intro: 'Her sertifika, doğrulama bağlantısıyla birlikte sunulacak.',
-    emptyTitle: 'Güncelleme sürüyor',
-    emptyText: 'Sertifikalar doğrulandıktan sonra burada görünecek. O zamana kadar hiçbir şey gösterilmez.',
-    verify: 'Doğrula',
-    viewPdf: 'PDF’yi gör',
+    intro: 'On üç LinkedIn Learning sertifikası ve bir üniversite katılım belgesi; her biri özgün PDF’siyle.',
+    statCount: 'sertifika',
+    statHours: 'saat eğitim',
+    groups: {
+      ai: 'Yapay zekâ ve ajanlar',
+      web: 'Web, JavaScript ve TypeScript',
+      design: 'Tasarım',
+      university: 'Üniversite eğitimleri',
+    },
+    verify: 'LinkedIn’de doğrula',
+    viewPdf: 'Sertifikayı gör',
+    idLabel: 'Kimlik',
+    hourUnit: 'sa',
+    minuteUnit: 'dk',
   },
   journey: {
     title: 'Yolculuk',
@@ -105,7 +120,7 @@ export const tr: Dictionary = {
       {
         period: 'Projeler',
         title: 'Yayındaki uygulamalar',
-        text: 'UEEMT-Tokat, CompTrack ve AURA Pro yayında; Projeler bölümünden erişilebilir.',
+        text: 'UEEMT-Tokat, CompTrack, MIFA Life Shop ve ValueChain Connect çevrimiçi; Projeler bölümünden erişilebilir.',
       },
       {
         period: 'Yakın zamanda',

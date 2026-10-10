@@ -25,7 +25,6 @@ export const en: Dictionary = {
   badge: 'Open to internships · Summer 2027',
   intro: {
     skip: 'Skip the introduction',
-    listen: 'Listen',
     mute: 'Mute the voice',
     unmute: 'Unmute the voice',
     frameName: 'Frame — Donald',
@@ -55,10 +54,17 @@ export const en: Dictionary = {
   },
   projects: {
     title: 'Projects',
-    intro: 'Four builds, including proof of how I work with AI agents.',
-    visit: 'View project',
+    intro: 'Nine pieces of work: an AI agent bench, live applications and the FORGE Afrika ecosystem that ties them together.',
+    visit: 'View online',
     featured: 'Flagship proof',
     noPublicLink: 'Demo on request',
+    statuses: {
+      running: 'Running',
+      live: 'Live',
+      dev: 'In development',
+      proto: 'Prototype',
+      hub: 'Ecosystem',
+    },
   },
   architecture: {
     title: 'Orchestrator architecture',
@@ -81,11 +87,20 @@ export const en: Dictionary = {
   },
   certifications: {
     title: 'Certifications',
-    intro: 'Each certification will come with its verification link.',
-    emptyTitle: 'Update in progress',
-    emptyText: 'Certifications will appear here as soon as they have been verified. Nothing is shown before then.',
-    verify: 'Verify',
-    viewPdf: 'View PDF',
+    intro: 'Thirteen LinkedIn Learning certificates and one university attendance certificate, each with its original PDF.',
+    statCount: 'certifications',
+    statHours: 'hours of training',
+    groups: {
+      ai: 'AI and agents',
+      web: 'Web, JavaScript and TypeScript',
+      design: 'Design',
+      university: 'University training',
+    },
+    verify: 'Verify on LinkedIn',
+    viewPdf: 'View certificate',
+    idLabel: 'ID',
+    hourUnit: 'h',
+    minuteUnit: 'min',
   },
   journey: {
     title: 'Journey',
@@ -103,7 +118,7 @@ export const en: Dictionary = {
       {
         period: 'Projects',
         title: 'Live applications',
-        text: 'UEEMT-Tokat, CompTrack and AURA Pro are deployed and reachable from the Projects section.',
+        text: 'UEEMT-Tokat, CompTrack, MIFA Life Shop and ValueChain Connect are online, reachable from the Projects section.',
       },
       {
         period: 'Recently',

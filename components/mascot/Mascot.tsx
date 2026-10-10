@@ -314,7 +314,7 @@ export default function Mascot({ locale }: { readonly locale: Locale }) {
           onClick={reveal}
           aria-label={text.show}
           title={text.show}
-          className="pointer-events-auto block h-11 w-11 overflow-hidden rounded-full border border-gold/50 bg-bg3 shadow-lg transition-transform hover:scale-105"
+          className="pointer-events-auto block h-11 w-11 overflow-hidden rounded-full border border-gold/50 bg-bg3 shadow-soft transition-transform hover:scale-105"
         >
           <span className="block w-[150%] -translate-x-[17%] translate-y-[4%]">
             <MascotFigure expression="neutral" animated={false} />
@@ -345,7 +345,7 @@ export default function Mascot({ locale }: { readonly locale: Locale }) {
       <div className="group relative">
         <div
           aria-hidden="true"
-          className={`pointer-events-none absolute bottom-1/2 right-full mr-1 hidden w-max max-w-[11rem] rounded-xl rounded-br-sm border border-line2 bg-bg3 px-3 py-2 text-xs text-text shadow-lg transition-opacity duration-300 sm:block ${
+          className={`pointer-events-none absolute bottom-1/2 right-full mr-1 hidden w-max max-w-[11rem] rounded-xl rounded-br-sm border border-line2 bg-bg3 px-3 py-2 text-xs text-text shadow-soft transition-opacity duration-300 sm:block ${
             hintVisible && !open ? 'opacity-100' : 'opacity-0'
           }`}
         >

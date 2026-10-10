@@ -2,32 +2,37 @@
 
 import { AnimatePresence, motion } from 'motion/react'
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
+import { VOICE_STORAGE_KEY } from '@/lib/introKey'
 
 const VOLUME = 0.85
 
+/** Délai pendant lequel le clic qui vient de déclencher la voix ne doit pas aussi passer l'intro. */
+const ARM_CLICK_GUARD_MS = 700
+
 /**
- * idle      : rien n'a été demandé
- * playing   : la voix joue (elle continue pendant le défilement et après l'intro)
- * blocked   : le navigateur a refusé la lecture automatique → pastille « Écouter »
- * ended     : la voix est terminée
- * dismissed : la pastille a été laissée de côté (le visiteur est descendu dans la page)
+ * idle    : rien n'a encore été tenté
+ * armed   : le navigateur a refusé la lecture automatique ; la voix partira au premier geste valable, n'importe où
+ * playing : la voix joue (elle continue pendant le défilement et après l'intro)
+ * ended   : la voix est terminée (ou déjà jouée dans cette session)
  */
-export type VoiceState = 'idle' | 'playing' | 'blocked' | 'ended' | 'dismissed'
+export type VoiceState = 'idle' | 'armed' | 'playing' | 'ended'
 
 interface IntroVoiceApi {
   readonly available: boolean
   /** Précharge la piste ; à appeler dès que l'intro démarre. */
   readonly prepare: () => void
-  /** Tente la lecture automatique ; en cas de refus, la pastille apparaît. Résout `true` si la voix joue. */
+  /** Tente la lecture automatique ; en cas de refus, la voix est armée. Résout `true` si elle joue. */
   readonly start: () => Promise<boolean>
-  /** Propose la voix sans tenter la lecture automatique (mouvement réduit). */
+  /** Arme la voix sans tenter la lecture (intro non jouée) : elle partira au premier geste. */
   readonly offer: () => void
   /** Temps de lecture de la voix en secondes, ou null si elle ne joue pas. */
   readonly currentTime: () => number | null
   /** Recale la voix (si elle a démarré en retard, c'est elle qui rejoint l'image). */
   readonly seek: (seconds: number) => void
-  /** Abonnement au clic sur « Écouter » (l'intro se recale alors sur la voix). */
+  /** Abonnement au démarrage de la voix par un geste (l'intro se recale alors sur la voix). */
   readonly onListen: (callback: () => void) => () => void
+  /** Vrai juste après qu'un geste a déclenché la voix : le clic correspondant ne doit pas passer l'intro. */
+  readonly justStartedByGesture: () => boolean
 }
 
 const noop = () => undefined
@@ -40,6 +45,7 @@ const IntroVoiceContext = createContext<IntroVoiceApi>({
   currentTime: () => null,
   seek: noop,
   onListen: () => noop,
+  justStartedByGesture: () => false,
 })
 
 const VoiceStateContext = createContext<VoiceState>('idle')
@@ -55,8 +61,24 @@ export function useVoiceState(): VoiceState {
 
 interface IntroVoiceProps {
   readonly src: string | null
-  readonly labels: { readonly listen: string; readonly mute: string; readonly unmute: string }
+  readonly labels: { readonly mute: string; readonly unmute: string }
   readonly children: ReactNode
+}
+
+function alreadyPlayed(): boolean {
+  try {
+    return sessionStorage.getItem(VOICE_STORAGE_KEY) === '1'
+  } catch {
+    return false
+  }
+}
+
+function rememberPlayed(): void {
+  try {
+    sessionStorage.setItem(VOICE_STORAGE_KEY, '1')
+  } catch {
+    // stockage de session indisponible : la garde en mémoire suffit pour cette page
+  }
 }
 
 function SpeakerIcon({ muted }: { readonly muted: boolean }) {
@@ -80,10 +102,15 @@ function SpeakerIcon({ muted }: { readonly muted: boolean }) {
 /**
  * Fournisseur de la voix off, monté au niveau du layout : l'élément audio survit à la fin
  * de l'intro, au défilement et au bouton « Passer ». Il ne coupe jamais une voix en cours.
+ * La voix est active par défaut : les navigateurs interdisent le son sans geste, donc si la
+ * lecture est refusée elle est armée sur le premier geste valable (aucune pastille).
  */
 export default function IntroVoiceProvider({ src, labels, children }: IntroVoiceProps) {
   const audioRef = useRef<HTMLAudioElement>(null)
   const listeners = useRef(new Set<() => void>())
+  const playedRef = useRef(false)
+  const startingRef = useRef(false)
+  const gestureAtRef = useRef(0)
   const [state, setState] = useState<VoiceState>('idle')
   const [muted, setMuted] = useState(false)
   const available = src !== null
@@ -95,33 +122,46 @@ export default function IntroVoiceProvider({ src, labels, children }: IntroVoice
     audio.load()
   }, [])
 
-  const play = useCallback(async (fromStart: boolean): Promise<boolean> => {
+  const play = useCallback(async (): Promise<boolean> => {
     const audio = audioRef.current
-    if (!audio) return false
+    if (!audio || startingRef.current) return false
+    if (playedRef.current || alreadyPlayed()) {
+      playedRef.current = true
+      setState('ended')
+      return false
+    }
+    startingRef.current = true
     audio.volume = VOLUME
-    if (fromStart) audio.currentTime = 0
+    audio.currentTime = 0
     try {
       await audio.play()
+      playedRef.current = true
+      rememberPlayed()
       setState('playing')
       return true
     } catch {
       return false
+    } finally {
+      startingRef.current = false
     }
   }, [])
 
   const start = useCallback(async (): Promise<boolean> => {
-    const ok = await play(true)
-    if (!ok) setState((current) => (current === 'idle' ? 'blocked' : current))
+    const ok = await play()
+    if (!ok) setState((current) => (current === 'idle' ? 'armed' : current))
     return ok
   }, [play])
 
   const offer = useCallback(() => {
-    setState((current) => (current === 'idle' ? 'blocked' : current))
+    if (playedRef.current || alreadyPlayed()) return
+    setState((current) => (current === 'idle' ? 'armed' : current))
   }, [])
 
-  const listen = useCallback(() => {
-    void play(true).then((ok) => {
-      if (ok) listeners.current.forEach((callback) => callback())
+  const onGesture = useCallback(() => {
+    void play().then((ok) => {
+      if (!ok) return
+      gestureAtRef.current = performance.now()
+      listeners.current.forEach((callback) => callback())
     })
   }, [play])
 
@@ -143,18 +183,20 @@ export default function IntroVoiceProvider({ src, labels, children }: IntroVoice
     }
   }, [])
 
+  const justStartedByGesture = useCallback(() => performance.now() - gestureAtRef.current < ARM_CLICK_GUARD_MS, [])
+
+  // Voix armée : le premier geste valable, n'importe où sur la page, la déclenche. Un geste qui ne donne pas
+  // d'activation au navigateur (molette, touche Échap) échoue sans effet et la voix reste armée.
   useEffect(() => {
-    if (state !== 'blocked') return undefined
-    const onScroll = () => {
-      if (window.scrollY > window.innerHeight * 0.6) setState('dismissed')
-    }
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [state])
+    if (state !== 'armed') return undefined
+    const events = ['pointerdown', 'pointerup', 'keydown', 'touchend', 'click'] as const
+    events.forEach((name) => window.addEventListener(name, onGesture, { capture: true, passive: true }))
+    return () => events.forEach((name) => window.removeEventListener(name, onGesture, { capture: true }))
+  }, [state, onGesture])
 
   const api = useMemo<IntroVoiceApi>(
-    () => ({ available, prepare, start, offer, currentTime, seek, onListen }),
-    [available, prepare, start, offer, currentTime, seek, onListen],
+    () => ({ available, prepare, start, offer, currentTime, seek, onListen, justStartedByGesture }),
+    [available, prepare, start, offer, currentTime, seek, onListen, justStartedByGesture],
   )
 
   const toggleMute = () => {
@@ -178,24 +220,6 @@ export default function IntroVoiceProvider({ src, labels, children }: IntroVoice
         />
       ) : null}
       <AnimatePresence>
-        {state === 'blocked' ? (
-          <motion.button
-            key="listen"
-            type="button"
-            onClick={(event) => {
-              event.stopPropagation()
-              listen()
-            }}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 6 }}
-            transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-            className="voice-pill fixed bottom-5 left-4 z-[60] inline-flex items-center gap-2 rounded-full border border-gold/45 bg-bg2/95 py-2 pl-3 pr-4 font-mono text-[11px] uppercase tracking-[0.16em] text-gold2 shadow-[0_8px_24px_-12px_rgba(0,0,0,0.8)] transition-colors hover:border-gold hover:text-text sm:left-6"
-          >
-            <SpeakerIcon muted={false} />
-            {labels.listen}
-          </motion.button>
-        ) : null}
         {state === 'playing' ? (
           <motion.button
             key="mute"
@@ -211,7 +235,7 @@ export default function IntroVoiceProvider({ src, labels, children }: IntroVoice
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.9 }}
             transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed bottom-5 left-4 z-[60] grid h-10 w-10 place-items-center rounded-full border border-line2 bg-bg2/95 text-gold2 transition-colors hover:border-gold sm:left-6"
+            className="fixed bottom-5 left-4 z-[60] grid h-10 w-10 place-items-center rounded-full border border-white/20 bg-navy/90 text-gold2 shadow-lift transition-colors hover:border-spark sm:left-6"
           >
             <SpeakerIcon muted={muted} />
             {muted ? null : (

@@ -34,7 +34,7 @@ function LabCard({
         <MascotFigure expression={shown} lookRef={lookRef} />
       </div>
       <div className="mt-3 flex items-center justify-between gap-2">
-        <span className="font-mono text-xs uppercase tracking-[0.14em] text-gold">{label}</span>
+        <span className="font-mono text-xs uppercase tracking-[0.14em] text-accent">{label}</span>
         <button
           type="button"
           onClick={trigger}

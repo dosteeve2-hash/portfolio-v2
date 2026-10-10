@@ -36,15 +36,19 @@ export default function Header({ locale, dict, immediate = false }: HeaderProps)
       initial={false}
       animate={{ opacity: visible ? 1 : 0, y: visible ? 0 : -12 }}
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-      className="fixed inset-x-0 top-0 z-40 border-b border-line/80 bg-bg"
+      className="fixed inset-x-0 top-0 z-40 border-b border-line bg-bg"
     >
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-3 px-4 sm:px-6">
         <Link
           href={`/${locale}`}
           aria-label={dict.nav.home}
-          className="font-display text-xl font-black italic text-gold"
+          className="group relative font-display text-xl font-black italic text-navy"
         >
           SDC
+          <span
+            aria-hidden="true"
+            className="absolute -bottom-0.5 left-0 h-[2px] w-full origin-left scale-x-50 rounded-full bg-gradient-to-r from-gold to-spark transition-transform duration-300 group-hover:scale-x-100"
+          />
         </Link>
 
         <nav aria-label={dict.nav.label} className="hidden items-center gap-5 xl:flex">
@@ -52,7 +56,7 @@ export default function Header({ locale, dict, immediate = false }: HeaderProps)
             <Link
               key={id}
               href={`/${locale}#${id}`}
-              className="font-mono text-[11px] uppercase tracking-[0.14em] text-text2 transition-colors hover:text-gold2"
+              className="font-mono text-[11px] uppercase tracking-[0.14em] text-text2 transition-colors hover:text-accent"
             >
               {dict.nav[id]}
             </Link>
@@ -67,7 +71,7 @@ export default function Header({ locale, dict, immediate = false }: HeaderProps)
             aria-expanded={open}
             aria-controls="mobile-menu"
             aria-label={open ? dict.nav.closeMenu : dict.nav.openMenu}
-            className="flex h-10 w-10 items-center justify-center rounded-lg border border-line2 text-text xl:hidden"
+            className="flex h-10 w-10 items-center justify-center rounded-lg border border-line2 bg-bg3 text-text xl:hidden"
           >
             <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
               {open ? (
@@ -84,7 +88,7 @@ export default function Header({ locale, dict, immediate = false }: HeaderProps)
         <nav
           id="mobile-menu"
           aria-label={dict.nav.label}
-          className="border-t border-line bg-bg2 px-4 py-4 sm:px-6 xl:hidden"
+          className="border-t border-line bg-bg px-4 py-4 shadow-soft sm:px-6 xl:hidden"
         >
           <ul className="flex flex-col">
             {sections.map((id) => (
@@ -92,7 +96,7 @@ export default function Header({ locale, dict, immediate = false }: HeaderProps)
                 <Link
                   href={`/${locale}#${id}`}
                   onClick={() => setOpen(false)}
-                  className="block py-3 font-mono text-xs uppercase tracking-[0.14em] text-text2 hover:text-gold2"
+                  className="block py-3 font-mono text-xs uppercase tracking-[0.14em] text-text2 hover:text-accent"
                 >
                   {dict.nav[id]}
                 </Link>

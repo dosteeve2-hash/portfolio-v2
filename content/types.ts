@@ -1,3 +1,5 @@
+import type { CertificationGroupId } from './certifications'
+import type { ProjectStatus } from './projects'
 import type { SkillLevel } from './skills'
 
 export type NodeId =
@@ -31,7 +33,6 @@ export interface Dictionary {
   readonly badge: string
   readonly intro: {
     readonly skip: string
-    readonly listen: string
     readonly mute: string
     readonly unmute: string
     readonly frameName: string
@@ -55,6 +56,7 @@ export interface Dictionary {
     readonly visit: string
     readonly featured: string
     readonly noPublicLink: string
+    readonly statuses: Readonly<Record<ProjectStatus, string>>
   }
   readonly architecture: {
     readonly title: string
@@ -67,10 +69,14 @@ export interface Dictionary {
   readonly certifications: {
     readonly title: string
     readonly intro: string
-    readonly emptyTitle: string
-    readonly emptyText: string
+    readonly statCount: string
+    readonly statHours: string
+    readonly groups: Readonly<Record<CertificationGroupId, string>>
     readonly verify: string
     readonly viewPdf: string
+    readonly idLabel: string
+    readonly hourUnit: string
+    readonly minuteUnit: string
   }
   readonly journey: {
     readonly title: string

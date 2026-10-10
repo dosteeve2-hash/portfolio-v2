@@ -9,7 +9,7 @@ interface PortraitProps {
 
 export default function Portrait({ alt, sizes, priority = false }: PortraitProps) {
   return (
-    <div className="relative aspect-square w-full overflow-hidden rounded-full bg-bg3">
+    <div className="relative aspect-square w-full overflow-hidden rounded-full bg-bg3 shadow-lift ring-4 ring-white">
       <Image
         src={PORTRAIT_SRC}
         alt={alt}

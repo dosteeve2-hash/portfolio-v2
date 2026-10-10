@@ -55,7 +55,7 @@ export default function Hero({ locale, dict }: HeroProps) {
     <section id="top" aria-labelledby="hero-title" className="relative flex min-h-svh items-center overflow-hidden pb-16 pt-28">
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(60%_50%_at_75%_40%,rgba(240,168,50,0.10),transparent_70%),radial-gradient(50%_40%_at_10%_100%,rgba(45,212,255,0.06),transparent_70%)]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(55%_55%_at_80%_30%,rgba(29,78,216,0.11),transparent_72%),radial-gradient(45%_40%_at_6%_100%,rgba(240,168,50,0.14),transparent_70%)]"
       />
       <Embers />
 
@@ -67,11 +67,11 @@ export default function Hero({ locale, dict }: HeroProps) {
             variants={variants}
             initial="hide"
             animate={state}
-            className="inline-flex items-center gap-2 rounded-full border border-green/40 bg-green/10 px-4 py-1.5 font-mono text-xs text-text"
+            className="inline-flex items-center gap-2 rounded-full border border-green/50 bg-bg3 px-4 py-1.5 font-mono text-xs text-text shadow-soft"
           >
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
               <circle cx="7" cy="7" r="7" fill="#22d98a" />
-              <path d="M4 7.2l2 2L10 5" stroke="#070e1f" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M4 7.2l2 2L10 5" stroke="#0b1f4d" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
             {dict.badge}
           </motion.div>
@@ -114,7 +114,7 @@ export default function Hero({ locale, dict }: HeroProps) {
                 ? { duration: 0 }
                 : { delay: 0.3, duration: reduce ? 0.2 : 0.9, ease: [0.22, 1, 0.36, 1] }
             }
-            className="mt-5 h-px w-40 origin-left bg-gradient-to-r from-gold via-gold2 to-transparent shadow-[0_0_14px_1px_rgba(240,168,50,0.5)]"
+            className="mt-5 h-[2px] w-40 origin-left bg-gradient-to-r from-spark via-gold2 to-transparent shadow-[0_0_14px_1px_rgba(240,168,50,0.45)]"
           />
 
           <motion.p
@@ -155,7 +155,7 @@ export default function Hero({ locale, dict }: HeroProps) {
           <svg viewBox="0 0 100 100" aria-hidden="true" className="absolute -inset-3 h-[calc(100%+24px)] w-[calc(100%+24px)] -rotate-90">
             <defs>
               <linearGradient id="hero-ring" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stopColor="#2dd4ff" />
+                <stop offset="0%" stopColor="#1d4ed8" />
                 <stop offset="100%" stopColor="#f0a832" />
               </linearGradient>
             </defs>

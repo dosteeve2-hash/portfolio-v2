@@ -1,5 +1,5 @@
 import cv from './cv-data.json'
-import { certifications } from './certifications'
+import { certificationGroupOrder, certificationsOf, linkedinLearningCount, totalHours } from './certifications'
 import { getDictionary } from './index'
 import { spokenLanguages } from './languages'
 import type { Locale } from './locales'
@@ -51,9 +51,9 @@ const skillsIntro: Readonly<Record<Locale, string>> = {
 }
 
 const projectsIntro: Readonly<Record<Locale, string>> = {
-  fr: 'Quatre réalisations :',
-  en: 'Four projects:',
-  tr: 'Dört proje:',
+  fr: `${projects.length} réalisations :`,
+  en: `${projects.length} projects:`,
+  tr: `${projects.length} proje:`,
 }
 
 const locationReply: Readonly<Record<Locale, string>> = {
@@ -74,10 +74,10 @@ const thanksReply: Readonly<Record<Locale, string>> = {
   tr: 'Rica ederim! Başka bir sorun olursa çekinme.',
 }
 
-const certificationsListIntro: Readonly<Record<Locale, string>> = {
-  fr: 'Certifications vérifiées :',
-  en: 'Verified certifications:',
-  tr: 'Doğrulanmış sertifikalar:',
+const certificationsSummary: Readonly<Record<Locale, string>> = {
+  fr: `${linkedinLearningCount} certifications LinkedIn Learning (${totalHours} h de formation) et une attestation universitaire :`,
+  en: `${linkedinLearningCount} LinkedIn Learning certificates (${totalHours} hours of training) and one university certificate:`,
+  tr: `${linkedinLearningCount} LinkedIn Learning sertifikası (${totalHours} saat eğitim) ve bir üniversite belgesi:`,
 }
 
 const contactIntro: Readonly<Record<Locale, string>> = {
@@ -138,7 +138,7 @@ export const intents: readonly Intent[] = [
       tr: ['proje', 'projeler', 'projelerin', 'calismalar', 'uygulamalar', 'neler yaptin', 'yaptigin'],
     },
     reply: (locale) =>
-      lines(projectsIntro[locale], ...projects.map((project) => `• ${project.name[locale]} : ${project.result[locale]}`)),
+      lines(projectsIntro[locale], ...projects.map((project) => `• ${project.name[locale]} : ${project.tagline[locale]}`)),
     actions: [{ kind: 'scroll', section: 'projects' }],
   },
   {
@@ -228,8 +228,10 @@ export const intents: readonly Intent[] = [
     },
     reply: (locale) => {
       const { certifications: text } = getDictionary(locale)
-      if (certifications.length === 0) return `${text.emptyTitle}. ${text.emptyText}`
-      return lines(certificationsListIntro[locale], ...certifications.map((item) => `• ${item.title} (${item.issuer}, ${item.date})`))
+      return lines(
+        certificationsSummary[locale],
+        ...certificationGroupOrder.map((group) => `• ${text.groups[group]} : ${certificationsOf(group).length}`),
+      )
     },
     actions: [{ kind: 'scroll', section: 'certifications' }],
   },

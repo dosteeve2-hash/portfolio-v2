@@ -428,8 +428,8 @@ export default function MascotFigure({ expression, lookRef, animated = true, cla
     >
       <defs>
         <radialGradient id={id('bg')} cx="50%" cy="42%" r="62%">
-          <stop offset="0%" stopColor="#1b2d4d" />
-          <stop offset="100%" stopColor="#0c1528" />
+          <stop offset="0%" stopColor="#f6f9ff" />
+          <stop offset="100%" stopColor="#c9d8f5" />
         </radialGradient>
         <radialGradient id={id('cheek')} cx="50%" cy="50%" r="50%">
           <stop offset="0" stopColor="#b97c52" stopOpacity="1" />
@@ -452,8 +452,8 @@ export default function MascotFigure({ expression, lookRef, animated = true, cla
         </clipPath>
       </defs>
 
-      <circle cx="120" cy="116" r="108" fill={`url(#${id('bg')})`} stroke="#1f3054" strokeWidth="1.5" />
-      <circle cx="120" cy="116" r="108" fill="none" stroke="#f0a832" strokeOpacity="0.16" strokeWidth="1" strokeDasharray="2 7" />
+      <circle cx="120" cy="116" r="108" fill={`url(#${id('bg')})`} stroke="#b9c9ea" strokeWidth="1.5" />
+      <circle cx="120" cy="116" r="108" fill="none" stroke="#c8901f" strokeOpacity="0.4" strokeWidth="1" strokeDasharray="2 7" />
 
       <g className="mascot-breathe">
         <g>

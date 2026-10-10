@@ -80,9 +80,9 @@ function Diagram({ layout, dict, className }: DiagramProps) {
               width={node.w}
               height={node.h}
               rx={12}
-              fill="#111d34"
-              initial={{ stroke: '#1f3054', strokeWidth: 1.5 }}
-              whileInView={{ stroke: node.emphasis ? '#f0a832' : '#c07d10', strokeWidth: node.emphasis ? 2.2 : 1.5 }}
+              fill="#12306f"
+              initial={{ stroke: '#2d5099', strokeWidth: 1.5 }}
+              whileInView={{ stroke: node.emphasis ? '#f0a832' : '#c8901f', strokeWidth: node.emphasis ? 2.2 : 1.5 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ delay: t(node.at + 0.15), duration: 0.5 }}
             />
@@ -90,7 +90,7 @@ function Diagram({ layout, dict, className }: DiagramProps) {
               x={node.x}
               y={hasSub ? node.y - 3 : node.y + 5}
               textAnchor="middle"
-              fill="#f5f0e8"
+              fill="#f4f6fb"
               fontSize={node.emphasis ? 18 : 15}
               fontWeight={600}
               fontFamily="var(--font-outfit), sans-serif"
@@ -102,7 +102,7 @@ function Diagram({ layout, dict, className }: DiagramProps) {
                 x={node.x}
                 y={node.y + 15}
                 textAnchor="middle"
-                fill="#9ba8c4"
+                fill="#bac7e4"
                 fontSize={10.5}
                 fontFamily="var(--font-jetbrains), monospace"
               >
@@ -121,11 +121,12 @@ export default function Architecture({ dict }: { readonly dict: Dictionary }) {
     <Section
       id="architecture"
       index={5}
+      tone="navy"
       label={dict.nav.architecture}
       title={dict.architecture.title}
       intro={dict.architecture.intro}
     >
-      <div className="rounded-2xl border border-line2 bg-bg2 p-4 md:p-8">
+      <div className="rounded-2xl border border-line2 bg-bg2 p-4 shadow-[0_30px_60px_-30px_rgba(0,0,0,0.6)] md:p-8">
         <Diagram layout={desktopLayout} dict={dict} className="mx-auto hidden h-auto w-full max-w-4xl md:block" />
         <Diagram layout={mobileLayout} dict={dict} className="mx-auto block h-auto w-full max-w-sm md:hidden" />
       </div>

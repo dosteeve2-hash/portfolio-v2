@@ -37,8 +37,8 @@ function makeSprite(): HTMLCanvasElement | null {
   if (!context) return null
   const half = SPRITE_SIZE / 2
   const gradient = context.createRadialGradient(half, half, 0, half, half, half)
-  gradient.addColorStop(0, 'rgba(247, 192, 96, 1)')
-  gradient.addColorStop(0.4, 'rgba(240, 168, 50, 0.35)')
+  gradient.addColorStop(0, 'rgba(214, 150, 28, 1)')
+  gradient.addColorStop(0.4, 'rgba(240, 168, 50, 0.3)')
   gradient.addColorStop(1, 'rgba(240, 168, 50, 0)')
   context.fillStyle = gradient
   context.fillRect(0, 0, SPRITE_SIZE, SPRITE_SIZE)
@@ -81,8 +81,7 @@ export default function Embers() {
       const dt = Math.min((now - last) / 1000, 0.05)
       last = now
       context.clearRect(0, 0, width, height)
-      context.globalCompositeOperation = 'lighter'
-      for (let i = 0; i < particles.length; i += 1) {
+            for (let i = 0; i < particles.length; i += 1) {
         const p = particles[i]
         if (!p) continue
         p.age += dt
@@ -94,7 +93,7 @@ export default function Embers() {
         }
         const progress = p.age / p.ttl
         const glow = p.radius * 5
-        context.globalAlpha = Math.sin(progress * Math.PI) * 0.7
+        context.globalAlpha = Math.sin(progress * Math.PI) * 0.55
         context.drawImage(sprite, p.x - glow, p.y - glow, glow * 2, glow * 2)
       }
       context.globalAlpha = 1

@@ -35,7 +35,7 @@ export default function LanguageSwitcher({ current, label }: LanguageSwitcherPro
             onClick={() => rememberLocale(locale)}
             className={`flex items-center gap-1 rounded-lg border px-2 py-1 font-mono text-[11px] transition-colors ${
               active
-                ? 'border-gold bg-gold/10 text-gold2'
+                ? 'border-accent bg-accent/10 text-accent'
                 : 'border-transparent text-text2 hover:border-line2 hover:text-text'
             }`}
           >

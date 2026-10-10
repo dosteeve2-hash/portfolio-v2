@@ -80,6 +80,17 @@ export default function Intro({ locale, dict }: IntroProps) {
   })
 
   const skip = useCallback(() => stopRef.current(), [])
+  // Le geste qui vient de déclencher la voix ne doit pas, par son clic, passer aussi l'intro.
+  const skipFromBackdrop = useCallback(() => {
+    if (!voice.justStartedByGesture()) stopRef.current()
+  }, [voice])
+  // Aube : une lueur chaude qui traverse la nuit pendant que la scène se dissout dans la page claire.
+  const dawn = useTransform(t, (v) => {
+    const rise = Math.min(1, Math.max(0, (v - (schedule.flyStart - 0.1)) / 0.35))
+    const fall = Math.min(1, Math.max(0, (v - (schedule.flyStart + 0.3)) / (schedule.flyEnd - schedule.flyStart - 0.3)))
+    return rise * rise * (3 - 2 * rise) * (1 - fall * fall * (3 - 2 * fall))
+  })
+  const skipOpacity = useTransform(dawn, (d) => 1 - Math.min(1, d * 2))
 
   useEffect(() => {
     if (getIntroPhase() === 'done') return undefined
@@ -255,13 +266,23 @@ export default function Intro({ locale, dict }: IntroProps) {
       {visible ? (
         <motion.div
           key="intro"
-          className="intro-root fixed inset-0 z-50 overflow-hidden"
+          className="intro-root theme-night fixed inset-0 z-50 overflow-hidden"
           style={{ pointerEvents: interactive ? 'auto' : 'none', cursor: interactive ? 'pointer' : 'default' }}
-          onClick={skip}
+          onClick={skipFromBackdrop}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
         >
           <motion.div aria-hidden="true" className="absolute inset-0 bg-bg" style={{ opacity: backdrop }} />
+
+          <motion.div
+            aria-hidden="true"
+            className="absolute inset-0"
+            style={{
+              opacity: dawn,
+              background:
+                'radial-gradient(ellipse 90% 80% at 50% 46%, #fffaf0 0%, #fbfaf7 55%, #f1f4fa 100%)',
+            }}
+          />
 
           <motion.div aria-hidden="true" className="absolute inset-0" style={{ opacity: grid }}>
             <div className="intro-grid absolute inset-0" />
@@ -289,8 +310,9 @@ export default function Intro({ locale, dict }: IntroProps) {
             </div>
           ) : null}
 
-          <button
+          <motion.button
             type="button"
+            style={{ opacity: skipOpacity }}
             onClick={(event) => {
               event.stopPropagation()
               skip()
@@ -298,7 +320,7 @@ export default function Intro({ locale, dict }: IntroProps) {
             className="absolute bottom-5 right-4 z-10 rounded-lg border border-line2 bg-bg/60 px-3 py-1.5 font-mono text-[11px] text-text2 transition-colors hover:border-gold hover:text-gold2 sm:right-6"
           >
             {dict.intro.skip} · Esc
-          </button>
+          </motion.button>
         </motion.div>
       ) : null}
     </AnimatePresence>

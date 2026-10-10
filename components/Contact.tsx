@@ -19,13 +19,13 @@ export default function Contact({ locale, dict }: { readonly locale: Locale; rea
   if (SITE.linkedinUrl) {
     channels.push({
       label: dict.contact.linkedin,
-      value: SITE.linkedinUrl.replace(/^https?:\/\/(www\.)?/, ''),
+      value: decodeURIComponent(SITE.linkedinUrl.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '')),
       href: SITE.linkedinUrl,
     })
   }
 
   return (
-    <Section id="contact" index={8} label={dict.nav.contact} title={dict.contact.title} intro={dict.contact.text}>
+    <Section id="contact" index={8} tone="navy" label={dict.nav.contact} title={dict.contact.title} intro={dict.contact.text}>
       <Reveal>
         <ul className="grid gap-4 md:grid-cols-3">
           {channels.map((channel) => (
@@ -39,7 +39,7 @@ export default function Contact({ locale, dict }: { readonly locale: Locale; rea
                 <span className="block font-mono text-[11px] uppercase tracking-[0.18em] text-text2">
                   {channel.label}
                 </span>
-                <span className="mt-2 block break-all font-display text-lg italic text-gold2">{channel.value}</span>
+                <span className="mt-2 block break-all font-display text-lg italic text-accent">{channel.value}</span>
               </a>
             </li>
           ))}

@@ -86,7 +86,7 @@ export default function TypedLine({ lead, labels, start, reduceMotion }: TypedLi
 
   return (
     <>
-      <p ref={rootRef} className="font-display text-2xl italic text-gold2 sm:text-3xl">
+      <p ref={rootRef} className="font-display text-2xl italic text-accent sm:text-3xl">
         <span className="sr-only">{lead}</span>
         <span aria-hidden="true" className="relative inline-block">
           <span className="invisible">{lead}</span>
@@ -96,7 +96,7 @@ export default function TypedLine({ lead, labels, start, reduceMotion }: TypedLi
           </span>
         </span>
       </p>
-      <p className="mt-3 font-mono text-sm tracking-wide text-cyan">
+      <p className="mt-3 font-mono text-sm tracking-wide text-text2">
         <span className="sr-only">{labels.join(' · ')}</span>
         <span aria-hidden="true" className="relative inline-block">
           <span className="invisible">{longest}</span>

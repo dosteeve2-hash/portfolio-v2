@@ -17,8 +17,8 @@ const base =
   'inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3 font-medium text-sm tracking-wide transition-colors'
 
 const variants = {
-  primary: 'bg-gold text-bg hover:bg-gold2',
-  ghost: 'border border-line2 bg-bg2/60 text-text hover:border-gold hover:text-gold2',
+  primary: 'btn-sheen bg-accent text-on-accent shadow-[0_8px_20px_-10px_rgba(29,78,216,0.7)] hover:bg-accent-hover',
+  ghost: 'border border-line2 bg-bg3 text-text shadow-soft hover:border-accent hover:text-accent',
 } as const
 
 export default function Cta({ href, variant = 'primary', external = false, children }: CtaProps) {

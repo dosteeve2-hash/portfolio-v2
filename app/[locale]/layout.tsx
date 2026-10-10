@@ -41,7 +41,7 @@ export function generateStaticParams() {
 }
 
 export const viewport: Viewport = {
-  themeColor: '#070e1f',
+  themeColor: '#fbfaf7',
   width: 'device-width',
   initialScale: 1,
 }
@@ -64,7 +64,7 @@ export default async function LocaleLayout({
   const { locale } = await params
   if (!isLocale(locale)) notFound()
   const { intro } = getDictionary(locale)
-  const voiceLabels = { listen: intro.listen, mute: intro.mute, unmute: intro.unmute }
+  const voiceLabels = { mute: intro.mute, unmute: intro.unmute }
 
   return (
     <html

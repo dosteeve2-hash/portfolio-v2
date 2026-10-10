@@ -25,7 +25,6 @@ export const fr: Dictionary = {
   badge: 'Ouvert aux stages · Été 2027',
   intro: {
     skip: "Passer l'introduction",
-    listen: 'Écouter',
     mute: 'Couper la voix',
     unmute: 'Remettre la voix',
     frameName: 'Cadre — Donald',
@@ -55,10 +54,17 @@ export const fr: Dictionary = {
   },
   projects: {
     title: 'Projets',
-    intro: 'Quatre réalisations, dont une preuve de ma façon de travailler avec des agents IA.',
-    visit: 'Voir le projet',
+    intro: "Neuf réalisations : un banc d'agents IA, des applications en ligne et l'écosystème FORGE Afrika qui les relie.",
+    visit: 'Voir en ligne',
     featured: 'Preuve phare',
     noPublicLink: 'Démonstration sur demande',
+    statuses: {
+      running: 'En fonctionnement',
+      live: 'En ligne',
+      dev: 'En développement',
+      proto: 'Prototype',
+      hub: 'Écosystème',
+    },
   },
   architecture: {
     title: "Architecture de l'orchestrateur",
@@ -81,12 +87,21 @@ export const fr: Dictionary = {
   },
   certifications: {
     title: 'Certifications',
-    intro: 'Chaque certification sera accompagnée de son lien de vérification.',
-    emptyTitle: 'Mise à jour en cours',
-    emptyText:
-      "Les certifications apparaîtront ici dès qu'elles auront été vérifiées. Rien n'est affiché avant.",
-    verify: 'Vérifier',
-    viewPdf: 'Voir le PDF',
+    intro:
+      "Treize certifications LinkedIn Learning et une attestation universitaire, chacune avec son PDF d'origine.",
+    statCount: 'certifications',
+    statHours: 'heures de formation',
+    groups: {
+      ai: 'IA et agents',
+      web: 'Web, JavaScript et TypeScript',
+      design: 'Design',
+      university: 'Formations universitaires',
+    },
+    verify: 'Vérifier sur LinkedIn',
+    viewPdf: 'Voir le certificat',
+    idLabel: 'Identifiant',
+    hourUnit: 'h',
+    minuteUnit: 'min',
   },
   journey: {
     title: 'Parcours',
@@ -104,7 +119,7 @@ export const fr: Dictionary = {
       {
         period: 'Projets',
         title: 'Applications en ligne',
-        text: 'UEEMT-Tokat, CompTrack et AURA Pro sont déployés et accessibles depuis la section Projets.',
+        text: 'UEEMT-Tokat, CompTrack, MIFA Life Shop et ValueChain Connect sont en ligne, accessibles depuis la section Projets.',
       },
       {
         period: 'Récemment',

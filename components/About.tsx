@@ -14,12 +14,12 @@ export default function About({ locale, dict }: { readonly locale: Locale; reado
           </Reveal>
         ))}
         <Reveal delay={0.3}>
-          <p className="pt-2 font-mono text-xs uppercase tracking-[0.18em] text-gold">{dict.about.languagesTitle}</p>
+          <p className="pt-2 font-mono text-xs uppercase tracking-[0.18em] text-accent">{dict.about.languagesTitle}</p>
           <ul className="mt-3 flex flex-wrap gap-2 text-base">
             {spokenLanguages.map((language) => (
-              <li key={language.name.en} className="rounded-full border border-line2 bg-bg3 px-3 py-1">
+              <li key={language.name.en} className="rounded-full border border-line bg-bg3 px-3 py-1 shadow-soft">
                 <span className="text-text">{language.name[locale]}</span>
-                <span className="text-text3"> · {language.level[locale]}</span>
+                <span className="text-text2"> · {language.level[locale]}</span>
               </li>
             ))}
           </ul>

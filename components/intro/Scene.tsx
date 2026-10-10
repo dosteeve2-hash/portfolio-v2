@@ -23,6 +23,14 @@ function span(v: number, from: number, to: number, ease: (x: number) => number =
 
 const mix = (a: number, b: number, p: number) => a + (b - a) * p
 
+/** Le nom passe de la crème de la nuit à l'encre du jour pendant son vol vers l'accueil clair. */
+const NAME_NIGHT = [245, 240, 232] as const
+const NAME_DAY = [11, 21, 48] as const
+const nameColorAt = (q: number): string => {
+  const channel = (i: 0 | 1 | 2) => Math.round(mix(NAME_NIGHT[i], NAME_DAY[i], q))
+  return `rgb(${channel(0)}, ${channel(1)}, ${channel(2)})`
+}
+
 export interface FrameSize {
   readonly w: number
   readonly h: number
@@ -320,6 +328,7 @@ function NameBlock({ t, s, size, nameRef, lineRef, flight }: Omit<SceneProps, 'l
   const nameX = useTransform(fly, (p) => p * flight.current.nameX)
   const nameY = useTransform(fly, (p) => p * flight.current.nameY)
   const nameScale = useTransform(fly, (p) => mix(1, flight.current.nameScale, p))
+  const nameColor = useTransform(t, (v) => nameColorAt(span(v, s.flyStart - 0.02, s.flyStart + 0.3, easeInOut)))
   const lineX = useTransform(fly, (p) => p * flight.current.lineX)
   const lineY = useTransform(fly, (p) => p * flight.current.lineY)
   const lineScaleX = useTransform([fly, underline], ([p, u]) => mix(1, flight.current.lineScaleX, Number(p)) * Number(u))
@@ -337,7 +346,7 @@ function NameBlock({ t, s, size, nameRef, lineRef, flight }: Omit<SceneProps, 'l
       <motion.div className="relative mt-1" style={{ x: nameX, y: nameY, scale: nameScale, opacity: landedFade }}>
         <motion.span
           className="relative block font-display font-black italic leading-[1.05] text-text"
-          style={{ fontSize: nameSize, clipPath }}
+          style={{ fontSize: nameSize, clipPath, color: nameColor }}
         >
           <span ref={nameRef}>{INTRO_NAME}</span>
         </motion.span>
