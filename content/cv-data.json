@@ -3,115 +3,133 @@
   "location": "Tokat, Türkiye",
   "email": "dosteeve2@gmail.com",
   "linkedin": "https://www.linkedin.com/in/steeve-donald-compaor%C3%A9-65ba13296/",
-  "linkedinLabel": "linkedin.com/in/steeve-donald-compaoré-65ba13296",
+  "linkedinLabel": "linkedin.com/in/steeve-donald-compaoré",
   "github": "https://github.com/dosteeve2-hash",
   "githubLabel": "github.com/dosteeve2-hash",
+  "portfolio": "https://portfolio-v2-eight-eta.vercel.app",
+  "portfolioLabel": "portfolio-v2-eight-eta.vercel.app",
+  "tools": ["Next.js", "TypeScript", "Tailwind CSS", "PostgreSQL (Neon, Supabase)", "Vercel", "Git/GitHub"],
+  "certificationGroups": [
+    { "id": "ai", "items": [
+      { "title": "Designing Agentic AI Products (No Code Required)", "date": "2026-10-03" },
+      { "title": "Advanced Prompting with GitHub Copilot", "date": "2026-09-27" },
+      { "title": "AI Pair Programming with GitHub Copilot", "date": "2026-09-27" },
+      { "title": "Agentic AI Human-Agent Collaboration Design Patterns", "date": "2026-09-25" },
+      { "title": "Build with AI: Voice Generation with Microsoft's MAI-Voice-1 and Copilot Labs", "date": "2026-09-24" },
+      { "title": "Everyday Productivity with Claude Cowork", "date": "2026-09-24" }
+    ] },
+    { "id": "web", "items": [
+      { "title": "Building Website Interactivity with JavaScript", "date": "2026-09-25" },
+      { "title": "HTML, CSS, and JavaScript: Building the Web", "date": "2026-09-24" },
+      { "title": "Learning JavaScript Debugging", "date": "2026-09-24" },
+      { "title": "Level Up: JavaScript", "date": "2026-09-24" },
+      { "title": "Hands-On Introduction: JavaScript", "date": "2026-09-24" },
+      { "title": "TypeScript for JavaScript Developers", "date": "2026-09-23" }
+    ] },
+    { "id": "design", "items": [
+      { "title": "Graphic Design Foundations: Layout and Composition", "date": "2026-09-24" }
+    ] }
+  ],
   "locales": {
     "fr": {
-      "title": "Étudiant en génie informatique — Recherche de stage été 2027",
+      "title": "Étudiant en génie informatique · Stage d'été 2027",
       "headings": {
-        "profile": "Profil",
-        "skills": "Compétences",
-        "projects": "Projets",
-        "education": "Formation",
-        "languages": "Langues",
-        "experience": "Expériences"
+        "profile": "Profil", "skills": "Compétences", "tools": "Outils utilisés", "projects": "Projets",
+        "education": "Formation", "languages": "Langues", "experience": "Expériences", "certifications": "Certifications"
       },
-      "profile": "Étudiant en génie informatique à l'Université Gaziosmanpaşa (Tokat). Je construis des applications web complètes et j'y intègre l'IA ; je cherche un stage d'été 2027 en intelligence artificielle, ingénierie ou gestion de projet.",
+      "profile": "Étudiant en génie informatique à l'Université Gaziosmanpaşa de Tokat. Je construis des applications web complètes et j'y intègre l'intelligence artificielle. Je recherche un stage d'été 2027, de juillet à septembre/octobre, à Istanbul ou à Tokat.",
       "skills": [
         "Intelligence artificielle : très bien (1 à 3 ans)",
-        "C# : bien (moins d'un an) · Java : moyen (1 à 3 ans) · Python : moyen (moins d'un an) · JavaScript : moyen (moins d'un an)",
-        "Outils utilisés : Next.js, TypeScript, Tailwind CSS, PostgreSQL (Neon, Supabase), Vercel, Git/GitHub"
+        "C# : bien",
+        "Java : moyen",
+        "Python : moyen",
+        "JavaScript : moyen"
       ],
-      "projects": [
-        { "name": "Banc d'orchestration IA", "text": "Un manager délègue le travail à plusieurs agents (Copilot, Gemini, Codex, Ollama), route chaque tâche, bascule en cas de quota et tient un journal de délégation." },
-        { "name": "UEEMT-Tokat", "text": "Plateforme en ligne d'une association étudiante (Next.js, Supabase, Framer Motion) : ueemt-tokat.vercel.app" },
-        { "name": "CompTrack", "text": "Application de comptabilité pour PME conforme au référentiel SYSCOHADA (Next.js, TypeScript) : comptrack-chi.vercel.app" },
-        { "name": "AURA Pro", "text": "Vitrine produit pour présenter des téléphones (Next.js, TypeScript, Tailwind CSS) : phone-showcase-nu.vercel.app" }
+      "projectsList": [
+        { "name": "Banc d'orchestration IA", "text": "Un manager délègue le travail à plusieurs agents (Copilot, Gemini, Codex, Ollama), route chaque tâche, bascule en cas de quota et garde un journal de délégation. Utilisé au quotidien." },
+        { "name": "COMBINE", "text": "Plateforme reliant porteurs de projets africains, incubateurs et financeurs : dossier vérifiable, appels à candidatures (prototype)." },
+        { "name": "CompTrack", "text": "Comptabilité pour PME conforme au référentiel SYSCOHADA : tableau de bord, facturation, rapports. comptrack-chi.vercel.app" },
+        { "name": "UEEMT-Tokat", "text": "Plateforme d'une association étudiante : actualités, albums photos, annuaire des membres, notifications push. ueemt-tokat.vercel.app" },
+        { "name": "SUGU", "text": "Gestion du petit commerce (produits, ventes, stock, clients) en quatre langues, utilisable hors connexion (en développement)." }
       ],
-      "education": [
-        { "period": "2023 – aujourd'hui", "text": "Licence en génie informatique, Université Gaziosmanpaşa, Tokat (Türkiye)" },
-        { "period": "2022 – 2023", "text": "Études supérieures courtes (associate)" },
-        { "period": "2020 – 2022", "text": "Lycée" }
-      ],
-      "languages": "Français (très bien) · Anglais (bien) · Turc (bien) · Mooré (bien) · Bambara (bien)",
+      "education": "Génie informatique (Bilgisayar Bilimleri Mühendisliği), Université Gaziosmanpaşa, Tokat (Türkiye)",
+      "languages": ["Français : très bien", "Anglais : bien", "Turc : bien", "Mooré : bien", "Bambara : bien"],
       "experience": [
         { "period": "Depuis 05/2025", "text": "Création de contenu YouTube et gestion de chaîne (temps plein)" },
         { "period": "Depuis 10/2025", "text": "Vendeur, Kadifer Komisyon (temps partiel)" },
         { "period": "06/2024 – 07/2025", "text": "Community manager, The Internet Engineer (temps partiel)" },
         { "period": "Depuis 09/2023", "text": "Assistant de service restauration, Rai Premium Hotel & Spa, Antalya" }
-      ]
+      ],
+      "certGroupLabels": { "ai": "IA et agents", "web": "Web et JavaScript", "design": "Design" },
+      "certNote": "13 certificats LinkedIn Learning · Vérifiables sur LinkedIn",
+      "dateFormat": "dmy"
     },
     "en": {
-      "title": "Computer Science Engineering student — Seeking a summer 2027 internship",
+      "title": "Computer Engineering student · Summer 2027 internship",
       "headings": {
-        "profile": "Profile",
-        "skills": "Skills",
-        "projects": "Projects",
-        "education": "Education",
-        "languages": "Languages",
-        "experience": "Experience"
+        "profile": "Profile", "skills": "Skills", "tools": "Tools I use", "projects": "Projects",
+        "education": "Education", "languages": "Languages", "experience": "Experience", "certifications": "Certifications"
       },
-      "profile": "Computer science engineering student at Gaziosmanpaşa University (Tokat). I build complete web applications and integrate AI into them; I am looking for a summer 2027 internship in artificial intelligence, engineering or project management.",
+      "profile": "Computer engineering student at Gaziosmanpaşa University in Tokat. I build complete web applications and bring artificial intelligence into them. I am looking for a summer 2027 internship, from July to September/October, in Istanbul or Tokat.",
       "skills": [
         "Artificial intelligence: very good (1 to 3 years)",
-        "C#: good (under a year) · Java: average (1 to 3 years) · Python: average (under a year) · JavaScript: average (under a year)",
-        "Tools I use: Next.js, TypeScript, Tailwind CSS, PostgreSQL (Neon, Supabase), Vercel, Git/GitHub"
+        "C#: good",
+        "Java: intermediate",
+        "Python: intermediate",
+        "JavaScript: intermediate"
       ],
-      "projects": [
-        { "name": "AI orchestration bench", "text": "A manager delegates work to several agents (Copilot, Gemini, Codex, Ollama), routes each task, falls back when a quota is hit and keeps a delegation log." },
-        { "name": "UEEMT-Tokat", "text": "Online platform for a student association (Next.js, Supabase, Framer Motion): ueemt-tokat.vercel.app" },
-        { "name": "CompTrack", "text": "Accounting application for small businesses following the SYSCOHADA framework (Next.js, TypeScript): comptrack-chi.vercel.app" },
-        { "name": "AURA Pro", "text": "Product showcase for presenting phones (Next.js, TypeScript, Tailwind CSS): phone-showcase-nu.vercel.app" }
+      "projectsList": [
+        { "name": "AI orchestration bench", "text": "A manager hands work to several agents (Copilot, Gemini, Codex, Ollama), routes each task, falls back when a quota runs out and keeps a delegation log. In daily use." },
+        { "name": "COMBINE", "text": "A platform linking African project founders, incubators and funders: verifiable project file, calls for applications (prototype)." },
+        { "name": "CompTrack", "text": "Small-business accounting following the SYSCOHADA framework: dashboard, invoicing, reports. comptrack-chi.vercel.app" },
+        { "name": "UEEMT-Tokat", "text": "Online platform of a student association: news, photo albums, member directory, push notifications. ueemt-tokat.vercel.app" },
+        { "name": "SUGU", "text": "Small-trade management (products, sales, stock, customers) in four languages, usable offline (in development)." }
       ],
-      "education": [
-        { "period": "2023 – present", "text": "BSc in Computer Science Engineering, Gaziosmanpaşa University, Tokat (Türkiye)" },
-        { "period": "2022 – 2023", "text": "Short-cycle higher education (associate)" },
-        { "period": "2020 – 2022", "text": "High school" }
-      ],
-      "languages": "French (very good) · English (good) · Turkish (good) · Mooré (good) · Bambara (good)",
+      "education": "Computer Engineering (Bilgisayar Bilimleri Mühendisliği), Gaziosmanpaşa University, Tokat (Türkiye)",
+      "languages": ["French: very good", "English: good", "Turkish: good", "Mooré: good", "Bambara: good"],
       "experience": [
         { "period": "Since 05/2025", "text": "YouTube content creation and channel management (full time)" },
         { "period": "Since 10/2025", "text": "Sales assistant, Kadifer Komisyon (part time)" },
         { "period": "06/2024 – 07/2025", "text": "Community manager, The Internet Engineer (part time)" },
         { "period": "Since 09/2023", "text": "Food service assistant, Rai Premium Hotel & Spa, Antalya" }
-      ]
+      ],
+      "certGroupLabels": { "ai": "AI and agents", "web": "Web and JavaScript", "design": "Design" },
+      "certNote": "13 LinkedIn Learning certificates · Verifiable on LinkedIn",
+      "dateFormat": "iso"
     },
     "tr": {
-      "_todo": "// relecture native à faire",
-      "title": "Bilgisayar Mühendisliği öğrencisi — 2027 yaz stajı arıyor",
+      "_todo": "relecture native à faire (version turque)",
+      "title": "Bilgisayar Bilimleri Mühendisliği öğrencisi · 2027 yaz stajı",
       "headings": {
-        "profile": "Profil",
-        "skills": "Yetenekler",
-        "projects": "Projeler",
-        "education": "Eğitim",
-        "languages": "Diller",
-        "experience": "Deneyim"
+        "profile": "Profil", "skills": "Yetenekler", "tools": "Kullandığım araçlar", "projects": "Projeler",
+        "education": "Eğitim", "languages": "Diller", "experience": "Deneyim", "certifications": "Sertifikalar"
       },
-      "profile": "Gaziosmanpaşa Üniversitesi'nde (Tokat) Bilgisayar Bilimleri Mühendisliği öğrencisiyim. Eksiksiz web uygulamaları geliştirip yapay zekâyı bunlara entegre ediyorum; yapay zekâ, mühendislik veya proje yönetimi alanında 2027 yaz stajı arıyorum.",
+      "profile": "Tokat Gaziosmanpaşa Üniversitesi'nde Bilgisayar Bilimleri Mühendisliği öğrencisiyim. Eksiksiz web uygulamaları geliştiriyor ve yapay zekâyı bunlara dâhil ediyorum. Temmuz'dan Eylül/Ekim'e kadar sürecek 2027 yaz stajı için İstanbul'da veya Tokat'ta staj arıyorum.",
       "skills": [
         "Yapay zekâ: çok iyi (1-3 yıl)",
-        "C#: iyi (1 yıldan az) · Java: orta (1-3 yıl) · Python: orta (1 yıldan az) · JavaScript: orta (1 yıldan az)",
-        "Kullandığım araçlar: Next.js, TypeScript, Tailwind CSS, PostgreSQL (Neon, Supabase), Vercel, Git/GitHub"
+        "C#: iyi",
+        "Java: orta",
+        "Python: orta",
+        "JavaScript: orta"
       ],
-      "projects": [
-        { "name": "Yapay zekâ orkestrasyon test tezgâhı", "text": "Bir yönetici, işi birden fazla ajana (Copilot, Gemini, Codex, Ollama) devreder, her görevi yönlendirir, kota dolunca yedeğe geçer ve devir günlüğü tutar." },
-        { "name": "UEEMT-Tokat", "text": "Bir öğrenci derneği için çevrimiçi platform (Next.js, Supabase, Framer Motion): ueemt-tokat.vercel.app" },
-        { "name": "CompTrack", "text": "KOBİ'ler için SYSCOHADA standardına uygun muhasebe uygulaması (Next.js, TypeScript): comptrack-chi.vercel.app" },
-        { "name": "AURA Pro", "text": "Telefonları tanıtmak için ürün vitrini (Next.js, TypeScript, Tailwind CSS): phone-showcase-nu.vercel.app" }
+      "projectsList": [
+        { "name": "Yapay zekâ orkestrasyon tezgâhı", "text": "Bir yönetici, işi birden fazla ajana (Copilot, Gemini, Codex, Ollama) dağıtır, her görevi yönlendirir, kota dolunca yedeğe geçer ve devir günlüğü tutar. Günlük kullanımda." },
+        { "name": "COMBINE", "text": "Afrikalı proje sahiplerini, kuluçka merkezlerini ve finansörleri buluşturan platform: doğrulanabilir proje dosyası, başvuru çağrıları (prototip)." },
+        { "name": "CompTrack", "text": "KOBİ'ler için SYSCOHADA standardına uygun muhasebe: gösterge paneli, faturalama, raporlar. comptrack-chi.vercel.app" },
+        { "name": "UEEMT-Tokat", "text": "Bir öğrenci derneğinin çevrimiçi platformu: haberler, fotoğraf albümleri, üye rehberi, anlık bildirimler. ueemt-tokat.vercel.app" },
+        { "name": "SUGU", "text": "Küçük ticaret yönetimi (ürünler, satışlar, stok, müşteriler), dört dilde, çevrimdışı kullanılabilir (geliştirme aşamasında)." }
       ],
-      "education": [
-        { "period": "2023 – günümüz", "text": "Bilgisayar Bilimleri Mühendisliği lisansı, Gaziosmanpaşa Üniversitesi, Tokat (Türkiye)" },
-        { "period": "2022 – 2023", "text": "Ön lisans" },
-        { "period": "2020 – 2022", "text": "Lise" }
-      ],
-      "languages": "Fransızca (çok iyi) · İngilizce (iyi) · Türkçe (iyi) · Mooré (iyi) · Bambara (iyi)",
+      "education": "Bilgisayar Bilimleri Mühendisliği, Tokat Gaziosmanpaşa Üniversitesi (Türkiye)",
+      "languages": ["Fransızca: çok iyi", "İngilizce: iyi", "Türkçe: iyi", "Mooré: iyi", "Bambara: iyi"],
       "experience": [
         { "period": "05/2025'ten beri", "text": "YouTube içerik üretimi ve kanal yönetimi (tam zamanlı)" },
         { "period": "10/2025'ten beri", "text": "Satış elemanı, Kadifer Komisyon (yarı zamanlı)" },
         { "period": "06/2024 – 07/2025", "text": "Sosyal medya yöneticisi, The Internet Engineer (yarı zamanlı)" },
         { "period": "09/2023'ten beri", "text": "Yiyecek-içecek servis asistanı, Rai Premium Hotel & Spa, Antalya" }
-      ]
+      ],
+      "certGroupLabels": { "ai": "Yapay zekâ", "web": "Web ve JavaScript", "design": "Tasarım" },
+      "certNote": "13 LinkedIn Learning sertifikası · LinkedIn'de doğrulanabilir",
+      "dateFormat": "dmy"
     }
   }
 }

@@ -187,7 +187,7 @@ export const intents: readonly Intent[] = [
       en: ['education', 'study', 'studies', 'university', 'degree', 'school', 'student', 'where do you study', 'background'],
       tr: ['egitim', 'universite', 'okul', 'bolum', 'okuyorsun', 'ogrenci', 'lisans', 'nerede okuyorsun'],
     },
-    reply: (locale) => lines(...cv.locales[locale].education.map((entry) => `• ${entry.period} : ${entry.text}`)),
+    reply: (locale) => lines(`• ${cv.locales[locale].education}`),
     actions: [{ kind: 'scroll', section: 'journey' }],
   },
   {
