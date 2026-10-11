@@ -1,5 +1,7 @@
+import type { ReactNode } from 'react'
 import type { Locale } from '@/content/locales'
 import type { Project } from '@/content/projects'
+import CombineMark from './reels/CombineMark'
 import OrchestratorMark from './reels/OrchestratorMark'
 import ReelPlayer from './reels/ReelPlayer'
 
@@ -83,12 +85,89 @@ function OrchestratorReel({ project, locale, index }: Omit<ProjectReelProps, 'la
 }
 
 /**
+ * Boucle animée d'un projet à symbole propre (COMBINE, CompTrack, UEEMT-Tokat) : même grammaire que le banc
+ * (symbole, nom et slogan, scène du projet), carte sombre ou claire selon la mise en page. Pause hors écran.
+ */
+function MarkReel({
+  project,
+  locale,
+  index,
+  large = false,
+  dark = false,
+  Mark,
+}: ProjectReelProps & { readonly Mark: (props: { readonly className?: string }) => ReactNode }) {
+  const angle = angles[index % angles.length] ?? 135
+  const gridColor = dark ? '#ffffff' : '#1d4ed8'
+  return (
+    <ReelPlayer
+      id={project.id}
+      className={`relative flex h-full flex-col justify-between gap-6 overflow-hidden p-6 md:p-8 ${
+        dark ? 'theme-navy bg-bg text-text' : 'text-text'
+      } ${large ? 'min-h-72 md:min-h-[22rem]' : 'min-h-56'}`}
+      style={{ backgroundImage: dark ? darkBackground(angle) : lightBackground(angle) }}
+    >
+      <span
+        className="pointer-events-none absolute inset-0 opacity-[0.06]"
+        style={{
+          backgroundImage: `linear-gradient(to right, ${gridColor} 1px, transparent 1px), linear-gradient(to bottom, ${gridColor} 1px, transparent 1px)`,
+          backgroundSize: '28px 28px',
+        }}
+      />
+      <span
+        className="pointer-events-none absolute -right-6 -top-6 h-56 w-56 rounded-full md:h-72 md:w-72"
+        style={{
+          backgroundImage: dark
+            ? 'radial-gradient(circle, rgba(96,150,255,0.30), transparent 66%)'
+            : 'radial-gradient(circle, rgba(29,78,216,0.12), transparent 66%)',
+        }}
+      />
+
+      <div className="relative flex items-start justify-between gap-4">
+        <p className="font-display text-xl font-black not-italic text-gold">{String(index + 1).padStart(2, '0')}</p>
+        <Mark
+          className={
+            large
+              ? '-mr-2 -mt-2 h-28 w-28 shrink-0 md:-mr-3 md:-mt-3 md:h-44 md:w-44'
+              : '-mr-1 -mt-1 h-24 w-24 shrink-0 md:h-28 md:w-28'
+          }
+        />
+      </div>
+
+      <div className="relative">
+        <div className="rl-text reel-anim">
+          <div className="-mb-[0.15em] overflow-hidden pb-[0.15em] pr-[0.2em]">
+            <p
+              className={`rl-name reel-anim font-display font-bold italic leading-tight ${
+                large ? 'text-4xl md:text-5xl' : 'text-3xl'
+              } ${dark ? '' : 'text-navy'}`}
+            >
+              {project.name[locale]}
+            </p>
+          </div>
+          <span className="rl-rule reel-anim mt-3 block h-[2px] w-14 rounded-full bg-gradient-to-r from-spark to-transparent" />
+          <p className="rl-tagline reel-anim mt-3 max-w-md text-sm leading-relaxed text-text2 md:text-base">
+            {project.tagline[locale]}
+          </p>
+        </div>
+        <StackChips stack={project.stack} dark={dark} />
+      </div>
+    </ReelPlayer>
+  )
+}
+
+const markReels: Readonly<Record<string, (props: { readonly className?: string }) => ReactNode>> = {
+  combine: CombineMark,
+}
+
+/**
  * Emplacement du visuel animé de chaque projet. Les projets qui ont leur boucle l'affichent ;
  * les autres gardent pour l'instant un visuel statique aux couleurs de la charte (nom, slogan, pile).
  * Décoratif : le texte accessible est porté par la carte (titre masqué, résumé, état).
  */
 export default function ProjectReel({ project, locale, index, large = false, dark = false }: ProjectReelProps) {
   if (project.id === 'orchestrator') return <OrchestratorReel project={project} locale={locale} index={index} />
+  const Mark = markReels[project.id]
+  if (Mark) return <MarkReel project={project} locale={locale} index={index} large={large} dark={dark} Mark={Mark} />
   const angle = angles[index % angles.length] ?? 135
   const gridColor = dark ? '#ffffff' : '#1d4ed8'
   return (
