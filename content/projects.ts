@@ -141,6 +141,7 @@ export const projects: readonly Project[] = [
     },
     stack: ['Next.js', 'TypeScript', 'Supabase', 'Better Auth', 'Tailwind CSS', 'Visx'],
     status: 'dev',
+    href: 'https://indubot-afrika.vercel.app',
   },
   {
     id: 'sugu',
@@ -156,7 +157,8 @@ export const projects: readonly Project[] = [
       tr: 'Kayıt dışı (enformel) ticaret için yönetim aracı: ürünler, satışlar, stok ve müşteriler; Fransızca, İngilizce, Jula ve Mooré dillerinde, çevrimdışı kullanılabilir.',
     },
     stack: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Recharts', 'Framer Motion'],
-    status: 'dev',
+    status: 'live',
+    href: 'https://duka-kappa.vercel.app',
   },
   {
     id: 'forge',
@@ -173,5 +175,6 @@ export const projects: readonly Project[] = [
     },
     stack: ['Next.js', 'TypeScript', 'Supabase', 'Tailwind CSS', 'Framer Motion', 'GSAP'],
     status: 'hub',
+    href: 'https://forge-afrika.vercel.app',
   },
 ]
