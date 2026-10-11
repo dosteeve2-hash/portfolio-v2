@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-labelledby="t">
+  <title id="t">CompTrack</title>
+  <rect width="64" height="64" rx="14" fill="#0b1f4d"/>
+  <g transform="translate(32 32) scale(0.8) translate(-32 -32)">
+    <rect x="10" y="36.4" width="20" height="9.6" rx="2" fill="#fbfaf7"/>
+    <rect x="10" y="24.8" width="20" height="9.6" rx="2" fill="#fbfaf7"/>
+    <rect x="10" y="13.2" width="20" height="9.6" rx="2" fill="#fbfaf7"/>
+    <rect x="34" y="25.2" width="20" height="20.8" rx="2" fill="#34d399"/>
+    <rect x="34" y="13.2" width="20" height="10" rx="2" fill="#34d399"/>
+    <line x1="6" y1="50.5" x2="58" y2="50.5" stroke="#f0a832" stroke-width="2.4" stroke-linecap="round"/>
+    <line x1="6" y1="55" x2="58" y2="55" stroke="#f0a832" stroke-width="2.4" stroke-linecap="round"/>
+  </g>
+</svg>

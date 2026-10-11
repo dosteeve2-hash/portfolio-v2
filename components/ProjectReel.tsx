@@ -2,6 +2,7 @@ import type { ReactNode } from 'react'
 import type { Locale } from '@/content/locales'
 import type { Project } from '@/content/projects'
 import CombineMark from './reels/CombineMark'
+import ComptrackMark from './reels/ComptrackMark'
 import OrchestratorMark from './reels/OrchestratorMark'
 import ReelPlayer from './reels/ReelPlayer'
 
@@ -157,6 +158,7 @@ function MarkReel({
 
 const markReels: Readonly<Record<string, (props: { readonly className?: string }) => ReactNode>> = {
   combine: CombineMark,
+  comptrack: ComptrackMark,
 }
 
 /**
