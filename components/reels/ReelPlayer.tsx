@@ -9,14 +9,56 @@ interface ReelPlayerProps {
   readonly id: string
 }
 
-// Un seul observateur pour toutes les boucles : la boucle (animations CSS) ne tourne que si la carte
-// est à l'écran ET l'onglet visible. Hors de ces cas, `data-playing` est retiré et l'animation est en pause.
+/**
+ * Un seul coordinateur pour toutes les boucles. Chaque carte est dans l'un de trois états (`data-reel-state`) :
+ * - `play` : la boucle tourne (au plus DEUX cartes, les plus proches du centre de l'écran, visibles) ;
+ * - `pause` : la boucle est figée sur son image courante (défilement en cours, onglet masqué) ;
+ * - `still` : image fixe composée (le logo final), sans aucune animation.
+ * Pendant un défilement, les cartes `play` passent en `pause` ; l'état est recalculé 150 ms après l'arrêt.
+ */
+const MAX_PLAYING = 2
+const RESUME_DELAY_MS = 150
+
+const registered = new Set<Element>()
 const onScreen = new Set<Element>()
 let sharedObserver: IntersectionObserver | null = null
+let scrolling = false
+let resumeTimer: number | undefined
 
-function sync(node: Element): void {
-  if (onScreen.has(node) && document.visibilityState === 'visible') node.setAttribute('data-playing', '')
-  else node.removeAttribute('data-playing')
+function setState(node: Element, state: 'play' | 'pause' | 'still'): void {
+  if (node.getAttribute('data-reel-state') !== state) node.setAttribute('data-reel-state', state)
+}
+
+function distanceToCenter(node: Element): number {
+  const rect = node.getBoundingClientRect()
+  return Math.abs(rect.top + rect.height / 2 - window.innerHeight / 2)
+}
+
+function settle(): void {
+  if (document.visibilityState !== 'visible') {
+    for (const node of registered) if (node.getAttribute('data-reel-state') === 'play') setState(node, 'pause')
+    return
+  }
+  const winners = new Set(
+    [...onScreen]
+      .map((node) => ({ node, d: distanceToCenter(node) }))
+      .sort((a, b) => a.d - b.d)
+      .slice(0, MAX_PLAYING)
+      .map((entry) => entry.node),
+  )
+  for (const node of registered) setState(node, winners.has(node) ? 'play' : 'still')
+}
+
+function onScroll(): void {
+  if (!scrolling) {
+    scrolling = true
+    for (const node of registered) if (node.getAttribute('data-reel-state') === 'play') setState(node, 'pause')
+  }
+  window.clearTimeout(resumeTimer)
+  resumeTimer = window.setTimeout(() => {
+    scrolling = false
+    settle()
+  }, RESUME_DELAY_MS)
 }
 
 function reelObserver(): IntersectionObserver {
@@ -26,14 +68,13 @@ function reelObserver(): IntersectionObserver {
       for (const entry of entries) {
         if (entry.isIntersecting) onScreen.add(entry.target)
         else onScreen.delete(entry.target)
-        sync(entry.target)
       }
+      if (!scrolling) settle()
     },
     { threshold: 0.15 },
   )
-  document.addEventListener('visibilitychange', () => {
-    for (const node of onScreen) sync(node)
-  })
+  document.addEventListener('visibilitychange', settle)
+  window.addEventListener('scroll', onScroll, { passive: true })
   return sharedObserver
 }
 
@@ -44,9 +85,11 @@ export default function ReelPlayer({ children, className, style, id }: ReelPlaye
     const node = ref.current
     if (!node) return undefined
     const observer = reelObserver()
+    registered.add(node)
     observer.observe(node)
     return () => {
       observer.unobserve(node)
+      registered.delete(node)
       onScreen.delete(node)
     }
   }, [])

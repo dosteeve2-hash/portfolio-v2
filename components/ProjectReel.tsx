@@ -3,6 +3,7 @@ import type { Locale } from '@/content/locales'
 import type { Project } from '@/content/projects'
 import CombineMark from './reels/CombineMark'
 import ComptrackMark from './reels/ComptrackMark'
+import MifaMark from './reels/MifaMark'
 import OrchestratorMark from './reels/OrchestratorMark'
 import ReelPlayer from './reels/ReelPlayer'
 import UeemtMark from './reels/UeemtMark'
@@ -161,6 +162,7 @@ const markReels: Readonly<Record<string, (props: { readonly className?: string }
   combine: CombineMark,
   comptrack: ComptrackMark,
   ueemt: UeemtMark,
+  mifa: MifaMark,
 }
 
 /**

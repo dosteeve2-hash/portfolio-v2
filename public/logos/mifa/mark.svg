@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-labelledby="t">
+  <title id="t">MIFA Life Shop</title>
+  <rect width="64" height="64" rx="14" fill="#0b1f4d"/>
+  <g transform="translate(32 32) scale(0.8) translate(-32 -32)">
+    <path d="M15 30C15 -3 49 -3 49 30" fill="none" stroke="#fbfaf7" stroke-width="2.4" stroke-linecap="round"/>
+    <circle cx="23" cy="26.5" r="5.2" fill="#f0a832"/>
+    <circle cx="32" cy="22.5" r="5.8" fill="#fbfaf7" fill-opacity="0.88"/>
+    <circle cx="41" cy="26.5" r="5.2" fill="#f0a832"/>
+    <g>
+      <path d="M11 30H53L47 54Q46.6 56 44.6 56H19.4Q17.4 56 17 54Z" fill="#f06fa4" stroke="#f06fa4" stroke-width="1.2" stroke-linejoin="round"/>
+      <rect x="9" y="28.2" width="46" height="4.6" rx="2.3" fill="#f06fa4"/>
+      <line x1="14.6" y1="38" x2="49.4" y2="38" stroke="#0b1f4d" stroke-opacity="0.7" stroke-width="1.3" stroke-linecap="round"/>
+      <line x1="16.6" y1="46" x2="47.4" y2="46" stroke="#0b1f4d" stroke-opacity="0.7" stroke-width="1.3" stroke-linecap="round"/>
+    </g>
+
+  </g>
+</svg>
