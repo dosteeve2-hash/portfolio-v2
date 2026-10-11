@@ -5,6 +5,7 @@ import CombineMark from './reels/CombineMark'
 import ComptrackMark from './reels/ComptrackMark'
 import OrchestratorMark from './reels/OrchestratorMark'
 import ReelPlayer from './reels/ReelPlayer'
+import UeemtMark from './reels/UeemtMark'
 
 interface ProjectReelProps {
   readonly project: Project
@@ -159,6 +160,7 @@ function MarkReel({
 const markReels: Readonly<Record<string, (props: { readonly className?: string }) => ReactNode>> = {
   combine: CombineMark,
   comptrack: ComptrackMark,
+  ueemt: UeemtMark,
 }
 
 /**

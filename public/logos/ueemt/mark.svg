@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-labelledby="t">
+  <title id="t">UEEMT-Tokat</title>
+  <rect width="64" height="64" rx="14" fill="#0b1f4d"/>
+  <g transform="translate(32 32) scale(0.8) translate(-32 -32)">
+    <line x1="52" y1="32" x2="46.14" y2="46.14" stroke="#fbfaf7" stroke-opacity="0.4" stroke-width="2.2" stroke-linecap="round"/>
+    <line x1="46.14" y1="46.14" x2="32" y2="52" stroke="#fbfaf7" stroke-opacity="0.4" stroke-width="2.2" stroke-linecap="round"/>
+    <line x1="32" y1="52" x2="17.86" y2="46.14" stroke="#fbfaf7" stroke-opacity="0.4" stroke-width="2.2" stroke-linecap="round"/>
+    <line x1="17.86" y1="46.14" x2="12" y2="32" stroke="#fbfaf7" stroke-opacity="0.4" stroke-width="2.2" stroke-linecap="round"/>
+    <line x1="12" y1="32" x2="17.86" y2="17.86" stroke="#fbfaf7" stroke-opacity="0.4" stroke-width="2.2" stroke-linecap="round"/>
+    <line x1="17.86" y1="17.86" x2="32" y2="12" stroke="#fbfaf7" stroke-opacity="0.4" stroke-width="2.2" stroke-linecap="round"/>
+    <line x1="32" y1="12" x2="46.14" y2="17.86" stroke="#fbfaf7" stroke-opacity="0.4" stroke-width="2.2" stroke-linecap="round"/>
+    <line x1="46.14" y1="17.86" x2="52" y2="32" stroke="#fbfaf7" stroke-opacity="0.4" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="32" cy="12" r="4.7" fill="#fbfaf7"/>
+    <circle cx="46.14" cy="17.86" r="5.5" fill="#f58a5b"/>
+    <circle cx="52" cy="32" r="4.2" fill="#fbfaf7"/>
+    <circle cx="46.14" cy="46.14" r="4.9" fill="#fbfaf7"/>
+    <circle cx="32" cy="52" r="4.4" fill="#fbfaf7"/>
+    <circle cx="17.86" cy="46.14" r="4.8" fill="#fbfaf7"/>
+    <circle cx="12" cy="32" r="4.2" fill="#fbfaf7"/>
+    <circle cx="17.86" cy="17.86" r="4.9" fill="#fbfaf7"/>
+  </g>
+</svg>
