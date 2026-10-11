@@ -19,7 +19,7 @@ export const SITE: SiteConfig = {
   email: 'dosteeve2@gmail.com',
   githubUser: 'dosteeve2-hash',
   linkedinUrl: 'https://www.linkedin.com/in/steeve-donald-compaor%C3%A9-65ba13296/',
-  cvAvailable: false,
+  cvAvailable: true,
 }
 
 export function githubUrl(): string {

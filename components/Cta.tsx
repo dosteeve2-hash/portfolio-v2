@@ -22,6 +22,13 @@ const variants = {
 } as const
 
 export default function Cta({ href, variant = 'primary', external = false, children }: CtaProps) {
+  if (href.endsWith('.pdf')) {
+    return (
+      <a href={href} download className={`${base} ${variants[variant]}`}>
+        {children}
+      </a>
+    )
+  }
   return (
     <MotionLink
       href={href}
