@@ -1156,6 +1156,62 @@ html[data-intro='seen'] .intro-root {
 }
 /* === fin valuechain === */
 
+/* === boucle indubot === */
+.ind-gear, .ind-core { transform-box: fill-box; transform-origin: 50% 50%; }
+.ind-a1, .ind-a2, .ind-a3 { transform-box: view-box; transform-origin: 26px 38px; }
+
+.ind-gear { animation-name: ind-gear; }
+.ind-core { animation-name: ind-core; }
+.ind-a1 { animation-name: ind-a1; }
+.ind-a2 { animation-name: ind-a2; }
+.ind-a3 { animation-name: ind-a3; }
+
+@keyframes ind-gear {
+  0%, 1.67% { opacity: 0; transform: rotate(-90deg) scale(0.4); animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1); }
+  16.67% { opacity: 1; transform: none; }
+  35.0% { opacity: 1; transform: none; animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1); }
+  58.33% { opacity: 1; transform: rotate(45deg); }
+  97.5% { opacity: 1; transform: rotate(45deg); }
+  97.6%, 100% { opacity: 0; transform: rotate(-90deg) scale(0.4) }
+}
+@keyframes ind-core {
+  0%, 11.67% { opacity: 0; transform: scale(0); animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1); }
+  20.0% { opacity: 1; transform: none; }
+  35.0% { opacity: 1; transform: none; animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1); }
+  38.33% { opacity: 1; transform: scale(1.6); animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1); }
+  46.67% { opacity: 1; transform: none; }
+  97.5% { opacity: 1; transform: none; }
+  97.6%, 100% { opacity: 0; transform: scale(0) }
+}
+@keyframes ind-a1 {
+  0%, 21.67% { opacity: 0; transform: scale(0.6); animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1); }
+  30.0% { opacity: 1.0; transform: none; }
+  50.0% { opacity: 1.0; transform: none; animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1); }
+  52.5% { opacity: 1; transform: scale(1.05); animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1); }
+  60.0% { opacity: 1.0; transform: none; }
+  97.5% { opacity: 1.0; transform: none; }
+  97.6%, 100% { opacity: 0; transform: scale(0.6) }
+}
+@keyframes ind-a2 {
+  0%, 25.0% { opacity: 0; transform: scale(0.6); animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1); }
+  33.33% { opacity: 0.7; transform: none; }
+  53.67% { opacity: 0.7; transform: none; animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1); }
+  56.17% { opacity: 1; transform: scale(1.05); animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1); }
+  63.67% { opacity: 0.7; transform: none; }
+  97.5% { opacity: 0.7; transform: none; }
+  97.6%, 100% { opacity: 0; transform: scale(0.6) }
+}
+@keyframes ind-a3 {
+  0%, 28.33% { opacity: 0; transform: scale(0.6); animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1); }
+  36.67% { opacity: 0.42; transform: none; }
+  57.33% { opacity: 0.42; transform: none; animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1); }
+  59.83% { opacity: 1; transform: scale(1.05); animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1); }
+  67.33% { opacity: 0.42; transform: none; }
+  97.5% { opacity: 0.42; transform: none; }
+  97.6%, 100% { opacity: 0; transform: scale(0.6) }
+}
+/* === fin indubot === */
+
 @media (prefers-reduced-motion: reduce) {
   .reel-anim {
     animation: none !important;
