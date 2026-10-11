@@ -1212,6 +1212,90 @@ html[data-intro='seen'] .intro-root {
 }
 /* === fin indubot === */
 
+/* === boucle sugu === */
+.sgu-book { transform-box: fill-box; transform-origin: 0 50%; }
+.sgu-s0, .sgu-s1, .sgu-s2, .sgu-s3, .sgu-coin { transform-box: fill-box; transform-origin: 50% 50%; }
+.sgu-l0, .sgu-l1, .sgu-l2, .sgu-new { transform-box: fill-box; transform-origin: 0 50%; }
+
+.sgu-book { animation-name: sgu-book; }
+.sgu-s0 { animation-name: sgu-s0; }
+.sgu-s1 { animation-name: sgu-s1; }
+.sgu-s2 { animation-name: sgu-s2; }
+.sgu-s3 { animation-name: sgu-s3; }
+.sgu-l0 { animation-name: sgu-l0; }
+.sgu-l1 { animation-name: sgu-l1; }
+.sgu-l2 { animation-name: sgu-l2; }
+.sgu-coin { animation-name: sgu-coin; }
+.sgu-new { animation-name: sgu-new; }
+
+@keyframes sgu-book {
+  0%, 1.67% { opacity: 0; transform: scaleX(0.4); animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1); }
+  13.33% { opacity: 1; transform: none; }
+  97.5% { opacity: 1; transform: none; }
+  97.6%, 100% { opacity: 0; transform: scaleX(0.4) }
+}
+@keyframes sgu-s0 {
+  0%, 5.83% { opacity: 0; transform: scale(0); animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1); }
+  13.33% { opacity: 1; transform: none; }
+  97.5% { opacity: 1; transform: none; }
+  97.6%, 100% { opacity: 0; transform: scale(0) }
+}
+@keyframes sgu-s1 {
+  0%, 7.5% { opacity: 0; transform: scale(0); animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1); }
+  15.0% { opacity: 1; transform: none; }
+  97.5% { opacity: 1; transform: none; }
+  97.6%, 100% { opacity: 0; transform: scale(0) }
+}
+@keyframes sgu-s2 {
+  0%, 9.17% { opacity: 0; transform: scale(0); animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1); }
+  16.67% { opacity: 1; transform: none; }
+  97.5% { opacity: 1; transform: none; }
+  97.6%, 100% { opacity: 0; transform: scale(0) }
+}
+@keyframes sgu-s3 {
+  0%, 10.83% { opacity: 0; transform: scale(0); animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1); }
+  18.33% { opacity: 1; transform: none; }
+  97.5% { opacity: 1; transform: none; }
+  97.6%, 100% { opacity: 0; transform: scale(0) }
+}
+@keyframes sgu-l0 {
+  0%, 13.33% { opacity: 0; transform: scaleX(0); animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1); }
+  23.33% { opacity: 1; transform: none; }
+  97.5% { opacity: 1; transform: none; }
+  97.6%, 100% { opacity: 0; transform: scaleX(0) }
+}
+@keyframes sgu-l1 {
+  0%, 16.67% { opacity: 0; transform: scaleX(0); animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1); }
+  26.67% { opacity: 1; transform: none; }
+  97.5% { opacity: 1; transform: none; }
+  97.6%, 100% { opacity: 0; transform: scaleX(0) }
+}
+@keyframes sgu-l2 {
+  0%, 20.0% { opacity: 0; transform: scaleX(0); animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1); }
+  30.0% { opacity: 1; transform: none; }
+  97.5% { opacity: 1; transform: none; }
+  97.6%, 100% { opacity: 0; transform: scaleX(0) }
+}
+@keyframes sgu-coin {
+  0%, 31.67% { opacity: 0; transform: translate(14px, -34px) scaleX(1); animation-timing-function: cubic-bezier(0.45, 0, 0.9, 0.6); }
+  34.17% { opacity: 1; transform: translate(11px, -28px) scaleX(0.2); }
+  36.67% { opacity: 1; transform: translate(8px, -20px) scaleX(1); }
+  39.17% { opacity: 1; transform: translate(5px, -11px) scaleX(0.15); }
+  41.67% { opacity: 1; transform: translate(2px, -4px) scaleX(1); animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1); }
+  43.67% { opacity: 1; transform: translate(0px, 0px) scaleX(1); animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1); }
+  47.0% { opacity: 1; transform: translate(0px, -4px) scaleX(1); animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1); }
+  50.33% { opacity: 1; transform: none; }
+  97.5% { opacity: 1; transform: none; }
+  97.6%, 100% { opacity: 0; transform: translate(14px, -34px) scaleX(1) }
+}
+@keyframes sgu-new {
+  0%, 51.67% { opacity: 0; transform: scaleX(0); animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1); }
+  65.0% { opacity: 1; transform: none; }
+  97.5% { opacity: 1; transform: none; }
+  97.6%, 100% { opacity: 0; transform: scaleX(0) }
+}
+/* === fin sugu === */
+
 @media (prefers-reduced-motion: reduce) {
   .reel-anim {
     animation: none !important;

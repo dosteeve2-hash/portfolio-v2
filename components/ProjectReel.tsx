@@ -5,6 +5,7 @@ import CombineMark from './reels/CombineMark'
 import ComptrackMark from './reels/ComptrackMark'
 import MifaMark from './reels/MifaMark'
 import IndubotMark from './reels/IndubotMark'
+import SuguMark from './reels/SuguMark'
 import OrchestratorMark from './reels/OrchestratorMark'
 import ReelPlayer from './reels/ReelPlayer'
 import UeemtMark from './reels/UeemtMark'
@@ -165,6 +166,7 @@ const markReels: Readonly<Record<string, (props: { readonly className?: string }
   comptrack: ComptrackMark,
   ueemt: UeemtMark,
   mifa: MifaMark,
+  sugu: SuguMark,
   indubot: IndubotMark,
   valuechain: ValuechainMark,
 }
