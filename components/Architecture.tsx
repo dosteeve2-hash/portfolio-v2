@@ -1,7 +1,7 @@
 'use client'
 
-import { motion, useReducedMotion } from 'motion/react'
-import { useId } from 'react'
+import { motion, useInView, useReducedMotion } from 'motion/react'
+import { useId, useRef } from 'react'
 import type { Dictionary } from '@/content/types'
 import { desktopLayout, mobileLayout, type Layout } from '@/lib/architectureLayout'
 import Section from './Section'
@@ -17,9 +17,12 @@ function Diagram({ layout, dict, className }: DiagramProps) {
   const titleId = useId()
   const descId = useId()
   const t = (at: number) => (reduce ? 0 : at)
+  const ref = useRef<SVGSVGElement>(null)
+  const shown = useInView(ref, { once: true, amount: 0.1 })
 
   return (
     <svg
+      ref={ref}
       viewBox={`0 0 ${layout.width} ${layout.height}`}
       role="img"
       aria-labelledby={`${titleId} ${descId}`}
@@ -38,8 +41,7 @@ function Diagram({ layout, dict, className }: DiagramProps) {
             strokeLinecap="round"
             strokeDasharray={edge.dashed ? '5 5' : undefined}
             initial={{ pathLength: 0, opacity: 0.2 }}
-            whileInView={{ pathLength: 1, opacity: 1 }}
-            viewport={{ once: true, amount: 0.3 }}
+            animate={shown ? { pathLength: 1, opacity: 1 } : undefined}
             transition={{ delay: t(edge.at), duration: reduce ? 0.2 : 0.5, ease: 'easeInOut' }}
           />
           {edge.label ? (
@@ -51,8 +53,7 @@ function Diagram({ layout, dict, className }: DiagramProps) {
               fontSize={11}
               fontFamily="var(--font-jetbrains), monospace"
               initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true, amount: 0.3 }}
+              animate={shown ? { opacity: 1 } : undefined}
               transition={{ delay: t(edge.at + 0.3), duration: 0.4 }}
             >
               {dict.architecture.fallback}
@@ -70,8 +71,7 @@ function Diagram({ layout, dict, className }: DiagramProps) {
           <motion.g
             key={node.id}
             initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true, amount: 0.3 }}
+            animate={shown ? { opacity: 1 } : undefined}
             transition={{ delay: t(node.at), duration: 0.4 }}
           >
             <motion.rect
@@ -82,8 +82,7 @@ function Diagram({ layout, dict, className }: DiagramProps) {
               rx={12}
               fill="#12306f"
               initial={{ stroke: '#2d5099', strokeWidth: 1.5 }}
-              whileInView={{ stroke: node.emphasis ? '#f0a832' : '#c8901f', strokeWidth: node.emphasis ? 2.2 : 1.5 }}
-              viewport={{ once: true, amount: 0.3 }}
+              animate={shown ? { stroke: node.emphasis ? '#f0a832' : '#c8901f', strokeWidth: node.emphasis ? 2.2 : 1.5 } : undefined}
               transition={{ delay: t(node.at + 0.15), duration: 0.5 }}
             />
             <text
