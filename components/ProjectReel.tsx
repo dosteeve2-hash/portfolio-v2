@@ -7,6 +7,7 @@ import MifaMark from './reels/MifaMark'
 import OrchestratorMark from './reels/OrchestratorMark'
 import ReelPlayer from './reels/ReelPlayer'
 import UeemtMark from './reels/UeemtMark'
+import ValuechainMark from './reels/ValuechainMark'
 
 interface ProjectReelProps {
   readonly project: Project
@@ -163,6 +164,7 @@ const markReels: Readonly<Record<string, (props: { readonly className?: string }
   comptrack: ComptrackMark,
   ueemt: UeemtMark,
   mifa: MifaMark,
+  valuechain: ValuechainMark,
 }
 
 /**

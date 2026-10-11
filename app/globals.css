@@ -1104,6 +1104,58 @@ html[data-intro='seen'] .intro-root {
 }
 /* === fin mifa === */
 
+/* === boucle valuechain === */
+.vcc-hub, .vcc-ring { transform-box: fill-box; transform-origin: 50% 50%; }
+.vcc-ring, .vcc-bead { opacity: 0; }
+
+.vcc-l { animation-name: vcc-l; }
+.vcc-r { animation-name: vcc-r; }
+.vcc-hub { animation-name: vcc-hub; }
+.vcc-ring { animation-name: vcc-ring; }
+.vcc-bead { animation-name: vcc-bead; }
+
+@keyframes vcc-l {
+  0%, 1.67% { opacity: 0; transform: translateX(-16px); animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1); }
+  16.67% { opacity: 1; transform: none; }
+  97.5% { opacity: 1; transform: none; }
+  97.6%, 100% { opacity: 0; transform: translateX(-16px) }
+}
+@keyframes vcc-r {
+  0%, 4.17% { opacity: 0; transform: translateX(16px); animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1); }
+  19.17% { opacity: 1; transform: none; }
+  97.5% { opacity: 1; transform: none; }
+  97.6%, 100% { opacity: 0; transform: translateX(16px) }
+}
+@keyframes vcc-hub {
+  0%, 16.67% { opacity: 0; transform: scale(0); animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1); }
+  25.0% { opacity: 1; transform: none; }
+  49.17% { opacity: 1; transform: none; animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1); }
+  52.5% { opacity: 1; transform: scale(1.5); animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1); }
+  60.0% { opacity: 1; transform: none; }
+  97.5% { opacity: 1; transform: none; }
+  97.6%, 100% { opacity: 0; transform: scale(0) }
+}
+@keyframes vcc-ring {
+  0%, 16.67% { opacity: 0; transform: scale(1); animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1); }
+  17.5% { opacity: 0.8; transform: scale(1.1); animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1); }
+  31.67% { opacity: 0; transform: scale(3.2); }
+  51.67% { opacity: 0; transform: scale(1); animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1); }
+  52.5% { opacity: 0.8; transform: scale(1.1); animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1); }
+  68.33% { opacity: 0; transform: scale(3.4); }
+  97.5% { opacity: 0; transform: scale(3.4); }
+  97.6%, 100% { opacity: 0; transform: scale(1) }
+}
+@keyframes vcc-bead {
+  0%, 36.67% { opacity: 0; transform: translateX(0px); }
+  38.33% { opacity: 1; transform: translateX(0px); animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1); }
+  52.5% { opacity: 1; transform: translateX(20px); animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1); }
+  66.67% { opacity: 1; transform: translateX(36px); }
+  68.67% { opacity: 0; transform: translateX(36px); }
+  97.5% { opacity: 0; transform: translateX(36px); }
+  97.6%, 100% { opacity: 0; transform: translateX(0px) }
+}
+/* === fin valuechain === */
+
 @media (prefers-reduced-motion: reduce) {
   .reel-anim {
     animation: none !important;
