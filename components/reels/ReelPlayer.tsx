@@ -21,6 +21,7 @@ const RESUME_DELAY_MS = 150
 
 const registered = new Set<Element>()
 const onScreen = new Set<Element>()
+const lastPlayed = new WeakMap<Element, number>()
 let sharedObserver: IntersectionObserver | null = null
 let scrolling = false
 let resumeTimer: number | undefined
@@ -39,14 +40,20 @@ function settle(): void {
     for (const node of registered) if (node.getAttribute('data-reel-state') === 'play') setState(node, 'pause')
     return
   }
+  // Cartes d'une même rangée = même distance : à égalité (à 8 px près), celle qui a joué le moins récemment passe d'abord.
   const winners = new Set(
     [...onScreen]
-      .map((node) => ({ node, d: distanceToCenter(node) }))
-      .sort((a, b) => a.d - b.d)
+      .map((node) => ({ node, d: Math.round(distanceToCenter(node) / 8), last: lastPlayed.get(node) ?? 0 }))
+      .sort((a, b) => a.d - b.d || a.last - b.last)
       .slice(0, MAX_PLAYING)
       .map((entry) => entry.node),
   )
-  for (const node of registered) setState(node, winners.has(node) ? 'play' : 'still')
+  const now = performance.now()
+  for (const node of registered) {
+    const wins = winners.has(node)
+    if (wins && node.getAttribute('data-reel-state') !== 'play') lastPlayed.set(node, now)
+    setState(node, wins ? 'play' : 'still')
+  }
 }
 
 function onScroll(): void {
