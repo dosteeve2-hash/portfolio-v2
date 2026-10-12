@@ -55,6 +55,7 @@ export default function Intro({ locale, dict }: IntroProps) {
   const visible = phase !== 'done' || lingering
   const [size, setSize] = useState<FrameSize | null>(null)
   const [interactive, setInteractive] = useState(true)
+  const [waiting, setWaiting] = useState(false)
 
   const nameRef = useRef<HTMLSpanElement>(null)
   const lineRef = useRef<HTMLDivElement>(null)
@@ -128,6 +129,8 @@ export default function Intro({ locale, dict }: IntroProps) {
     let flying = false
     let measured = false
     let landed = false
+    // Lecture automatique refusée (téléphone) : la scène attend un geste pour partir avec la voix.
+    let waiting = false
     let unlocked = false
 
     const unlock = () => {
@@ -175,6 +178,12 @@ export default function Intro({ locale, dict }: IntroProps) {
         sized = true
         setSize(frameSize())
       }
+      if (waiting) {
+        origin = now - VOICE_AT * 1000
+        t.set(VOICE_AT)
+        frame = window.requestAnimationFrame(tick)
+        return
+      }
       let time = (now - origin) / 1000
       const audioTime = voice.currentTime()
       if (audioTime !== null && syncing) {
@@ -191,7 +200,13 @@ export default function Intro({ locale, dict }: IntroProps) {
       if (!voiceStarted && time >= VOICE_AT) {
         voiceStarted = true
         void voice.start().then((ok) => {
-          if (ok && running) syncing = true
+          if (!running) return
+          if (ok) {
+            syncing = true
+          } else if (voice.available && voice.pending()) {
+            waiting = true
+            setWaiting(true)
+          }
         })
       }
       if (!flying && time >= schedule.prepare) {
@@ -221,6 +236,8 @@ export default function Intro({ locale, dict }: IntroProps) {
       if (!running) return
       running = false
       window.cancelAnimationFrame(frame)
+      if (voice.currentTime() === null) voice.cancel()
+      setWaiting(false)
       if (!landed) {
         setIntroHandoff('none')
         setIntroPhase('done')
@@ -233,6 +250,13 @@ export default function Intro({ locale, dict }: IntroProps) {
 
     const offListen = voice.onListen(() => {
       if (!running) return
+      if (waiting) {
+        waiting = false
+        setWaiting(false)
+        origin = performance.now() - VOICE_AT * 1000
+        syncing = true
+        return
+      }
       const time = (performance.now() - origin) / 1000
       if (time < schedule.prepare) {
         origin = performance.now() - VOICE_AT * 1000
@@ -244,7 +268,9 @@ export default function Intro({ locale, dict }: IntroProps) {
     const onKey = (event: KeyboardEvent) => {
       if (SKIP_KEYS.has(event.key)) stop()
     }
-    const onScrollIntent = () => stop()
+    const onScrollIntent = () => {
+      if (!waiting) stop()
+    }
     window.addEventListener('keydown', onKey)
     window.addEventListener('wheel', onScrollIntent, { passive: true })
     window.addEventListener('touchmove', onScrollIntent, { passive: true })
@@ -308,6 +334,12 @@ export default function Intro({ locale, dict }: IntroProps) {
                 flight={flight}
               />
             </div>
+          ) : null}
+
+          {waiting ? (
+            <p className="pointer-events-none absolute inset-x-0 top-[58%] z-10 mx-auto max-w-xs px-6 text-center font-mono text-xs uppercase tracking-[0.12em] text-text2 intro-wait">
+              {dict.intro.tapToStart}
+            </p>
           ) : null}
 
           <motion.button

@@ -27,6 +27,7 @@ export const tr: Dictionary = {
   // TODO relecture TR : libellés de l'intro (Dinle, Sesi kapat, Çerçeve, üretici).
   intro: {
     skip: 'Girişi atla',
+    tapToStart: 'Girişi sesle başlatmak için ekrana dokunun',
     mute: 'Sesi kapat',
     unmute: 'Sesi aç',
     frameName: 'Çerçeve — Donald',

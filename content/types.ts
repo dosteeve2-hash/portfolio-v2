@@ -33,6 +33,7 @@ export interface Dictionary {
   readonly badge: string
   readonly intro: {
     readonly skip: string
+    readonly tapToStart: string
     readonly mute: string
     readonly unmute: string
     readonly frameName: string

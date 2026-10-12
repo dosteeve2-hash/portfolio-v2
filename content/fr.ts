@@ -25,6 +25,7 @@ export const fr: Dictionary = {
   badge: 'Ouvert aux stages · Été 2027',
   intro: {
     skip: "Passer l'introduction",
+    tapToStart: "Touchez l'écran pour lancer l'introduction avec le son",
     mute: 'Couper la voix',
     unmute: 'Remettre la voix',
     frameName: 'Cadre — Donald',

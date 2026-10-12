@@ -1497,3 +1497,23 @@ html[data-intro='seen'] .intro-root {
     animation: none !important;
   }
 }
+
+.intro-wait {
+  animation: intro-wait 1.8s ease-in-out infinite;
+}
+
+@keyframes intro-wait {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro-wait {
+    animation: none;
+  }
+}

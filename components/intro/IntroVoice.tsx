@@ -33,6 +33,10 @@ interface IntroVoiceApi {
   readonly onListen: (callback: () => void) => () => void
   /** Vrai juste après qu'un geste a déclenché la voix : le clic correspondant ne doit pas passer l'intro. */
   readonly justStartedByGesture: () => boolean
+  /** Vrai si la voix peut encore être jouée (pas déjà entendue) ; sert à attendre un geste. */
+  readonly pending: () => boolean
+  /** Renonce à la voix (intro passée) : elle ne partira pas plus tard par-dessus la page. */
+  readonly cancel: () => void
 }
 
 const noop = () => undefined
@@ -46,6 +50,8 @@ const IntroVoiceContext = createContext<IntroVoiceApi>({
   seek: noop,
   onListen: () => noop,
   justStartedByGesture: () => false,
+  pending: () => false,
+  cancel: noop,
 })
 
 const VoiceStateContext = createContext<VoiceState>('idle')
@@ -158,9 +164,10 @@ export default function IntroVoiceProvider({ src, labels, children }: IntroVoice
   }, [])
 
   const onGesture = useCallback(() => {
+    // Le clic qui suit le geste arrive avant la fin de play() : la garde doit déjà être levée.
+    gestureAtRef.current = performance.now()
     void play().then((ok) => {
       if (!ok) return
-      gestureAtRef.current = performance.now()
       listeners.current.forEach((callback) => callback())
     })
   }, [play])
@@ -183,6 +190,16 @@ export default function IntroVoiceProvider({ src, labels, children }: IntroVoice
     }
   }, [])
 
+  const pending = useCallback(() => !playedRef.current && !alreadyPlayed(), [])
+
+  const cancel = useCallback(() => {
+    const audio = audioRef.current
+    if (!audio || playedRef.current || !audio.paused) return
+    playedRef.current = true
+    rememberPlayed()
+    setState('ended')
+  }, [])
+
   const justStartedByGesture = useCallback(() => performance.now() - gestureAtRef.current < ARM_CLICK_GUARD_MS, [])
 
   // Voix armée : le premier geste valable, n'importe où sur la page, la déclenche. Un geste qui ne donne pas
@@ -195,8 +212,8 @@ export default function IntroVoiceProvider({ src, labels, children }: IntroVoice
   }, [state, onGesture])
 
   const api = useMemo<IntroVoiceApi>(
-    () => ({ available, prepare, start, offer, currentTime, seek, onListen, justStartedByGesture }),
-    [available, prepare, start, offer, currentTime, seek, onListen, justStartedByGesture],
+    () => ({ available, prepare, start, offer, currentTime, seek, onListen, justStartedByGesture, pending, cancel }),
+    [available, prepare, start, offer, currentTime, seek, onListen, justStartedByGesture, pending, cancel],
   )
 
   const toggleMute = () => {

@@ -25,6 +25,7 @@ export const en: Dictionary = {
   badge: 'Open to internships · Summer 2027',
   intro: {
     skip: 'Skip the introduction',
+    tapToStart: 'Tap the screen to start the introduction with sound',
     mute: 'Mute the voice',
     unmute: 'Unmute the voice',
     frameName: 'Frame — Donald',
