@@ -28,6 +28,7 @@ export default function LanguageSwitcher({ current, label }: LanguageSwitcherPro
           <Link
             key={locale}
             href={pathFor(pathname, locale)}
+            prefetch={false}
             hrefLang={locale}
             lang={locale}
             aria-label={meta.name}

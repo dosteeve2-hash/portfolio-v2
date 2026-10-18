@@ -41,6 +41,7 @@ export default function Header({ locale, dict, immediate = false }: HeaderProps)
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-3 px-4 sm:px-6">
         <Link
           href={`/${locale}`}
+          prefetch={false}
           aria-label={dict.nav.home}
           className="group relative font-display text-xl font-black italic text-navy"
         >
@@ -56,6 +57,7 @@ export default function Header({ locale, dict, immediate = false }: HeaderProps)
             <Link
               key={id}
               href={`/${locale}#${id}`}
+              prefetch={false}
               className="font-mono text-[11px] uppercase tracking-[0.14em] text-text2 transition-colors hover:text-accent"
             >
               {dict.nav[id]}
@@ -95,6 +97,7 @@ export default function Header({ locale, dict, immediate = false }: HeaderProps)
               <li key={id}>
                 <Link
                   href={`/${locale}#${id}`}
+                  prefetch={false}
                   onClick={() => setOpen(false)}
                   className="block py-3 font-mono text-xs uppercase tracking-[0.14em] text-text2 hover:text-accent"
                 >
