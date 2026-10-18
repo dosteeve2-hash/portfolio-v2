@@ -25,7 +25,7 @@ export default function Contact({ locale, dict }: { readonly locale: Locale; rea
   }
 
   return (
-    <Section id="contact" index={8} tone="navy" label={dict.nav.contact} title={dict.contact.title} intro={dict.contact.text}>
+    <Section id="contact" index={10} tone="navy" label={dict.nav.contact} title={dict.contact.title} intro={dict.contact.text}>
       <Reveal>
         <ul className="grid gap-4 md:grid-cols-3">
           {channels.map((channel) => (

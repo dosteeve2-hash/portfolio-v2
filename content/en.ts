@@ -134,6 +134,24 @@ export const en: Dictionary = {
       },
     ],
   },
+  gallery: {
+    title: 'In pictures',
+    intro: 'A few photos from my daily life as a student in Tokat.',
+    photos: {
+      main: { alt: 'Steeve in a dark blazer and turtleneck, hands in pockets, in the evening', caption: 'Smart outfit' },
+      campus: { alt: 'Steeve in a puffer jacket in front of the faculty building, in the snow', caption: 'In the snow, in front of the faculty' },
+      classroom: { alt: 'Steeve in a beige jacket in a classroom, in front of a whiteboard', caption: 'In the classroom' },
+      headphones: { alt: 'Selfie of Steeve wearing headphones, outdoors', caption: 'Headphones on' },
+    },
+  },
+  firstVersion: {
+    title: 'My first version',
+    text: 'Before this version, I published a first portfolio, dark and gold. I keep it online: it shows where I started.',
+    cta: 'See the old portfolio',
+    ctaLabel: 'Open my old portfolio in a new tab',
+    previewAlt: 'Preview of the old portfolio: the title "Steeve Do" in large italic letters on a midnight blue background',
+    tagline: 'Portfolio · first version',
+  },
   contact: {
     title: 'Contact',
     text: 'An internship, a project or a question? Write to me, I am happy to reply.',
@@ -155,6 +173,6 @@ export const en: Dictionary = {
     text: 'This page does not exist or no longer exists.',
     back: 'Back to home',
   },
-  footer: { rights: 'All rights reserved.' },
+  footer: { rights: 'All rights reserved.', firstVersion: 'First version of the portfolio' },
 }
 

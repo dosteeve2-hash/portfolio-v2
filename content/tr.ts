@@ -136,6 +136,24 @@ export const tr: Dictionary = {
       },
     ],
   },
+  gallery: {
+    title: 'Fotoğraflarla',
+    intro: "Tokat'ta öğrenci hayatımdan birkaç kare.",
+    photos: {
+      main: { alt: 'Steeve, koyu blazer ve balıkçı yaka kazakla, elleri cebinde, akşam vakti', caption: 'Şık bir görünüm' },
+      campus: { alt: 'Steeve, şişme montla, karda fakülte binasının önünde', caption: 'Karda, fakültenin önünde' },
+      classroom: { alt: 'Steeve, bej ceketle, bir sınıfta beyaz tahtanın önünde', caption: 'Sınıfta' },
+      headphones: { alt: 'Steeve’in kulaklıkla çektiği dışarıda bir özçekim', caption: 'Kulaklık takılı' },
+    },
+  },
+  firstVersion: {
+    title: 'İlk sürümüm',
+    text: 'Bu sürümden önce koyu ve altın renkli bir ilk portfolyo yayımlamıştım. Hâlâ yayında: nereden başladığımı gösteriyor.',
+    cta: 'Eski portfolyoyu gör',
+    ctaLabel: 'Eski portfolyomu yeni sekmede aç',
+    previewAlt: 'Eski portfolyonun önizlemesi: gece mavisi zeminde büyük italik harflerle « Steeve Do » başlığı',
+    tagline: 'Portfolyo · ilk sürüm',
+  },
   contact: {
     title: 'İletişim',
     text: 'Bir staj, bir iş birliği ya da bir sorunuz mu var? Bana yazın, memnuniyetle yanıtlarım.',
@@ -157,6 +175,6 @@ export const tr: Dictionary = {
     text: 'Bu sayfa mevcut değil ya da artık mevcut değil.',
     back: 'Ana sayfaya dön',
   },
-  footer: { rights: 'Tüm hakları saklıdır.' },
+  footer: { rights: 'Tüm hakları saklıdır.', firstVersion: 'Portfolyonun ilk sürümü' },
 }
 

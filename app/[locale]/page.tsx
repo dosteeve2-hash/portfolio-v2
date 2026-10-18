@@ -5,7 +5,9 @@ import Atmosphere from '@/components/Atmosphere'
 import MascotLoader from '@/components/mascot/MascotLoader'
 import Certifications from '@/components/Certifications'
 import Contact from '@/components/Contact'
+import FirstVersion from '@/components/FirstVersion'
 import Footer from '@/components/Footer'
+import Gallery from '@/components/Gallery'
 import Header from '@/components/Header'
 import Hero from '@/components/Hero'
 import Intro from '@/components/intro/Intro'
@@ -38,6 +40,8 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         <Architecture dict={dict} />
         <Certifications locale={locale} dict={dict} />
         <Journey dict={dict} />
+        <Gallery dict={dict} />
+        <FirstVersion dict={dict} />
         <Contact locale={locale} dict={dict} />
       </main>
       <Footer dict={dict} />

@@ -1,4 +1,4 @@
-import { SITE } from '@/content/site'
+import { FIRST_VERSION_URL, SITE } from '@/content/site'
 import type { Dictionary } from '@/content/types'
 
 export default function Footer({ dict }: { readonly dict: Dictionary }) {
@@ -9,6 +9,15 @@ export default function Footer({ dict }: { readonly dict: Dictionary }) {
           {dict.brand.name} <span className="text-text2">· {dict.brand.slogan}</span>
         </p>
         <p className="font-mono text-xs text-text2">
+          <a
+            href={FIRST_VERSION_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline decoration-gold/60 underline-offset-4 transition-colors hover:text-accent"
+          >
+            {dict.footer.firstVersion} ↗
+          </a>
+          <span aria-hidden="true"> · </span>
           © {new Date().getFullYear()} {SITE.name}. {dict.footer.rights}
         </p>
       </div>

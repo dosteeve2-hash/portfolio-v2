@@ -2,6 +2,8 @@ import type { CertificationGroupId } from './certifications'
 import type { ProjectStatus } from './projects'
 import type { SkillLevel } from './skills'
 
+export type GalleryPhotoId = 'main' | 'campus' | 'classroom' | 'headphones'
+
 export type NodeId =
   | 'github'
   | 'telegram'
@@ -87,6 +89,19 @@ export interface Dictionary {
       readonly text: string
     }[]
   }
+  readonly gallery: {
+    readonly title: string
+    readonly intro: string
+    readonly photos: Readonly<Record<GalleryPhotoId, { readonly alt: string; readonly caption: string }>>
+  }
+  readonly firstVersion: {
+    readonly title: string
+    readonly text: string
+    readonly cta: string
+    readonly ctaLabel: string
+    readonly previewAlt: string
+    readonly tagline: string
+  }
   readonly contact: {
     readonly title: string
     readonly text: string
@@ -104,5 +119,5 @@ export interface Dictionary {
     readonly draftText: string
   }
   readonly notFound: { readonly title: string; readonly text: string; readonly back: string }
-  readonly footer: { readonly rights: string }
+  readonly footer: { readonly rights: string; readonly firstVersion: string }
 }
