@@ -1,5 +1,5 @@
 import cv from './cv-data.json'
-import { certificationGroupOrder, certificationsOf, linkedinLearningCount, totalHours } from './certifications'
+import { certificationGroupOrder, certificationsOf, claudeAcademyCount, linkedinLearningCount, totalHours } from './certifications'
 import { getDictionary } from './index'
 import { spokenLanguages } from './languages'
 import type { Locale } from './locales'
@@ -75,9 +75,9 @@ const thanksReply: Readonly<Record<Locale, string>> = {
 }
 
 const certificationsSummary: Readonly<Record<Locale, string>> = {
-  fr: `${linkedinLearningCount} certifications LinkedIn Learning (${totalHours} h de formation) et une attestation universitaire :`,
-  en: `${linkedinLearningCount} LinkedIn Learning certificates (${totalHours} hours of training) and one university certificate:`,
-  tr: `${linkedinLearningCount} LinkedIn Learning sertifikası (${totalHours} saat eğitim) ve bir üniversite belgesi:`,
+  fr: `${linkedinLearningCount} certifications LinkedIn Learning et ${claudeAcademyCount} badge Claude Academy (${totalHours} h de formation), plus une attestation universitaire :`,
+  en: `${linkedinLearningCount} LinkedIn Learning certificates and ${claudeAcademyCount} Claude Academy badge (${totalHours} hours of training), plus one university certificate:`,
+  tr: `${linkedinLearningCount} LinkedIn Learning sertifikası ve ${claudeAcademyCount} Claude Academy rozeti (${totalHours} saat eğitim), ayrıca bir üniversite belgesi:`,
 }
 
 const contactIntro: Readonly<Record<Locale, string>> = {

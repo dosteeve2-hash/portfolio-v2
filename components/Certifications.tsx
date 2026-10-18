@@ -2,7 +2,7 @@ import CountUp from '@/components/CountUp'
 import {
   certificationGroupOrder,
   certificationsOf,
-  linkedinLearningCount,
+  certificationCount,
   totalHours,
   type Certification,
 } from '@/content/certifications'
@@ -123,7 +123,7 @@ export default function Certifications({ locale, dict }: { readonly locale: Loca
           <div className="flex flex-col-reverse">
             <dt className="mt-3 font-mono text-[11px] uppercase tracking-[0.16em] text-text2">{labels.statCount}</dt>
             <dd className="font-display text-6xl font-black italic leading-none text-navy">
-              <CountUp value={linkedinLearningCount} />
+              <CountUp value={certificationCount} />
               <span aria-hidden="true" className="gold-rule mt-3" />
             </dd>
           </div>

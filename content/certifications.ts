@@ -1,6 +1,6 @@
 import type { Localized } from './locales'
 
-export type CertificationGroupId = 'ai' | 'web' | 'design' | 'university'
+export type CertificationGroupId = 'ai' | 'web' | 'design' | 'professional' | 'university'
 
 export interface Certification {
   readonly id: string
@@ -25,6 +25,7 @@ export const LINKEDIN_CERTIFICATIONS_URL =
   'https://www.linkedin.com/in/steeve-donald-compaor%C3%A9-65ba13296/details/certifications/'
 
 const LINKEDIN_LEARNING = 'LinkedIn Learning'
+const CLAUDE_ACADEMY = 'Claude Academy'
 
 interface CourseInput {
   readonly id: string
@@ -55,6 +56,49 @@ function course(input: CourseInput): Certification {
 
 // Source : les PDF « Certificate of Completion » (dossier Certification). Un seul exemplaire par cours.
 export const certifications: readonly Certification[] = [
+  course({
+    id: 'building-ai-agents-microsoft',
+    group: 'ai',
+    title: 'Building AI Agents for Beginners by Microsoft',
+    date: '2026-10-10',
+    minutes: 64,
+    skills: ['AI Agents', 'AI Software Development', 'Artificial Intelligence (AI)'],
+    credentialId: 'f459a950fc289f1e0882051c1e7ea795d144071d369d34da41798249917be0e4',
+    file: 'building-ai-agents-microsoft.pdf',
+  }),
+  course({
+    id: 'llm-evaluation-langchain',
+    group: 'ai',
+    title: 'Build LLM Evaluation Applications with LangChain',
+    date: '2026-10-09',
+    minutes: 45,
+    skills: ['AI Software Development', 'LangChain', 'Artificial Intelligence (AI)'],
+    credentialId: '57f62f02c47f56ad612f99434b75cef60368279dc69b746eb5e5bd7b0d17b892',
+    file: 'llm-evaluation-langchain.pdf',
+  }),
+  course({
+    id: 'generative-language-model-from-scratch',
+    group: 'ai',
+    title: 'Hands-On AI: Build a Generative Language Model from Scratch',
+    date: '2026-10-09',
+    minutes: 33,
+    skills: ['Artificial Intelligence (AI)', 'Natural Language Generation', 'Language Modeling'],
+    credentialId: '77f662acccb70acd3e4184d98999303b383ddb6f89c47d4bf5a8903069233c51',
+    file: 'generative-language-model-from-scratch.pdf',
+  }),
+  {
+    id: 'claude-academy-human-agent-teams',
+    group: 'ai',
+    lang: 'en',
+    title: 'Building effective human-agent teams (beta)',
+    subtitle: 'Course completion badge',
+    issuer: CLAUDE_ACADEMY,
+    date: '2026-10-11',
+    skills: [],
+    credentialId: 'b59594fd98a358b91bdc170da4652108',
+    pdfUrl: '/certifications/claude-academy-building-effective-human-agent-teams.pdf',
+    verifyUrl: 'https://academy.claude.com/verify/b59594fd98a358b91bdc170da4652108',
+  },
   course({
     id: 'designing-agentic-ai-products',
     group: 'ai',
@@ -185,6 +229,16 @@ export const certifications: readonly Certification[] = [
     credentialId: '142fa456518e70460ff9d9085cb03db09a9f1f8afd7f80d709231328379cfeaf',
     file: 'graphic-design-layout-composition.pdf',
   }),
+  course({
+    id: 'nano-tips-communicating-your-value',
+    group: 'professional',
+    title: 'Nano Tips for Communicating Your Value with Diana YK Chan',
+    date: '2026-10-08',
+    minutes: 8,
+    skills: ['Personal Branding'],
+    credentialId: 'f36bd3788321b6f6ab607f6a19e1e3df6658b70ac6c9c0fed85429f7ce8daf03',
+    file: 'nano-tips-communicating-your-value.pdf',
+  }),
   {
     id: 'katilim-belgesi-tokat-gop',
     group: 'university',
@@ -202,13 +256,18 @@ export const certifications: readonly Certification[] = [
   },
 ]
 
-export const certificationGroupOrder: readonly CertificationGroupId[] = ['ai', 'web', 'design', 'university']
+export const certificationGroupOrder: readonly CertificationGroupId[] = ['ai', 'web', 'design', 'professional', 'university']
 
 export function certificationsOf(group: CertificationGroupId): readonly Certification[] {
   return certifications.filter((item) => item.group === group)
 }
 
 export const linkedinLearningCount: number = certifications.filter((item) => item.issuer === LINKEDIN_LEARNING).length
+
+/** Certifications de formation (LinkedIn Learning et Claude Academy), hors attestation universitaire. */
+export const certificationCount: number = certifications.filter((item) => item.group !== 'university').length
+
+export const claudeAcademyCount: number = certifications.filter((item) => item.issuer === CLAUDE_ACADEMY).length
 
 export const totalMinutes: number = certifications.reduce((sum, item) => sum + (item.minutes ?? 0), 0)
 

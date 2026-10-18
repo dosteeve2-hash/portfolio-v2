@@ -89,16 +89,17 @@ export const fr: Dictionary = {
   certifications: {
     title: 'Certifications',
     intro:
-      "Treize certifications LinkedIn Learning et une attestation universitaire, chacune avec son PDF d'origine.",
+      "Dix-sept certifications LinkedIn Learning, un badge Claude Academy et une attestation universitaire, chacun avec son PDF d'origine.",
     statCount: 'certifications',
     statHours: 'heures de formation',
     groups: {
       ai: 'IA et agents',
       web: 'Web, JavaScript et TypeScript',
       design: 'Design',
+      professional: 'Communication et image professionnelle',
       university: 'Formations universitaires',
     },
-    verify: 'Vérifier sur LinkedIn',
+    verify: 'Vérifier le certificat',
     viewPdf: 'Voir le certificat',
     idLabel: 'Identifiant',
     hourUnit: 'h',
