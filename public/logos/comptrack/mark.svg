@@ -1,13 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-labelledby="t">
-  <title id="t">CompTrack</title>
-  <rect width="64" height="64" rx="14" fill="#0b1f4d"/>
-  <g transform="translate(32 32) scale(0.8) translate(-32 -32)">
-    <rect x="10" y="36.4" width="20" height="9.6" rx="2" fill="#fbfaf7"/>
-    <rect x="10" y="24.8" width="20" height="9.6" rx="2" fill="#fbfaf7"/>
-    <rect x="10" y="13.2" width="20" height="9.6" rx="2" fill="#fbfaf7"/>
-    <rect x="34" y="25.2" width="20" height="20.8" rx="2" fill="#34d399"/>
-    <rect x="34" y="13.2" width="20" height="10" rx="2" fill="#34d399"/>
-    <line x1="6" y1="50.5" x2="58" y2="50.5" stroke="#f0a832" stroke-width="2.4" stroke-linecap="round"/>
-    <line x1="6" y1="55" x2="58" y2="55" stroke="#f0a832" stroke-width="2.4" stroke-linecap="round"/>
-  </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img"><title>CompTrack</title><g stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M10 14H54M32 14V54" stroke="#0F3D3E" stroke-width="4"/><path d="M16 26H26M16 36H26M38 26H48M38 36H44" stroke="#B8862B" stroke-width="4"/><circle cx="48" cy="47" r="3.5" fill="#B8862B" stroke="none"/></g></svg>

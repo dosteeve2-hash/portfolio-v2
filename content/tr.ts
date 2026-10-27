@@ -57,16 +57,18 @@ export const tr: Dictionary = {
   },
   projects: {
     title: 'Projeler',
-    intro: 'Dokuz çalışma: bir yapay zekâ ajanı tezgâhı, yayındaki uygulamalar ve hepsini birbirine bağlayan FORGE Afrika ekosistemi.',
+    intro: 'On üç çalışma: bir yapay zekâ ajanı tezgâhı, bir prototip, çevrimiçi uygulamalar ve siteler. Her kart gerçek siteyi kayarak gösterir.',
     visit: 'Çevrimiçi gör',
     featured: 'Öne çıkan kanıt',
     noPublicLink: 'İstek üzerine demo',
+    countLabel: 'proje',
+    timelineLabel: 'En eskiden en yeniye',
+    previewAlt: '{name} sitesinin önizlemesi',
     statuses: {
       running: 'Çalışıyor',
       live: 'Yayında',
       dev: 'Geliştiriliyor',
       proto: 'Prototip',
-      hub: 'Ekosistem',
     },
   },
   architecture: {

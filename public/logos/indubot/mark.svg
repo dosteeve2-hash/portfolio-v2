@@ -1,11 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-labelledby="t">
-  <title id="t">Indubot Afrika</title>
-  <rect width="64" height="64" rx="14" fill="#0b1f4d"/>
-  <g transform="translate(32 32) scale(0.8) translate(-32 -32)">
-    <path d="M23.38 25.68L23.75 20.95L28.25 20.95L28.62 25.68A12.6 12.6 0 0 1 32.86 27.43L36.47 24.35L39.65 27.53L36.57 31.14A12.6 12.6 0 0 1 38.32 35.38L43.05 35.75L43.05 40.25L38.32 40.62A12.6 12.6 0 0 1 36.57 44.86L39.65 48.47L36.47 51.65L32.86 48.57A12.6 12.6 0 0 1 28.62 50.32L28.25 55.05L23.75 55.05L23.38 50.32A12.6 12.6 0 0 1 19.14 48.57L15.53 51.65L12.35 48.47L15.43 44.86A12.6 12.6 0 0 1 13.68 40.62L8.95 40.25L8.95 35.75L13.68 35.38A12.6 12.6 0 0 1 15.43 31.14L12.35 27.53L15.53 24.35L19.14 27.43A12.6 12.6 0 0 1 23.38 25.68ZM31.2 38.0A5.2 5.2 0 1 0 20.8 38.0A5.2 5.2 0 1 0 31.2 38.0Z" fill="#fbfaf7" fill-rule="evenodd"/>
-    <circle cx="26" cy="38" r="2.9" fill="#a3e635"/>
-    <path d="M30.78 15.5A23 23 0 0 1 48.5 33.22" fill="none" stroke="#a3e635" stroke-opacity="1" stroke-width="2.8" stroke-linecap="round"/>
-    <path d="M32.13 9.14A29.5 29.5 0 0 1 54.86 31.87" fill="none" stroke="#a3e635" stroke-opacity="0.7" stroke-width="2.8" stroke-linecap="round"/>
-    <path d="M33.48 2.79A36 36 0 0 1 61.21 30.52" fill="none" stroke="#a3e635" stroke-opacity="0.42" stroke-width="2.8" stroke-linecap="round"/>
-  </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img"><title>indubot</title><g stroke-linecap="round" stroke-linejoin="round" fill="none"><rect x="16" y="16" width="32" height="32" rx="6" stroke="#14161F" stroke-width="4"/><path d="M26 6V16M38 6V16M26 48V58M38 48V58M6 26H16M6 38H16M48 26H58M48 38H58" stroke="#14161F" stroke-width="3.5"/><rect x="26" y="26" width="12" height="12" rx="2" fill="#6D3FF0"/></g></svg>

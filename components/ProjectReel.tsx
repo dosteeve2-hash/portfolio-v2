@@ -1,23 +1,15 @@
-import type { ReactNode } from 'react'
+import Image from 'next/image'
 import type { Locale } from '@/content/locales'
 import type { Project } from '@/content/projects'
-import CombineMark from './reels/CombineMark'
-import ComptrackMark from './reels/ComptrackMark'
-import MifaMark from './reels/MifaMark'
-import IndubotMark from './reels/IndubotMark'
-import SuguMark from './reels/SuguMark'
-import ForgeMark from './reels/ForgeMark'
 import OrchestratorMark from './reels/OrchestratorMark'
 import ReelPlayer from './reels/ReelPlayer'
-import UeemtMark from './reels/UeemtMark'
-import ValuechainMark from './reels/ValuechainMark'
 
 interface ProjectReelProps {
   readonly project: Project
   readonly locale: Locale
   readonly index: number
   readonly large?: boolean
-  /** Variante sombre (les deux projets phares) ou claire. */
+  /** Variante sombre (les deux cartes sans site public) ou claire. */
   readonly dark?: boolean
 }
 
@@ -92,17 +84,10 @@ function OrchestratorReel({ project, locale, index }: Omit<ProjectReelProps, 'la
 }
 
 /**
- * Boucle animée d'un projet à symbole propre (COMBINE, CompTrack, UEEMT-Tokat) : même grammaire que le banc
- * (symbole, nom et slogan, scène du projet), carte sombre ou claire selon la mise en page. Pause hors écran.
+ * Carte d'un projet sans site public (COMBINE) : le symbole validé sur une scène aux couleurs du projet,
+ * nom et slogan qui entrent à la même cadence que le banc. Pause hors écran (ReelPlayer).
  */
-function MarkReel({
-  project,
-  locale,
-  index,
-  large = false,
-  dark = false,
-  Mark,
-}: ProjectReelProps & { readonly Mark: (props: { readonly className?: string }) => ReactNode }) {
+function MarkReel({ project, locale, index, large = false, dark = false }: ProjectReelProps) {
   const angle = angles[index % angles.length] ?? 135
   const gridColor = dark ? '#ffffff' : '#1d4ed8'
   return (
@@ -123,21 +108,22 @@ function MarkReel({
       <span
         className="pointer-events-none absolute -right-6 -top-6 h-56 w-56 rounded-full md:h-72 md:w-72"
         style={{
-          backgroundImage: dark
-            ? 'radial-gradient(circle, rgba(96,150,255,0.30), transparent 66%)'
-            : 'radial-gradient(circle, rgba(29,78,216,0.12), transparent 66%)',
+          backgroundImage: `radial-gradient(circle, ${project.accent}55, transparent 66%)`,
         }}
       />
 
       <div className="relative flex items-start justify-between gap-4">
         <p className="font-display text-xl font-black not-italic text-gold">{String(index + 1).padStart(2, '0')}</p>
-        <Mark
-          className={
-            large
-              ? '-mr-2 -mt-2 h-28 w-28 shrink-0 md:-mr-3 md:-mt-3 md:h-44 md:w-44'
-              : '-mr-1 -mt-1 h-24 w-24 shrink-0 md:h-28 md:w-28'
-          }
-        />
+        <span className="-mr-1 -mt-1 flex h-24 w-24 shrink-0 items-center justify-center rounded-3xl bg-white p-4 shadow-lift md:h-36 md:w-36 md:p-6">
+          <Image
+            src={`/logos/${project.logo}/mark.svg`}
+            width={96}
+            height={96}
+            alt=""
+            unoptimized
+            className="block h-full w-full"
+          />
+        </span>
       </div>
 
       <div className="relative">
@@ -162,69 +148,11 @@ function MarkReel({
   )
 }
 
-const markReels: Readonly<Record<string, (props: { readonly className?: string }) => ReactNode>> = {
-  combine: CombineMark,
-  comptrack: ComptrackMark,
-  ueemt: UeemtMark,
-  mifa: MifaMark,
-  forge: ForgeMark,
-  sugu: SuguMark,
-  indubot: IndubotMark,
-  valuechain: ValuechainMark,
-}
-
 /**
- * Emplacement du visuel animé de chaque projet. Les projets qui ont leur boucle l'affichent ;
- * les autres gardent pour l'instant un visuel statique aux couleurs de la charte (nom, slogan, pile).
+ * Emplacement du visuel animé des projets sans site public à filmer (banc d'orchestration, COMBINE).
  * Décoratif : le texte accessible est porté par la carte (titre masqué, résumé, état).
  */
 export default function ProjectReel({ project, locale, index, large = false, dark = false }: ProjectReelProps) {
   if (project.id === 'orchestrator') return <OrchestratorReel project={project} locale={locale} index={index} />
-  const Mark = markReels[project.id]
-  if (Mark) return <MarkReel project={project} locale={locale} index={index} large={large} dark={dark} Mark={Mark} />
-  const angle = angles[index % angles.length] ?? 135
-  const gridColor = dark ? '#ffffff' : '#1d4ed8'
-  return (
-    <div
-      aria-hidden="true"
-      data-project-reel={project.id}
-      className={`relative flex h-full flex-col justify-between gap-8 overflow-hidden p-6 md:p-8 ${
-        dark ? 'theme-navy bg-bg text-text' : 'text-text'
-      } ${large ? 'min-h-72 md:min-h-[22rem]' : 'min-h-56'}`}
-      style={{ backgroundImage: dark ? darkBackground(angle) : lightBackground(angle) }}
-    >
-      <span
-        className="pointer-events-none absolute inset-0 opacity-[0.06]"
-        style={{
-          backgroundImage: `linear-gradient(to right, ${gridColor} 1px, transparent 1px), linear-gradient(to bottom, ${gridColor} 1px, transparent 1px)`,
-          backgroundSize: '28px 28px',
-        }}
-      />
-      <span
-        className="pointer-events-none absolute -right-8 -top-8 h-52 w-52 rounded-full"
-        style={{
-          backgroundImage: dark
-            ? 'radial-gradient(circle, rgba(96,150,255,0.32), transparent 68%)'
-            : 'radial-gradient(circle, rgba(29,78,216,0.12), transparent 68%)',
-        }}
-      />
-
-      <p className="relative font-display text-xl font-black not-italic text-gold">{String(index + 1).padStart(2, '0')}</p>
-
-      <div className="relative">
-        <p
-          className={`font-display font-bold italic leading-tight ${large ? 'text-4xl md:text-5xl' : 'text-3xl'} ${
-            dark ? '' : 'text-navy'
-          }`}
-        >
-          {project.name[locale]}
-        </p>
-        <span className="mt-3 block h-[2px] w-14 rounded-full bg-gradient-to-r from-spark to-transparent" />
-        <p className={`mt-3 max-w-md text-sm leading-relaxed md:text-base ${dark ? 'text-text2' : 'text-text2'}`}>
-          {project.tagline[locale]}
-        </p>
-        <StackChips stack={project.stack} dark={dark} />
-      </div>
-    </div>
-  )
+  return <MarkReel project={project} locale={locale} index={index} large={large} dark={dark} />
 }

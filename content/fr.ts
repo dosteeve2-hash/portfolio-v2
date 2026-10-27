@@ -55,16 +55,18 @@ export const fr: Dictionary = {
   },
   projects: {
     title: 'Projets',
-    intro: "Neuf réalisations : un banc d'agents IA, des applications en ligne et l'écosystème FORGE Afrika qui les relie.",
+    intro: "Treize réalisations : un banc d'agents IA, un prototype, des applications et des sites en ligne. Chaque carte montre le vrai site en défilement.",
     visit: 'Voir en ligne',
     featured: 'Preuve phare',
     noPublicLink: 'Démonstration sur demande',
+    countLabel: 'réalisations',
+    timelineLabel: 'Du plus ancien au plus récent',
+    previewAlt: 'Aperçu du site {name}',
     statuses: {
       running: 'En fonctionnement',
       live: 'En ligne',
       dev: 'En développement',
       proto: 'Prototype',
-      hub: 'Écosystème',
     },
   },
   architecture: {

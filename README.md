@@ -23,7 +23,7 @@ npx tsc --noEmit
 ## Modifier le contenu
 
 - **Un texte** : `content/fr.ts`, `content/en.ts`, `content/tr.ts` (même structure, typée par `content/types.ts`). Le turc attend une relecture native.
-- **Un projet** : `content/projects.ts`.
+- **Un projet** : `content/projects.ts` (logo dans `public/logos/<dossier>/mark.svg`, médias dans `public/projects/`). Pour renouveler captures et boucles des vrais sites : `FFMPEG=<chemin ffmpeg> node scripts/capture-projects.mjs [slug...]` (Edge headless, 1280x800 et 390x844, boucle de 7 s en WebM + MP4).
 - **Une compétence ou son niveau** : `content/skills.ts` . Niveaux issus du CV (`veryGood`, `good`, `average`) ; un `level` absent = outil sans niveau chiffré.
 - **Une certification** : ajouter un objet à `content/certifications.ts` (`title`, `issuer`, `date` au format `AAAA-MM`, `verifyUrl`, `pdfUrl` optionnels). Tant que la liste est vide, un état « Mise à jour en cours » s'affiche.
 - **Contact, LinkedIn, CV** : `content/site.ts`. `linkedinUrl` vide masque le bloc LinkedIn. Pour activer le CV, déposer `public/cv/Steeve-Donald-Compaore-CV-{fr|en|tr}.pdf` puis passer `cvAvailable` à `true` ; sinon le bouton mène à la page « CV bientôt disponible ».

@@ -59,6 +59,9 @@ export interface Dictionary {
     readonly visit: string
     readonly featured: string
     readonly noPublicLink: string
+    readonly countLabel: string
+    readonly timelineLabel: string
+    readonly previewAlt: string
     readonly statuses: Readonly<Record<ProjectStatus, string>>
   }
   readonly architecture: {
