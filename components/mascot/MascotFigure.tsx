@@ -453,7 +453,7 @@ export default function MascotFigure({ expression, lookRef, animated = true, cla
       </defs>
 
       <circle cx="120" cy="116" r="108" fill={`url(#${id('bg')})`} stroke="#b9c9ea" strokeWidth="1.5" />
-      <circle cx="120" cy="116" r="108" fill="none" stroke="#c8901f" strokeOpacity="0.4" strokeWidth="1" strokeDasharray="2 7" />
+      <circle cx="120" cy="116" r="108" fill="none" stroke="#4A74F0" strokeOpacity="0.4" strokeWidth="1" strokeDasharray="2 7" />
 
       <g className="mascot-breathe">
         <g>

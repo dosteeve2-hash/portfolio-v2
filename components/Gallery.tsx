@@ -25,7 +25,7 @@ export default function Gallery({ dict }: { readonly dict: Dictionary }) {
             <li key={photo.id}>
               <Reveal delay={index * 0.06}>
                 <figure className="group">
-                  <div className="relative aspect-[3/4] overflow-hidden rounded-2xl bg-bg2 shadow-soft ring-1 ring-line">
+                  <div className="relative aspect-[3/4] overflow-hidden rounded-md bg-bg2 shadow-soft ring-1 ring-line">
                     <Image
                       src={photo.src}
                       alt={text.alt}

@@ -10,20 +10,28 @@ function Pips({ level }: { readonly level: SkillLevel }) {
   return (
     <span aria-hidden="true" className="flex gap-0.5">
       {[1, 2, 3].map((n) => (
-        <span key={n} className={`h-1.5 w-3 rounded-full ${n <= pips[level] ? 'bg-gold' : 'bg-line2'}`} />
+        <span key={n} className={`h-1.5 w-3 ${n <= pips[level] ? 'bg-accent' : 'bg-line2'}`} />
       ))}
     </span>
   )
 }
 
-export default function Skills({ locale, dict }: { readonly locale: Locale; readonly dict: Dictionary }) {
+export default function Skills({
+  locale,
+  dict,
+  index = 3,
+}: {
+  readonly locale: Locale
+  readonly dict: Dictionary
+  readonly index?: number
+}) {
   return (
-    <Section id="skills" index={3} tone="soft" label={dict.nav.skills} title={dict.skills.title} intro={dict.skills.intro}>
+    <Section id="skills" index={index} tone="soft" label={dict.nav.skills} title={dict.skills.title} intro={dict.skills.intro}>
       <div className="grid gap-5 md:grid-cols-3">
         {skillGroups.map((group, index) => (
           <Reveal key={group.id} delay={index * 0.08}>
-            <div data-spotlight className="h-full rounded-2xl border border-line bg-bg3 p-6 shadow-soft">
-              <h3 className="font-display text-xl font-bold italic text-navy">{group.title[locale]}</h3>
+            <div data-spotlight className="h-full rounded-md border border-line bg-bg3 p-6 shadow-soft">
+              <h3 className="font-display text-xl font-semibold text-navy">{group.title[locale]}</h3>
               <ul className="mt-5 space-y-3">
                 {group.items.map((item) => (
                   <li

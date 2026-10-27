@@ -2,11 +2,11 @@ import type { Dictionary } from './types'
 
 export const fr: Dictionary = {
   meta: {
-    title: 'Steeve Donald Compaoré — La forge du futur',
+    title: 'Steeve Donald Compaoré — Génie logiciel : du code qui tient en production',
     description:
       "Portfolio de Steeve Donald Compaoré, étudiant en informatique : développement full stack, intégration d'IA et automatisation. Ouvert aux stages d'été 2027.",
   },
-  brand: { name: 'La forge du futur', slogan: 'Là où le futur commence.' },
+  brand: { name: 'Génie logiciel', slogan: 'Du code qui tient en production.' },
   nav: {
     label: 'Navigation principale',
     skipToContent: 'Aller au contenu',
@@ -18,9 +18,12 @@ export const fr: Dictionary = {
     certifications: 'Certifications',
     journey: 'Parcours',
     contact: 'Contact',
+    stage: 'Stage',
+    emploi: 'Emploi',
     openMenu: 'Ouvrir le menu',
     closeMenu: 'Fermer le menu',
   },
+  proof: { projects: 'projets en ligne', certifications: 'certifications', tests: 'tests automatisés (2 projets)' },
   language: { label: 'Choisir la langue' },
   badge: 'Ouvert aux stages · Été 2027',
   intro: {
@@ -78,7 +81,7 @@ export const fr: Dictionary = {
       "Le manager est au centre. GitHub et Telegram l'alimentent en demandes. Il délègue à Copilot, Gemini, Codex et Ollama, avec un repli automatique entre agents, et écrit chaque délégation dans un journal.",
     nodes: {
       github: { title: 'GitHub', sub: 'canal' },
-      telegram: { title: 'Telegram', sub: 'canal' },
+      telegram: { title: 'Telegram', sub: 'prêt, inactif' },
       manager: { title: 'Manager', sub: 'routage' },
       copilot: { title: 'Copilot' },
       gemini: { title: 'Gemini' },

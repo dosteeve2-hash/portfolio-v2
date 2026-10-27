@@ -1,6 +1,7 @@
 'use client'
 
-import { AnimatePresence, motion, useMotionValue, useTransform } from 'motion/react'
+import { AnimatePresence, useMotionValue, useTransform } from 'motion/react'
+import * as m from 'motion/react-m'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { introTimelines } from '@/content/intro'
 import type { Locale } from '@/content/locales'
@@ -295,7 +296,7 @@ export default function Intro({ locale, dict }: IntroProps) {
   return (
     <AnimatePresence>
       {visible ? (
-        <motion.div
+        <m.div
           key="intro"
           className="intro-root theme-night fixed inset-0 z-50 overflow-hidden"
           style={{ pointerEvents: interactive ? 'auto' : 'none', cursor: interactive ? 'pointer' : 'default' }}
@@ -303,9 +304,9 @@ export default function Intro({ locale, dict }: IntroProps) {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
         >
-          <motion.div aria-hidden="true" className="absolute inset-0 bg-bg" style={{ opacity: backdrop }} />
+          <m.div aria-hidden="true" className="absolute inset-0 bg-bg" style={{ opacity: backdrop }} />
 
-          <motion.div
+          <m.div
             aria-hidden="true"
             className="absolute inset-0"
             style={{
@@ -315,16 +316,16 @@ export default function Intro({ locale, dict }: IntroProps) {
             }}
           />
 
-          <motion.div aria-hidden="true" className="absolute inset-0" style={{ opacity: grid }}>
+          <m.div aria-hidden="true" className="absolute inset-0" style={{ opacity: grid }}>
             <div className="intro-grid absolute inset-0" />
-          </motion.div>
+          </m.div>
 
           <div aria-hidden="true" className="absolute inset-0 flex items-center justify-center">
-            <motion.div className="relative flex items-center justify-center" style={{ opacity: rule, scaleX: rule }}>
+            <m.div className="relative flex items-center justify-center" style={{ opacity: rule, scaleX: rule }}>
               <span className="intro-rule block" />
               <span className="intro-ticks absolute left-0 top-[3px]" />
               <span ref={dotRef} className="intro-dot absolute left-1/2 top-1/2 -ml-[3px] -mt-[3px]" />
-            </motion.div>
+            </m.div>
           </div>
 
           {size ? (
@@ -347,7 +348,7 @@ export default function Intro({ locale, dict }: IntroProps) {
             </p>
           ) : null}
 
-          <motion.button
+          <m.button
             type="button"
             style={{ opacity: skipOpacity }}
             onClick={(event) => {
@@ -357,8 +358,8 @@ export default function Intro({ locale, dict }: IntroProps) {
             className="absolute bottom-5 right-4 z-10 rounded-lg border border-line2 bg-bg/60 px-3 py-1.5 font-mono text-[11px] text-text2 transition-colors hover:border-gold hover:text-gold2 sm:right-6"
           >
             {dict.intro.skip} · Esc
-          </motion.button>
-        </motion.div>
+          </m.button>
+        </m.div>
       ) : null}
     </AnimatePresence>
   )

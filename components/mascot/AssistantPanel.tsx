@@ -238,7 +238,7 @@ export default function AssistantPanel({ locale, dict, reduceMotion, onMood, onC
       className="pointer-events-auto flex max-h-[min(540px,calc(100svh-12rem))] w-[min(calc(100vw-1.5rem),380px)] md:max-h-[min(540px,calc(100svh-15rem))] xl:max-h-[min(540px,calc(100svh-17rem))] flex-col overflow-hidden rounded-2xl border border-line2 bg-bg3 shadow-[0_24px_60px_-16px_rgba(11,31,77,0.45),0_0_0_1px_rgba(200,144,31,0.18)]"
     >
       <div className="flex items-center justify-between gap-3 border-b border-line2 bg-bg2 px-4 py-3">
-        <h2 id={titleId} className="font-display text-lg italic text-navy">
+        <h2 id={titleId} className="font-display text-lg text-navy">
           {fill(text.panelTitle, { name: MASCOT_NAME })}
         </h2>
         <button

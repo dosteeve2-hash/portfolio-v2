@@ -28,9 +28,12 @@ export interface Dictionary {
     readonly certifications: string
     readonly journey: string
     readonly contact: string
+    readonly stage: string
+    readonly emploi: string
     readonly openMenu: string
     readonly closeMenu: string
   }
+  readonly proof: { readonly projects: string; readonly certifications: string; readonly tests: string }
   readonly language: { readonly label: string }
   readonly badge: string
   readonly intro: {

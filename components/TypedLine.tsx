@@ -15,7 +15,7 @@ const HOLD_MS = 1800
 const GAP_MS = 320
 
 function Caret() {
-  return <span aria-hidden="true" className="mascot-caret ml-0.5 inline-block h-[1em] w-[2px] translate-y-[0.15em] bg-gold" />
+  return <span aria-hidden="true" className="mascot-caret ml-0.5 inline-block h-[1em] w-[2px] translate-y-[0.15em] bg-accent" />
 }
 
 export default function TypedLine({ lead, labels, start, reduceMotion }: TypedLineProps) {
@@ -86,7 +86,7 @@ export default function TypedLine({ lead, labels, start, reduceMotion }: TypedLi
 
   return (
     <>
-      <p ref={rootRef} className="font-display text-2xl italic text-accent sm:text-3xl">
+      <p ref={rootRef} className="font-display text-2xl text-accent sm:text-3xl">
         <span className="sr-only">{lead}</span>
         <span aria-hidden="true" className="relative inline-block">
           <span className="invisible">{lead}</span>
