@@ -55,16 +55,18 @@ export const en: Dictionary = {
   },
   projects: {
     title: 'Projects',
-    intro: 'Nine pieces of work: an AI agent bench, live applications and the FORGE Afrika ecosystem that ties them together.',
+    intro: 'Thirteen pieces of work: an AI agent bench, a prototype, applications and sites online. Each card shows the real site, scrolling.',
     visit: 'View online',
     featured: 'Flagship proof',
     noPublicLink: 'Demo on request',
+    countLabel: 'projects',
+    timelineLabel: 'From oldest to newest',
+    previewAlt: 'Preview of the {name} site',
     statuses: {
       running: 'Running',
       live: 'Live',
       dev: 'In development',
       proto: 'Prototype',
-      hub: 'Ecosystem',
     },
   },
   architecture: {
