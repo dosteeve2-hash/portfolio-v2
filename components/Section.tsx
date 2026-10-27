@@ -15,7 +15,7 @@ interface SectionProps {
 
 const toneClass: Readonly<Record<SectionTone, string>> = {
   plain: '',
-  soft: 'bg-bg2',
+  soft: 'bg-bg2/70',
   navy: 'theme-navy section-navy text-text',
 }
 
@@ -25,19 +25,16 @@ export default function Section({ id, index, label, title, intro, tone = 'plain'
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <Reveal className="mb-10 max-w-2xl md:mb-14">
           <p className="flex items-center gap-3 font-mono text-xs uppercase tracking-[0.2em] text-accent">
-            <span aria-hidden="true" className="font-display text-2xl font-black not-italic tracking-normal text-gold">
+            <span aria-hidden="true" className="border border-accent px-1.5 py-0.5 text-[11px] tracking-[0.1em]">
               {String(index).padStart(2, '0')}
             </span>
             <span className="sr-only">{String(index).padStart(2, '0')} — </span>
             {label}
           </p>
-          <h2
-            id={`${id}-title`}
-            className="title-shine mt-3 pb-1 font-display text-4xl font-bold italic leading-tight md:text-5xl"
-          >
+          <h2 id={`${id}-title`} className="mt-4 pb-1 font-display text-3xl font-semibold leading-tight md:text-4xl">
             {title}
           </h2>
-          <span aria-hidden="true" className="gold-rule mt-3" />
+          <span aria-hidden="true" className="rule mt-3" />
           {intro ? <p className="mt-5 text-text2">{intro}</p> : null}
         </Reveal>
         {children}

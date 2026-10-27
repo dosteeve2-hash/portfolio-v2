@@ -70,7 +70,7 @@ export default function MascotLab({ locale }: { readonly locale: Locale }) {
 
   return (
     <main className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
-      <h1 className="font-display text-4xl font-bold italic">{text.lab.title}</h1>
+      <h1 className="font-display text-4xl font-semibold">{text.lab.title}</h1>
       <p className="mt-3 max-w-2xl text-text2">{text.lab.intro}</p>
       <label className="mt-6 inline-flex cursor-pointer items-center gap-2 font-mono text-xs text-text2">
         <input type="checkbox" checked={follow} onChange={(event) => setFollow(event.target.checked)} />

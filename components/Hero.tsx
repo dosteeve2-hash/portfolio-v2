@@ -1,20 +1,20 @@
 'use client'
 
-import { motion, type Variants } from 'motion/react'
-import dynamic from 'next/dynamic'
+import { type Variants } from 'motion/react'
+import * as m from 'motion/react-m'
 import type { Locale } from '@/content/locales'
 import { cvHref, SITE } from '@/content/site'
 import type { Dictionary } from '@/content/types'
 import { INTRO_NAME } from '@/content/intro'
 import { useIntroHandoff, useIntroPhase } from '@/lib/introStore'
-import { useAfterInteraction } from '@/lib/useAfterInteraction'
 import { useReducedMotionSafe } from '@/lib/useReducedMotionSafe'
 import { mascotText } from '@/content/mascotText'
+import { certificationCount } from '@/content/certifications'
+import { automatedTestCount, onlineProjectCount } from '@/content/projects'
 import Cta from './Cta'
 import Portrait from './Portrait'
+import ProofStrip from './ProofStrip'
 import TypedLine from './TypedLine'
-
-const Embers = dynamic(() => import('./Embers'), { ssr: false })
 
 interface HeroProps {
   readonly locale: Locale
@@ -44,7 +44,6 @@ export default function Hero({ locale, dict }: HeroProps) {
   const phase = useIntroPhase()
   const handoff = useIntroHandoff()
   const reduce = useReducedMotionSafe()
-  const decorReady = useAfterInteraction(6000)
   const state = phase === 'done' ? 'show' : 'hide'
   const variants = itemVariants(reduce ? 0 : 20)
   const [nameBefore, nameMiddle, nameAfter] = NAME_PARTS
@@ -58,55 +57,54 @@ export default function Hero({ locale, dict }: HeroProps) {
     <section id="top" aria-labelledby="hero-title" className="relative flex min-h-svh items-center overflow-hidden pb-16 pt-28">
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(55%_55%_at_80%_30%,rgba(29,78,216,0.11),transparent_72%),radial-gradient(45%_40%_at_6%_100%,rgba(240,168,50,0.14),transparent_70%)]"
+        className="calque pointer-events-none absolute inset-0 [mask-image:linear-gradient(to_bottom,#000_55%,transparent)]"
       />
-      {decorReady ? <Embers /> : null}
 
       <div className="relative mx-auto grid w-full max-w-6xl items-center gap-12 px-4 sm:px-6 md:grid-cols-[1.25fr_0.75fr]">
         <div>
-          <motion.div
+          <m.div
             data-hero
             custom={0}
             variants={variants}
             initial="hide"
             animate={state}
-            className="inline-flex items-center gap-2 rounded-full border border-green/50 bg-bg3 px-4 py-1.5 font-mono text-xs text-text shadow-soft"
+            className="inline-flex items-center gap-2 rounded-sm border border-line2 bg-bg3 px-3 py-1.5 font-mono text-xs text-text"
           >
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-              <circle cx="7" cy="7" r="7" fill="#22d98a" />
-              <path d="M4 7.2l2 2L10 5" stroke="#0b1f4d" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+              <circle cx="7" cy="7" r="7" fill="#0f8a5f" />
+              <path d="M4 7.2l2 2L10 5" stroke="#ffffff" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
             {dict.badge}
-          </motion.div>
+          </m.div>
 
-          <motion.h1
+          <m.h1
             data-hero
             id="hero-title"
             custom={1}
             variants={variants}
             initial="hide"
             animate={titleTarget}
-            className="mt-6 font-display text-5xl font-black italic leading-[1.05] sm:text-6xl lg:text-7xl"
+            className="mt-6 font-display text-5xl font-semibold leading-[1.05] sm:text-6xl lg:text-7xl"
           >
-            <motion.span initial={false} animate={{ opacity: handoff === 'flying' ? 0 : 1 }} transition={sideTransition}>
+            <m.span initial={false} animate={{ opacity: handoff === 'flying' ? 0 : 1 }} transition={sideTransition}>
               {nameBefore}
-            </motion.span>
+            </m.span>
             <span data-intro-target="name">{nameMiddle}</span>
-            <motion.span initial={false} animate={{ opacity: handoff === 'flying' ? 0 : 1 }} transition={sideTransition}>
+            <m.span initial={false} animate={{ opacity: handoff === 'flying' ? 0 : 1 }} transition={sideTransition}>
               {nameAfter}
-            </motion.span>
-          </motion.h1>
+            </m.span>
+          </m.h1>
 
-          <motion.div data-hero custom={2} variants={variants} initial="hide" animate={state} className="mt-3">
+          <m.div data-hero custom={2} variants={variants} initial="hide" animate={state} className="mt-3">
             <TypedLine
               lead={dict.brand.slogan}
               labels={mascotText[locale].heroLabels}
               start={phase === 'done'}
               reduceMotion={reduce}
             />
-          </motion.div>
+          </m.div>
 
-          <motion.div
+          <m.div
             data-hero
             data-intro-target="line"
             aria-hidden="true"
@@ -117,10 +115,10 @@ export default function Hero({ locale, dict }: HeroProps) {
                 ? { duration: 0 }
                 : { delay: 0.3, duration: reduce ? 0.2 : 0.9, ease: [0.22, 1, 0.36, 1] }
             }
-            className="mt-5 h-[2px] w-40 origin-left bg-gradient-to-r from-spark via-gold2 to-transparent shadow-[0_0_14px_1px_rgba(240,168,50,0.45)]"
+            className="mt-5 h-[2px] w-40 origin-left bg-accent"
           />
 
-          <motion.p
+          <m.p
             data-hero
             custom={4}
             variants={variants}
@@ -129,9 +127,9 @@ export default function Hero({ locale, dict }: HeroProps) {
             className="mt-6 max-w-xl text-lg text-text2"
           >
             {dict.hero.subtitle}
-          </motion.p>
+          </m.p>
 
-          <motion.div
+          <m.div
             data-hero
             custom={5}
             variants={variants}
@@ -143,10 +141,20 @@ export default function Hero({ locale, dict }: HeroProps) {
             <Cta href={`/${locale}#contact`} variant="ghost">
               {dict.hero.contact}
             </Cta>
-          </motion.div>
+          </m.div>
+
+          <m.div data-hero custom={6} variants={variants} initial="hide" animate={state} className="mt-10">
+            <ProofStrip
+              figures={[
+                { value: onlineProjectCount, label: dict.proof.projects },
+                { value: certificationCount, label: dict.proof.certifications },
+                { value: automatedTestCount, label: dict.proof.tests },
+              ]}
+            />
+          </m.div>
         </div>
 
-        <motion.div
+        <m.div
           data-hero
           custom={3}
           variants={variants}
@@ -155,27 +163,9 @@ export default function Hero({ locale, dict }: HeroProps) {
           className="relative mx-auto w-full max-w-[260px] sm:max-w-[320px]"
         >
           <Portrait alt={dict.hero.portraitAlt} sizes="(min-width: 640px) 320px, 260px" priority />
-          <svg viewBox="0 0 100 100" aria-hidden="true" className="absolute -inset-3 h-[calc(100%+24px)] w-[calc(100%+24px)] -rotate-90">
-            <defs>
-              <linearGradient id="hero-ring" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stopColor="#1d4ed8" />
-                <stop offset="100%" stopColor="#f0a832" />
-              </linearGradient>
-            </defs>
-            <motion.circle
-              cx="50"
-              cy="50"
-              r="48"
-              fill="none"
-              stroke="url(#hero-ring)"
-              strokeWidth="0.9"
-              strokeLinecap="round"
-              initial={{ pathLength: 0 }}
-              animate={{ pathLength: state === 'show' ? 1 : 0 }}
-              transition={{ delay: 0.4, duration: reduce ? 0.2 : 1.1, ease: 'easeInOut' }}
-            />
-          </svg>
-        </motion.div>
+          <span aria-hidden="true" className="absolute -left-2 -top-2 h-5 w-5 border-l-2 border-t-2 border-accent" />
+          <span aria-hidden="true" className="absolute -bottom-2 -right-2 h-5 w-5 border-b-2 border-r-2 border-accent" />
+        </m.div>
       </div>
     </section>
   )

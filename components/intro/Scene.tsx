@@ -1,6 +1,7 @@
 'use client'
 
-import { cubicBezier, motion, useTransform, type MotionValue } from 'motion/react'
+import { cubicBezier, useTransform, type MotionValue } from 'motion/react'
+import * as m from 'motion/react-m'
 import { Fragment, type RefObject } from 'react'
 import { INTRO_NAME, INTRO_SWATCH } from '@/content/intro'
 import { EASE_IN_OUT, EASE_OUT, EASE_PUSH, EASE_SNAP, type Schedule, type TimedWord } from './schedule'
@@ -76,9 +77,9 @@ function KineticWord({ t, at, children }: { readonly t: MotionValue<number>; rea
   })
   return (
     <span className="-mb-[0.14em] inline-block overflow-hidden pb-[0.14em] align-top">
-      <motion.span className="inline-block" style={{ y, opacity, filter }}>
+      <m.span className="inline-block" style={{ y, opacity, filter }}>
         {children}
-      </motion.span>
+      </m.span>
     </span>
   )
 }
@@ -103,14 +104,14 @@ function KineticLine({ t, words }: { readonly t: MotionValue<number>; readonly w
 function Handle({ t, at, x, y }: { readonly t: MotionValue<number>; readonly at: number; readonly x: number; readonly y: number }) {
   const scale = useTransform(t, (v) => span(v, at, at + 0.32, easeSnap))
   return (
-    <motion.rect
+    <m.rect
       x={x - 3.5}
       y={y - 3.5}
       width={7}
       height={7}
       rx={1.5}
       fill="#070e1f"
-      stroke="#f7c060"
+      stroke="#A9C1FF"
       strokeWidth={1.2}
       style={{ scale, opacity: scale, transformBox: 'fill-box', transformOrigin: 'center' }}
     />
@@ -120,10 +121,10 @@ function Handle({ t, at, x, y }: { readonly t: MotionValue<number>; readonly at:
 function Stroke({ d, progress, dim }: { readonly d: string; readonly progress: MotionValue<number>; readonly dim?: boolean }) {
   const opacity = useTransform(progress, (p) => (p > 0.002 ? (dim ? 0.6 : 1) : 0))
   return (
-    <motion.path
+    <m.path
       d={d}
       fill="none"
-      stroke="#f0a832"
+      stroke="#6E94FF"
       strokeWidth={dim ? 1 : 1.5}
       strokeLinecap="square"
       style={{ pathLength: progress, opacity }}
@@ -188,9 +189,9 @@ function Appear({
   const opacity = useTransform(t, (v) => span(v, at, at + 0.3, easeInOut) * (1 - span(v, out, out + 0.4, easeInOut)))
   const y = useTransform(t, (v) => (1 - span(v, at, at + 0.45)) * 6)
   return (
-    <motion.div className={className} style={{ ...style, opacity, y }}>
+    <m.div className={className} style={{ ...style, opacity, y }}>
       {children}
-    </motion.div>
+    </m.div>
   )
 }
 
@@ -225,12 +226,12 @@ function Cursor({ t, s, size }: { readonly t: MotionValue<number>; readonly s: S
   const rippleScale = useTransform(ripple, (p) => 0.2 + p * 1.8)
   const rippleOpacity = useTransform(ripple, (p) => (p <= 0 || p >= 1 ? 0 : 0.7 * (1 - p)))
   return (
-    <motion.div className="pointer-events-none absolute left-0 top-0" style={{ x, y, opacity }}>
-      <motion.span
+    <m.div className="pointer-events-none absolute left-0 top-0" style={{ x, y, opacity }}>
+      <m.span
         className="absolute -left-3 -top-3 h-6 w-6 rounded-full border border-gold2"
         style={{ scale: rippleScale, opacity: rippleOpacity }}
       />
-      <motion.svg width="18" height="22" viewBox="0 0 18 22" style={{ scale: press, originX: 0, originY: 0 }}>
+      <m.svg width="18" height="22" viewBox="0 0 18 22" style={{ scale: press, originX: 0, originY: 0 }}>
         <path
           d="M1.5 1.5v16.2l4.3-4.1 2.9 6.6 2.6-1.1-2.9-6.5h6z"
           fill="#f5f0e8"
@@ -238,8 +239,8 @@ function Cursor({ t, s, size }: { readonly t: MotionValue<number>; readonly s: S
           strokeWidth="1.3"
           strokeLinejoin="round"
         />
-      </motion.svg>
-    </motion.div>
+      </m.svg>
+    </m.div>
   )
 }
 
@@ -267,26 +268,26 @@ function Annotations({ t, s, size, labels }: Omit<SceneProps, 'nameRef' | 'lineR
         <Tag>{labels.roles[0]}</Tag>
       </Appear>
 
-      <motion.div className="absolute left-0 right-0 flex items-center" style={{ top: h + 16, opacity: dimensionOpacity }}>
-        <motion.div className="relative h-px flex-1 origin-center bg-gold/50" style={{ scaleX: dimension }}>
+      <m.div className="absolute left-0 right-0 flex items-center" style={{ top: h + 16, opacity: dimensionOpacity }}>
+        <m.div className="relative h-px flex-1 origin-center bg-gold/50" style={{ scaleX: dimension }}>
           <span className="absolute -top-[3px] left-0 h-[7px] w-px bg-gold/80" />
           <span className="absolute -top-[3px] right-0 h-[7px] w-px bg-gold/80" />
-        </motion.div>
+        </m.div>
         <span className="absolute left-1/2 -translate-x-1/2 bg-bg px-2 font-mono text-[10px] tracking-[0.1em] text-gold2">
           {Math.round(w)} × {Math.round(h)}
         </span>
-      </motion.div>
+      </m.div>
 
-      <motion.div className="absolute w-px" style={{ left: 0, top: h + 4, height: 54, opacity: guide }}>
+      <m.div className="absolute w-px" style={{ left: 0, top: h + 4, height: 54, opacity: guide }}>
         <span className="block h-full w-px bg-[repeating-linear-gradient(to_bottom,#2dd4ff_0_3px,transparent_3px_6px)]" />
-      </motion.div>
+      </m.div>
 
-      <motion.div
+      <m.div
         className="absolute left-0"
         style={{ top: h + 38, x: snapX, y: snapY, rotate: snapRotate, opacity: tag2Opacity, originX: 0, originY: 0.5 }}
       >
         <Tag>{labels.roles[1]}</Tag>
-      </motion.div>
+      </m.div>
 
       <Appear
         t={t}
@@ -339,40 +340,40 @@ function NameBlock({ t, s, size, nameRef, lineRef, flight }: Omit<SceneProps, 'l
 
   return (
     <div className="flex flex-col items-center text-center">
-      <motion.p className="font-sans font-light text-text2" style={{ fontSize: leadSize, opacity: leadOpacity }}>
+      <m.p className="font-sans font-light text-text2" style={{ fontSize: leadSize, opacity: leadOpacity }}>
         <KineticLine t={t} words={s.lead} />
-      </motion.p>
+      </m.p>
 
-      <motion.div className="relative mt-1" style={{ x: nameX, y: nameY, scale: nameScale, opacity: landedFade }}>
-        <motion.span
-          className="relative block font-display font-black italic leading-[1.05] text-text"
+      <m.div className="relative mt-1" style={{ x: nameX, y: nameY, scale: nameScale, opacity: landedFade }}>
+        <m.span
+          className="relative block font-display font-semibold leading-[1.05] text-text"
           style={{ fontSize: nameSize, clipPath, color: nameColor }}
         >
           <span ref={nameRef}>{INTRO_NAME}</span>
-        </motion.span>
-        <motion.span
+        </m.span>
+        <m.span
           aria-hidden="true"
-          className="absolute inset-0 block font-display font-black italic leading-[1.05] text-gold2"
+          className="absolute inset-0 block font-display font-semibold leading-[1.05] text-gold2"
           style={{ fontSize: nameSize, maskImage: bandMask, WebkitMaskImage: bandMask, opacity: barOpacity }}
         >
           {INTRO_NAME}
-        </motion.span>
-        <motion.span
+        </m.span>
+        <m.span
           aria-hidden="true"
-          className="absolute top-[18%] h-[68%] w-[3px] -translate-x-1/2 rounded-full bg-gradient-to-b from-gold2/0 via-gold2 to-gold/0 shadow-[0_0_18px_3px_rgba(240,168,50,0.55)]"
+          className="absolute top-[18%] h-[68%] w-[3px] -translate-x-1/2 rounded-full bg-gradient-to-b from-gold2/0 via-gold2 to-gold/0 shadow-[0_0_18px_3px_rgba(110,148,255,0.55)]"
           style={{ left: barLeft, opacity: barOpacity }}
         />
-      </motion.div>
+      </m.div>
 
-      <motion.div
+      <m.div
         ref={lineRef}
-        className="mt-3 h-[1.5px] origin-center bg-gradient-to-r from-gold via-gold2 to-gold shadow-[0_0_14px_1px_rgba(240,168,50,0.5)]"
+        className="mt-3 h-[1.5px] origin-center bg-gradient-to-r from-gold via-gold2 to-gold shadow-[0_0_14px_1px_rgba(110,148,255,0.5)]"
         style={{ width: Math.round(nameSize * 2.1), x: lineX, y: lineY, scaleX: lineScaleX, scaleY: lineScaleY, opacity: landedFade }}
       />
 
-      <motion.p className="mt-5 font-sans font-light text-text" style={{ fontSize: discoverSize, opacity: discoverOpacity }}>
+      <m.p className="mt-5 font-sans font-light text-text" style={{ fontSize: discoverSize, opacity: discoverOpacity }}>
         <KineticLine t={t} words={s.discover} />
-      </motion.p>
+      </m.p>
     </div>
   )
 }
@@ -396,25 +397,25 @@ export default function Scene({ t, s, size, labels, nameRef, lineRef, flight }: 
 
   return (
     <>
-      <motion.div className="absolute inset-0 flex items-center justify-center" style={{ scale: frameScale, opacity: frameOpacity }}>
+      <m.div className="absolute inset-0 flex items-center justify-center" style={{ scale: frameScale, opacity: frameOpacity }}>
         <Frame t={t} s={s} size={size} />
-      </motion.div>
+      </m.div>
 
-      <motion.div className="absolute inset-0 flex items-center justify-center" style={{ scale: annotationScale }}>
+      <m.div className="absolute inset-0 flex items-center justify-center" style={{ scale: annotationScale }}>
         <Annotations t={t} s={s} size={size} labels={labels} />
-      </motion.div>
+      </m.div>
 
-      <motion.div className="absolute inset-0 flex items-center justify-center" style={{ scale: textScale, y: textY }}>
+      <m.div className="absolute inset-0 flex items-center justify-center" style={{ scale: textScale, y: textY }}>
         <div className="relative flex items-center justify-center" style={{ width: w, height: h }}>
-          <motion.p
+          <m.p
             className="absolute inset-x-0 top-1/2 -translate-y-1/2 px-4 text-center font-sans font-light leading-tight text-text"
             style={{ fontSize: welcomeSize, y: welcomeY, opacity: welcomeOpacity, filter: welcomeFilter }}
           >
             <KineticLine t={t} words={s.welcome} />
-          </motion.p>
+          </m.p>
           <NameBlock t={t} s={s} size={size} nameRef={nameRef} lineRef={lineRef} flight={flight} />
         </div>
-      </motion.div>
+      </m.div>
     </>
   )
 }

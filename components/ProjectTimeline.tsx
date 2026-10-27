@@ -22,7 +22,7 @@ export default function ProjectTimeline({ locale, dict }: { readonly locale: Loc
   return (
     <Reveal className="mb-10 md:mb-12">
       <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
-        <p className="font-display text-6xl font-black not-italic leading-none text-gold md:text-7xl">
+        <p className="font-display text-6xl font-semibold not-italic leading-none text-accent md:text-7xl">
           <CountUp value={projectsByDate.length} />
         </p>
         <p className="font-mono text-xs uppercase tracking-[0.18em] text-text">{dict.projects.countLabel}</p>
@@ -37,7 +37,7 @@ export default function ProjectTimeline({ locale, dict }: { readonly locale: Loc
                 href={`#project-${project.id}`}
                 className="group/tl flex min-h-11 w-16 flex-col items-center gap-1.5 rounded-lg text-center focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
               >
-                <span className="tl-dot flex h-11 w-11 items-center justify-center rounded-xl border border-line2 bg-bg3 shadow-soft">
+                <span className="tl-dot flex h-11 w-11 items-center justify-center rounded-md border border-line2 bg-bg3 shadow-soft">
                   <Image
                     src={`/logos/${project.logo}/mark.svg`}
                     width={30}

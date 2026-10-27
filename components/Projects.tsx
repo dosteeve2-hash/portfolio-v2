@@ -1,19 +1,13 @@
 import type { CSSProperties } from 'react'
 import type { Locale } from '@/content/locales'
-import { projects, type Project, type ProjectStatus } from '@/content/projects'
+import { projects, type Project } from '@/content/projects'
 import type { Dictionary } from '@/content/types'
 import ProjectMedia from './ProjectMedia'
+import { SpecBlock, StatusPill, VisitLink } from './ProjectBits'
 import ProjectReel from './ProjectReel'
 import ProjectTimeline, { formatSince } from './ProjectTimeline'
 import Reveal from './Reveal'
 import Section from './Section'
-
-const statusDot: Readonly<Record<ProjectStatus, string>> = {
-  running: 'bg-green',
-  live: 'bg-green',
-  dev: 'bg-spark',
-  proto: 'bg-accent',
-}
 
 interface CardProps {
   readonly project: Project
@@ -22,43 +16,12 @@ interface CardProps {
   readonly dict: Dictionary
 }
 
-function StatusPill({ project, dict }: { readonly project: Project; readonly dict: Dictionary }) {
-  return (
-    <p className="inline-flex w-fit items-center gap-2 rounded-full bg-bg2 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.12em] text-text">
-      <span aria-hidden="true" className={`h-2 w-2 shrink-0 rounded-full ${statusDot[project.status]}`} />
-      {dict.projects.statuses[project.status]}
-    </p>
-  )
-}
-
-function VisitLink({ project, locale, dict }: Omit<CardProps, 'index'>) {
-  if (!project.href) {
-    return <span className="font-mono text-xs uppercase tracking-[0.14em] text-text2">{dict.projects.noPublicLink}</span>
-  }
-  return (
-    <a
-      href={project.href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="group/link inline-flex min-h-11 items-center gap-2 font-mono text-xs uppercase tracking-[0.14em] text-accent underline decoration-gold decoration-2 underline-offset-[6px] transition-colors hover:text-navy focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
-    >
-      {dict.projects.visit}
-      <span aria-hidden="true" className="transition-transform group-hover/link:translate-x-1">
-        →
-      </span>
-      <span className="sr-only">
-        {project.name[locale]} ({project.href})
-      </span>
-    </a>
-  )
-}
-
 /** Carte à visuel vivant : capture du vrai site, médaillon mobile, logo, texte visible. */
 function CaptureCard({ project, locale, dict }: Omit<CardProps, 'index'>) {
   if (!project.capture) return null
   return (
     <article
-      className="proj-card flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-bg3 shadow-soft"
+      className="proj-card flex h-full flex-col overflow-hidden rounded-md border border-line bg-bg3 shadow-soft"
       style={{ '--pc': project.accent } as CSSProperties}
     >
       <ProjectMedia
@@ -69,18 +32,12 @@ function CaptureCard({ project, locale, dict }: Omit<CardProps, 'index'>) {
       />
       <div className="flex flex-1 flex-col p-6 pt-5 md:p-7 md:pt-5">
         <StatusPill project={project} dict={dict} />
-        <h3 className="mt-3 font-display text-2xl font-bold italic leading-tight text-navy md:text-[1.7rem]">
+        <h3 className="mt-3 font-display text-2xl font-semibold leading-tight text-navy md:text-[1.7rem]">
           {project.name[locale]}
         </h3>
         <p className="mt-1 text-[15px] font-normal text-text">{project.tagline[locale]}</p>
         <p className="mt-3 text-sm text-text2">{project.result[locale]}</p>
-        <ul className="mt-4 flex flex-wrap gap-1.5">
-          {project.stack.map((tech) => (
-            <li key={tech} className="rounded-md border border-line2 bg-bg px-2 py-0.5 font-mono text-[10.5px] text-text">
-              {tech}
-            </li>
-          ))}
-        </ul>
+        <SpecBlock project={project} locale={locale} />
         <div className="mt-auto pt-5">
           <VisitLink project={project} locale={locale} dict={dict} />
         </div>
@@ -94,7 +51,7 @@ function ReelCard({ project, index, locale, dict }: CardProps) {
   const wide = Boolean(project.featured) || project.id === 'combine'
   const layout = project.featured ? 'md:grid md:grid-cols-[1.15fr_1fr]' : wide ? 'lg:grid lg:grid-cols-[1.15fr_1fr]' : ''
   return (
-    <article className={`flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-bg3 shadow-soft ${layout}`}>
+    <article className={`flex h-full flex-col overflow-hidden rounded-md border border-line bg-bg3 shadow-soft ${layout}`}>
       <ProjectReel project={project} locale={locale} index={index} large={wide} dark={wide} />
       <div className="flex flex-1 flex-col p-6 md:p-7">
         <h3 className="sr-only">{project.name[locale]}</h3>
@@ -103,7 +60,7 @@ function ReelCard({ project, index, locale, dict }: CardProps) {
         ) : null}
         <StatusPill project={project} dict={dict} />
         <p className="mt-4 text-text2">{project.result[locale]}</p>
-        <p className="sr-only">{project.stack.join(', ')}</p>
+        <SpecBlock project={project} locale={locale} />
         <div className="mt-auto pt-6">
           <VisitLink project={project} locale={locale} dict={dict} />
         </div>

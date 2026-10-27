@@ -1,6 +1,7 @@
 'use client'
 
-import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
+import { AnimatePresence, useReducedMotion } from 'motion/react'
+import * as m from 'motion/react-m'
 import dynamic from 'next/dynamic'
 import { useCallback, useEffect, useId, useRef, useState } from 'react'
 import type { Locale } from '@/content/locales'
@@ -330,7 +331,7 @@ export default function Mascot({ locale }: { readonly locale: Locale }) {
     <div className="pointer-events-none fixed bottom-3 right-3 z-40 flex flex-col items-end gap-3 [contain:layout_style] sm:bottom-5 sm:right-5">
       <AnimatePresence>
         {open ? (
-          <motion.div
+          <m.div
             key="panel"
             id={panelId}
             initial={{ opacity: 0, y: reduced ? 0 : 14, scale: reduced ? 1 : 0.97 }}
@@ -340,7 +341,7 @@ export default function Mascot({ locale }: { readonly locale: Locale }) {
             className="origin-bottom-right"
           >
             <AssistantPanel locale={locale} dict={dict} reduceMotion={reduced} onMood={setMood} onClose={closePanel} />
-          </motion.div>
+          </m.div>
         ) : null}
       </AnimatePresence>
 
@@ -387,7 +388,7 @@ export default function Mascot({ locale }: { readonly locale: Locale }) {
           onClick={hide}
           aria-label={text.hide}
           title={text.hide}
-          className="pointer-events-auto absolute -left-1 top-0 grid h-7 w-7 place-items-center rounded-full border border-line2 bg-bg2/90 text-text2 opacity-70 transition-opacity hover:border-gold hover:text-text focus-visible:opacity-100 group-hover:opacity-100"
+          className="pointer-events-auto absolute -left-3 -top-2 grid h-11 w-11 place-items-center rounded-full border border-line2 bg-bg2/90 text-text2 opacity-70 transition-opacity hover:border-accent hover:text-text focus-visible:opacity-100 group-hover:opacity-100"
         >
           <svg width="10" height="10" viewBox="0 0 12 12" aria-hidden="true">
             <path d="M1 1l10 10M11 1L1 11" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />

@@ -8,7 +8,7 @@ export default function NotFound() {
     <main className="flex min-h-svh items-center justify-center px-4 text-center">
       <div>
         <p className="font-mono text-xs uppercase tracking-[0.2em] text-accent">404</p>
-        <h1 className="mt-3 font-display text-4xl font-bold italic">{dict.notFound.title}</h1>
+        <h1 className="mt-3 font-display text-4xl font-semibold">{dict.notFound.title}</h1>
         <p className="mt-3 text-text2">{dict.notFound.text}</p>
         <Link href={`/${defaultLocale}`} className="mt-6 inline-block text-accent underline decoration-gold decoration-2 underline-offset-4 hover:text-navy">
           {dict.notFound.back}

@@ -33,7 +33,7 @@ function shortId(id: string): string {
 }
 
 const linkClass =
-  'inline-flex min-h-10 flex-1 items-center justify-center gap-1.5 whitespace-nowrap rounded-lg border px-2.5 py-2 font-mono text-[10.5px] uppercase tracking-[0.05em] transition-colors'
+  'inline-flex min-h-12 flex-1 items-center justify-center gap-1.5 whitespace-nowrap rounded-md border px-2.5 py-2 font-mono text-[10.5px] uppercase tracking-[0.05em] transition-colors'
 
 function ArrowIcon() {
   return (
@@ -51,7 +51,7 @@ interface CardProps {
 
 function CertificationCard({ item, locale, labels }: CardProps) {
   return (
-    <article className="cert-card flex h-full flex-col rounded-2xl border border-line bg-bg3 p-5 shadow-soft">
+    <article className="cert-card flex h-full flex-col rounded-md border border-line bg-bg3 p-5 shadow-soft">
       <div className="flex items-center justify-between gap-3 font-mono text-[11px] uppercase tracking-[0.12em]">
         <span lang={item.lang} className="font-medium text-navy">{item.issuer}</span>
         {item.date ? (
@@ -60,7 +60,7 @@ function CertificationCard({ item, locale, labels }: CardProps) {
           </time>
         ) : null}
       </div>
-      <h4 lang={item.lang} className="mt-3 font-display text-lg font-bold italic leading-snug text-text">{item.title}</h4>
+      <h4 lang={item.lang} className="mt-3 font-display text-lg font-semibold leading-snug text-text">{item.title}</h4>
       {item.subtitle ? (
         <p lang={item.lang} className="mt-1 text-sm text-text2">
           {item.subtitle}
@@ -68,7 +68,7 @@ function CertificationCard({ item, locale, labels }: CardProps) {
       ) : null}
       {item.minutes ? (
         <p className="mt-3 inline-flex w-fit items-center gap-2 rounded-full bg-bg2 px-2.5 py-1 font-mono text-[11px] text-text">
-          <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-gold" />
+          <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent" />
           {formatDuration(item.minutes, labels)}
         </p>
       ) : null}
@@ -113,25 +113,33 @@ function CertificationCard({ item, locale, labels }: CardProps) {
   )
 }
 
-export default function Certifications({ locale, dict }: { readonly locale: Locale; readonly dict: Dictionary }) {
+export default function Certifications({
+  locale,
+  dict,
+  index = 6,
+}: {
+  readonly locale: Locale
+  readonly dict: Dictionary
+  readonly index?: number
+}) {
   const labels = dict.certifications
 
   return (
-    <Section id="certifications" index={6} label={dict.nav.certifications} title={labels.title} intro={labels.intro}>
+    <Section id="certifications" index={index} label={dict.nav.certifications} title={labels.title} intro={labels.intro}>
       <Reveal>
         <dl className="mb-14 flex flex-wrap gap-x-12 gap-y-6">
           <div className="flex flex-col-reverse">
             <dt className="mt-3 font-mono text-[11px] uppercase tracking-[0.16em] text-text2">{labels.statCount}</dt>
-            <dd className="font-display text-6xl font-black italic leading-none text-navy">
+            <dd className="font-display text-6xl font-semibold leading-none text-navy">
               <CountUp value={certificationCount} />
-              <span aria-hidden="true" className="gold-rule mt-3" />
+              <span aria-hidden="true" className="rule mt-3" />
             </dd>
           </div>
           <div className="flex flex-col-reverse">
             <dt className="mt-3 font-mono text-[11px] uppercase tracking-[0.16em] text-text2">{labels.statHours}</dt>
-            <dd className="font-display text-6xl font-black italic leading-none text-navy">
+            <dd className="font-display text-6xl font-semibold leading-none text-navy">
               <CountUp value={totalHours} />
-              <span aria-hidden="true" className="gold-rule mt-3" />
+              <span aria-hidden="true" className="rule mt-3" />
             </dd>
           </div>
         </dl>
@@ -148,7 +156,7 @@ export default function Certifications({ locale, dict }: { readonly locale: Loca
                   {labels.groups[group]}
                   <span className="text-text2">{String(items.length).padStart(2, '0')}</span>
                 </h3>
-                <span aria-hidden="true" className="mt-2 block h-px w-full bg-gradient-to-r from-gold/60 via-line to-transparent" />
+                <span aria-hidden="true" className="mt-2 block h-px w-full bg-gradient-to-r from-accent/60 via-line to-transparent" />
               </Reveal>
               <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {items.map((item, index) => (

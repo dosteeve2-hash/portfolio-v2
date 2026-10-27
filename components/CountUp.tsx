@@ -7,7 +7,7 @@ interface CountUpProps {
   readonly className?: string
 }
 
-const DURATION_MS = 1300
+const DURATION_MS = 600
 
 /**
  * Compteur animé : le rendu serveur contient déjà la valeur finale (lisible sans JavaScript) ;

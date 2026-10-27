@@ -5,11 +5,12 @@ interface PortraitProps {
   readonly alt: string
   readonly sizes: string
   readonly priority?: boolean
+  readonly className?: string
 }
 
-export default function Portrait({ alt, sizes, priority = false }: PortraitProps) {
+export default function Portrait({ alt, sizes, priority = false, className = '' }: PortraitProps) {
   return (
-    <div className="relative aspect-square w-full overflow-hidden rounded-full bg-bg3 shadow-lift ring-4 ring-white">
+    <div className={`relative aspect-square w-full overflow-hidden rounded-md border border-line2 bg-bg2 ${className}`}>
       <Image
         src={PORTRAIT_SRC}
         alt={alt}

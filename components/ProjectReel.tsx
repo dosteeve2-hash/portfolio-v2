@@ -61,14 +61,14 @@ function OrchestratorReel({ project, locale, index }: Omit<ProjectReelProps, 'la
       />
 
       <div className="relative flex items-start justify-between gap-4">
-        <p className="font-display text-xl font-black not-italic text-gold">{String(index + 1).padStart(2, '0')}</p>
+        <p className="font-display text-xl font-semibold not-italic text-gold2">{String(index + 1).padStart(2, '0')}</p>
         <OrchestratorMark className="-mr-2 -mt-2 h-28 w-28 shrink-0 md:-mr-3 md:-mt-3 md:h-44 md:w-44" />
       </div>
 
       <div className="relative">
         <div className="orch-text reel-anim">
           <div className="-mb-[0.15em] overflow-hidden pb-[0.15em] pr-[0.2em]">
-            <p className="orch-name reel-anim font-display text-4xl font-bold italic leading-tight md:text-5xl">
+            <p className="orch-name reel-anim font-display text-4xl font-semibold leading-tight md:text-5xl">
               {project.name[locale]}
             </p>
           </div>
@@ -113,7 +113,7 @@ function MarkReel({ project, locale, index, large = false, dark = false }: Proje
       />
 
       <div className="relative flex items-start justify-between gap-4">
-        <p className="font-display text-xl font-black not-italic text-gold">{String(index + 1).padStart(2, '0')}</p>
+        <p className="font-display text-xl font-semibold not-italic text-gold2">{String(index + 1).padStart(2, '0')}</p>
         <span className="-mr-1 -mt-1 flex h-24 w-24 shrink-0 items-center justify-center rounded-3xl bg-white p-4 shadow-lift md:h-36 md:w-36 md:p-6">
           <Image
             src={`/logos/${project.logo}/mark.svg`}
@@ -130,7 +130,7 @@ function MarkReel({ project, locale, index, large = false, dark = false }: Proje
         <div className="rl-text reel-anim">
           <div className="-mb-[0.15em] overflow-hidden pb-[0.15em] pr-[0.2em]">
             <p
-              className={`rl-name reel-anim font-display font-bold italic leading-tight ${
+              className={`rl-name reel-anim font-display font-semibold leading-tight ${
                 large ? 'text-4xl md:text-5xl' : 'text-3xl'
               } ${dark ? '' : 'text-navy'}`}
             >

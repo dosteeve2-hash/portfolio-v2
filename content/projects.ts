@@ -26,6 +26,8 @@ export interface Project {
   readonly since: string
   /** Préfixe des médias de public/projects/ (<capture>-d.webp, <capture>-m.webp, <capture>.webm, <capture>.mp4). Absent : aucun site public à filmer. */
   readonly capture?: string
+  /** Nombre de tests automatisés vérifié dans le dépôt (ETAT.md du 2026-10-18 et du 2026-09-24). */
+  readonly tests?: number
 }
 
 export const projects: readonly Project[] = [
@@ -71,6 +73,7 @@ export const projects: readonly Project[] = [
     },
     stack: ['Next.js', 'TypeScript', 'Neon Postgres', 'Better Auth', 'Zod', 'Tailwind CSS', 'Playwright'],
     status: 'proto',
+    tests: 93,
   },
   {
     id: 'sugu',
@@ -259,6 +262,7 @@ export const projects: readonly Project[] = [
     },
     stack: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'PWA'],
     status: 'live',
+    tests: 32,
     href: 'https://fine-game-three.vercel.app',
   },
   {
@@ -307,3 +311,13 @@ export const projects: readonly Project[] = [
 
 /** Projets du plus ancien au plus récent (à égalité, l'ordre d'affichage). */
 export const projectsByDate: readonly Project[] = [...projects].sort((a, b) => a.since.localeCompare(b.since))
+
+export const onlineProjectCount: number = projects.filter((project) => project.href !== undefined).length
+
+export const automatedTestCount: number = projects.reduce((sum, project) => sum + (project.tests ?? 0), 0)
+
+export function projectById(id: string): Project {
+  const found = projects.find((project) => project.id === id)
+  if (!found) throw new Error(`Projet inconnu : ${id}`)
+  return found
+}

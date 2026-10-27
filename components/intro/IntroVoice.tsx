@@ -1,6 +1,7 @@
 'use client'
 
-import { AnimatePresence, motion } from 'motion/react'
+import { AnimatePresence } from 'motion/react'
+import * as m from 'motion/react-m'
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import { VOICE_STORAGE_KEY } from '@/lib/introKey'
 
@@ -238,7 +239,7 @@ export default function IntroVoiceProvider({ src, labels, children }: IntroVoice
       ) : null}
       <AnimatePresence>
         {state === 'playing' ? (
-          <motion.button
+          <m.button
             key="mute"
             type="button"
             onClick={(event) => {
@@ -262,7 +263,7 @@ export default function IntroVoiceProvider({ src, labels, children }: IntroVoice
                 <span />
               </span>
             )}
-          </motion.button>
+          </m.button>
         ) : null}
       </AnimatePresence>
     </IntroVoiceContext.Provider>

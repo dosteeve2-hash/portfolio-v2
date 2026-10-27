@@ -11,7 +11,17 @@ interface Channel {
   readonly href: string
 }
 
-export default function Contact({ locale, dict }: { readonly locale: Locale; readonly dict: Dictionary }) {
+export default function Contact({
+  locale,
+  dict,
+  index = 10,
+  action = 'cv',
+}: {
+  readonly locale: Locale
+  readonly dict: Dictionary
+  readonly index?: number
+  readonly action?: 'cv' | 'mail'
+}) {
   const channels: Channel[] = [
     { label: dict.contact.email, value: SITE.email, href: `mailto:${SITE.email}` },
     { label: dict.contact.github, value: `github.com/${SITE.githubUser}`, href: githubUrl() },
@@ -25,7 +35,7 @@ export default function Contact({ locale, dict }: { readonly locale: Locale; rea
   }
 
   return (
-    <Section id="contact" index={10} tone="navy" label={dict.nav.contact} title={dict.contact.title} intro={dict.contact.text}>
+    <Section id="contact" index={index} tone="navy" label={dict.nav.contact} title={dict.contact.title} intro={dict.contact.text}>
       <Reveal>
         <ul className="grid gap-4 md:grid-cols-3">
           {channels.map((channel) => (
@@ -34,18 +44,22 @@ export default function Contact({ locale, dict }: { readonly locale: Locale; rea
                 data-spotlight
                 href={channel.href}
                 {...(channel.href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                className="block h-full rounded-2xl border border-line2 bg-bg3 p-5 transition-colors hover:border-gold"
+                className="block h-full rounded-md border border-line2 bg-bg3 p-5 transition-colors hover:border-accent"
               >
                 <span className="block font-mono text-[11px] uppercase tracking-[0.18em] text-text2">
                   {channel.label}
                 </span>
-                <span className="mt-2 block break-all font-display text-lg italic text-accent">{channel.value}</span>
+                <span className="mt-2 block break-all font-display text-lg text-accent">{channel.value}</span>
               </a>
             </li>
           ))}
         </ul>
         <div className="mt-8">
-          <Cta href={cvHref(locale)}>{dict.contact.cv}</Cta>
+          {action === 'mail' ? (
+            <Cta href={`mailto:${SITE.email}`}>{dict.hero.contact}</Cta>
+          ) : (
+            <Cta href={cvHref(locale)}>{dict.contact.cv}</Cta>
+          )}
         </div>
       </Reveal>
     </Section>

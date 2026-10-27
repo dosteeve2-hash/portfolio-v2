@@ -2,11 +2,11 @@ import type { Dictionary } from './types'
 
 export const en: Dictionary = {
   meta: {
-    title: 'Steeve Donald Compaoré — La forge du futur',
+    title: 'Steeve Donald Compaoré — Software engineering: code that holds up in production',
     description:
       'Portfolio of Steeve Donald Compaoré, computer science student: full stack development, AI integration and automation. Open to summer 2027 internships.',
   },
-  brand: { name: 'La forge du futur', slogan: 'Where the future gets forged.' },
+  brand: { name: 'Software engineering', slogan: 'Code that holds up in production.' },
   nav: {
     label: 'Main navigation',
     skipToContent: 'Skip to content',
@@ -18,9 +18,12 @@ export const en: Dictionary = {
     certifications: 'Certifications',
     journey: 'Journey',
     contact: 'Contact',
+    stage: 'Internship',
+    emploi: 'Job',
     openMenu: 'Open menu',
     closeMenu: 'Close menu',
   },
+  proof: { projects: 'projects online', certifications: 'certifications', tests: 'automated tests (2 projects)' },
   language: { label: 'Choose language' },
   badge: 'Open to internships · Summer 2027',
   intro: {
@@ -78,7 +81,7 @@ export const en: Dictionary = {
       'The manager sits in the centre. GitHub and Telegram feed it requests. It delegates to Copilot, Gemini, Codex and Ollama, with automatic fallback between agents, and writes every delegation to a log.',
     nodes: {
       github: { title: 'GitHub', sub: 'channel' },
-      telegram: { title: 'Telegram', sub: 'channel' },
+      telegram: { title: 'Telegram', sub: 'ready, idle' },
       manager: { title: 'Manager', sub: 'routing' },
       copilot: { title: 'Copilot' },
       gemini: { title: 'Gemini' },

@@ -34,7 +34,7 @@ export default function LanguageSwitcher({ current, label }: LanguageSwitcherPro
             aria-label={meta.name}
             aria-current={active ? 'true' : undefined}
             onClick={() => rememberLocale(locale)}
-            className={`flex items-center gap-1 rounded-lg border px-2 py-1 font-mono text-[11px] transition-colors ${
+            className={`flex min-h-11 min-w-11 items-center justify-center gap-1 rounded-md border px-1.5 font-mono text-[11px] transition-colors ${
               active
                 ? 'border-accent bg-accent/10 text-accent'
                 : 'border-transparent text-text2 hover:border-line2 hover:text-text'

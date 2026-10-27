@@ -3,11 +3,11 @@ import type { Dictionary } from './types'
 // TODO relecture TR : traduction à faire relire par un locuteur natif.
 export const tr: Dictionary = {
   meta: {
-    title: 'Steeve Donald Compaoré — La forge du futur',
+    title: 'Steeve Donald Compaoré — Yazılım mühendisliği: üretimde ayakta kalan kod',
     description:
       'Bilgisayar bilimleri öğrencisi Steeve Donald Compaoré’nin portfolyosu: full stack geliştirme, yapay zekâ entegrasyonu ve otomasyon. 2027 yaz stajlarına açığım.',
   },
-  brand: { name: 'La forge du futur', slogan: 'Geleceğin şekillendiği yer.' },
+  brand: { name: 'Yazılım mühendisliği', slogan: 'Üretimde ayakta kalan kod.' },
   nav: {
     label: 'Ana gezinme',
     skipToContent: 'İçeriğe geç',
@@ -19,9 +19,12 @@ export const tr: Dictionary = {
     certifications: 'Sertifikalar',
     journey: 'Yolculuk',
     contact: 'İletişim',
+    stage: 'Staj',
+    emploi: 'İş',
     openMenu: 'Menüyü aç',
     closeMenu: 'Menüyü kapat',
   },
+  proof: { projects: 'yayındaki proje', certifications: 'sertifika', tests: 'otomatik test (2 proje)' },
   language: { label: 'Dil seçin' },
   badge: 'Staja açığım · Yaz 2027',
   // TODO relecture TR : libellés de l'intro (Dinle, Sesi kapat, Çerçeve, üretici).
@@ -80,7 +83,7 @@ export const tr: Dictionary = {
       'Yönetici ortada yer alır. GitHub ve Telegram ona istek gönderir. Copilot, Gemini, Codex ve Ollama’ya iş devreder; ajanlar arasında otomatik yedekleme vardır ve her devir bir günlüğe yazılır.',
     nodes: {
       github: { title: 'GitHub', sub: 'kanal' },
-      telegram: { title: 'Telegram', sub: 'kanal' },
+      telegram: { title: 'Telegram', sub: 'hazır, pasif' },
       manager: { title: 'Yönetici', sub: 'yönlendirme' },
       copilot: { title: 'Copilot' },
       gemini: { title: 'Gemini' },

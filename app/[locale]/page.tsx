@@ -16,14 +16,28 @@ import Projects from '@/components/Projects'
 import Skills from '@/components/Skills'
 import { getDictionary } from '@/content'
 import { isLocale } from '@/content/locales'
+import { githubUrl, SITE, SITE_URL } from '@/content/site'
 
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
   if (!isLocale(locale)) notFound()
   const dict = getDictionary(locale)
+  const person = {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: SITE.name,
+    url: `${SITE_URL}/${locale}`,
+    email: SITE.email,
+    jobTitle: dict.brand.name,
+    affiliation: { '@type': 'CollegeOrUniversity', name: 'Tokat Gaziosmanpaşa Üniversitesi' },
+    address: { '@type': 'PostalAddress', addressLocality: 'Tokat', addressCountry: 'TR' },
+    knowsLanguage: ['fr', 'en', 'tr'],
+    sameAs: [githubUrl(), SITE.linkedinUrl],
+  }
 
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(person) }} />
       <Intro locale={locale} dict={dict} />
       <a
         href="#about"
