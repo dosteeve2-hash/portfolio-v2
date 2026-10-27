@@ -2,9 +2,11 @@ import type { CSSProperties } from 'react'
 import type { Locale } from '@/content/locales'
 import { projects, type Project } from '@/content/projects'
 import type { Dictionary } from '@/content/types'
+import TiltCard from '@/kit/components/TiltCard'
 import ProjectMedia from './ProjectMedia'
 import { SpecBlock, StatusPill, VisitLink } from './ProjectBits'
 import ProjectReel from './ProjectReel'
+import ProjectsScene from './ProjectsScene'
 import ProjectTimeline, { formatSince } from './ProjectTimeline'
 import Reveal from './Reveal'
 import Section from './Section'
@@ -80,17 +82,26 @@ function spanClass(project: Project, index: number): string {
 
 export default function Projects({ locale, dict }: { readonly locale: Locale; readonly dict: Dictionary }) {
   return (
-    <Section id="projects" index={4} label={dict.nav.projects} title={dict.projects.title} intro={dict.projects.intro}>
+    <Section
+      id="projects"
+      index={4}
+      label={dict.nav.projects}
+      title={dict.projects.title}
+      intro={dict.projects.intro}
+      bleed={<ProjectsScene locale={locale} />}
+    >
       <ProjectTimeline locale={locale} dict={dict} />
       <ul className="grid gap-5 md:grid-cols-2 lg:grid-cols-6">
         {projects.map((project, index) => (
           <li key={project.id} id={`project-${project.id}`} className={`scroll-mt-24 ${spanClass(project, index)}`}>
             <Reveal delay={(index % 3) * 0.08} className="lift h-full">
-              {project.capture ? (
-                <CaptureCard project={project} locale={locale} dict={dict} />
-              ) : (
-                <ReelCard project={project} index={index} locale={locale} dict={dict} />
-              )}
+              <TiltCard className="h-full" max={5} glareColor="rgba(31,79,216,0.07)">
+                {project.capture ? (
+                  <CaptureCard project={project} locale={locale} dict={dict} />
+                ) : (
+                  <ReelCard project={project} index={index} locale={locale} dict={dict} />
+                )}
+              </TiltCard>
             </Reveal>
           </li>
         ))}

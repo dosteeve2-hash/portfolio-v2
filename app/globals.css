@@ -344,93 +344,67 @@ html[data-intro='seen'] .intro-root {
   opacity: 0.7;
 }
 
-/* --- Mascotte --- */
-.mascot-svg {
-  display: block;
-  overflow: visible;
-  /* Fondu du buste : masque CSS (composité) plutôt qu'un <mask> SVG recalculé à chaque image */
-  -webkit-mask-image: linear-gradient(to bottom, #000 83.7%, transparent 99.3%);
-  mask-image: linear-gradient(to bottom, #000 83.7%, transparent 99.3%);
+/* --- Assistant : panneau qui s'ouvre depuis le bouton, anneau qui pulse, repères de calque « en train de répondre » --- */
+.assistant-panel {
+  transform-origin: bottom right;
+  animation: assistant-open 0.34s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
-.mascot-breathe {
-  transform-origin: 120px 270px;
-  animation: mascot-breathe 4.6s ease-in-out infinite;
+.assistant-panel[data-state='closing'] {
+  animation: assistant-close 0.18s ease-in both;
 }
-.mascot-bob {
-  transform-origin: 120px 190px;
+@keyframes assistant-open {
+  from {
+    opacity: 0;
+    transform: scale(0.35) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
-.mascot-svg[data-expr='laugh'] .mascot-bob {
-  animation: mascot-laugh 0.34s ease-in-out infinite;
+@keyframes assistant-close {
+  to {
+    opacity: 0;
+    transform: scale(0.5) translateY(8px);
+  }
 }
-.mascot-hand {
-  opacity: 0;
-  transform: translateY(46px);
-  transition:
-    opacity 0.26s ease,
-    transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
-  pointer-events: none;
+.assistant-ring {
+  animation: assistant-ring 3.6s ease-out infinite;
 }
-.mascot-svg[data-hand='wave'] .hand-wave,
-.mascot-svg[data-hand='chin'] .hand-chin,
-.mascot-svg[data-hand='thumb'] .hand-thumb {
-  opacity: 1;
-  transform: none;
-}
-.mascot-wave {
-  transform-origin: 210px 190px;
-}
-.mascot-svg[data-hand='wave'] .mascot-wave {
-  animation: mascot-wave 0.9s ease-in-out infinite;
-}
-.mascot-svg[data-expr='sleepy'] .mascot-zzz {
-  animation: mascot-zzz 2.6s ease-in-out infinite;
-}
-[data-scrolling] .mascot-breathe,
-[data-scrolling] .mascot-zzz,
-[data-scrolling] .mascot-wave {
+.assistant-ring[data-paused] {
   animation-play-state: paused;
+  opacity: 0;
+}
+@keyframes assistant-ring {
+  0% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  70%,
+  100% {
+    transform: scale(1.55);
+    opacity: 0;
+  }
+}
+.assistant-tick {
+  animation: assistant-tick 0.9s ease-in-out infinite;
+}
+@keyframes assistant-tick {
+  0%,
+  100% {
+    transform: scale(0.55);
+    opacity: 0.35;
+  }
+  45% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
-@keyframes mascot-breathe {
-  0%,
-  100% {
-    transform: translateY(0) scale(1, 1);
-  }
-  50% {
-    transform: translateY(-1.4px) scale(1.006, 1.012);
-  }
+.caret {
+  animation: caret-blink 1s steps(1) infinite;
 }
-@keyframes mascot-laugh {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-2.4px);
-  }
-}
-@keyframes mascot-wave {
-  0%,
-  100% {
-    transform: rotate(-9deg);
-  }
-  50% {
-    transform: rotate(13deg);
-  }
-}
-@keyframes mascot-zzz {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-4px);
-  }
-}
-.mascot-caret {
-  animation: mascot-caret 1s steps(1) infinite;
-}
-@keyframes mascot-caret {
+@keyframes caret-blink {
   50% {
     opacity: 0;
   }
@@ -477,12 +451,6 @@ html[data-intro='seen'] .intro-root {
   }
   .intro-root {
     display: none;
-  }
-  .mascot-breathe,
-  .mascot-bob,
-  .mascot-wave,
-  .mascot-zzz {
-    animation: none !important;
   }
   [data-reveal] {
     transform: none !important;

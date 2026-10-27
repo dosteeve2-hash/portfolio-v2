@@ -7,10 +7,13 @@ import { cvHref, SITE } from '@/content/site'
 import type { Dictionary } from '@/content/types'
 import { INTRO_NAME } from '@/content/intro'
 import { useIntroHandoff, useIntroPhase } from '@/lib/introStore'
+import { useAfterInteraction } from '@/lib/useAfterInteraction'
 import { useReducedMotionSafe } from '@/lib/useReducedMotionSafe'
 import { mascotText } from '@/content/mascotText'
 import { certificationCount } from '@/content/certifications'
 import { automatedTestCount, onlineProjectCount } from '@/content/projects'
+import DragStickers, { type Sticker } from '@/kit/components/DragStickers'
+import { fill, waouh } from '@/content/waouh'
 import Cta from './Cta'
 import Portrait from './Portrait'
 import ProofStrip from './ProofStrip'
@@ -40,10 +43,39 @@ function splitName(full: string, part: string): readonly [string, string, string
 
 const NAME_PARTS = splitName(SITE.name, INTRO_NAME)
 
+const stickerClass =
+  'rounded-sm border border-line2 bg-bg3 px-2.5 py-1.5 font-mono text-[11px] uppercase tracking-[0.1em] text-text shadow-[2px_3px_0_rgba(20,33,61,0.16)]'
+const stickerAccent = 'rounded-sm border border-accent bg-accent px-2.5 py-1.5 font-mono text-[11px] uppercase tracking-[0.1em] text-on-accent shadow-[2px_3px_0_rgba(20,33,61,0.22)]'
+
+/** Étiquettes de calque déplaçables ; chaque mention est un fait vérifié (compteurs calculés). */
+function heroStickers(locale: Locale, mobile: boolean): readonly Sticker[] {
+  const t = waouh[locale]
+  const make = (id: string, text: string, x: number, y: number, rotate: number, accent = false): Sticker => ({
+    id: `${mobile ? 'm' : 'd'}-${id}`,
+    x,
+    y,
+    rotate,
+    label: `${t.stickerHint} : ${text}`,
+    children: <span className={accent ? stickerAccent : stickerClass}>{text}</span>,
+  })
+  const projectsText = fill(t.stickers.projects, { n: onlineProjectCount })
+  const testsText = fill(t.stickers.tests, { n: automatedTestCount })
+  return mobile
+    ? [make('tests', testsText, 5, 74, -4, true), make('spec', t.stickers.spec, 66, 88, 5)]
+    : [
+        make('spec', t.stickers.spec, 58, 6, -5),
+        make('projects', projectsText, 78, 22, 4),
+        make('tests', testsText, 56, 78, -3, true),
+        make('langs', t.stickers.languages, 80, 90, 5),
+      ]
+}
+
 export default function Hero({ locale, dict }: HeroProps) {
   const phase = useIntroPhase()
   const handoff = useIntroHandoff()
   const reduce = useReducedMotionSafe()
+  // Les étiquettes déplaçables arrivent après le premier geste (ou 3,5 s) : rien ne pèse sur le chargement.
+  const stickersReady = useAfterInteraction(3500, phase === 'done')
   const state = phase === 'done' ? 'show' : 'hide'
   const variants = itemVariants(reduce ? 0 : 20)
   const [nameBefore, nameMiddle, nameAfter] = NAME_PARTS
@@ -55,11 +87,6 @@ export default function Hero({ locale, dict }: HeroProps) {
 
   return (
     <section id="top" aria-labelledby="hero-title" className="relative flex min-h-svh items-center overflow-hidden pb-16 pt-28">
-      <div
-        aria-hidden="true"
-        className="calque pointer-events-none absolute inset-0 [mask-image:linear-gradient(to_bottom,#000_55%,transparent)]"
-      />
-
       <div className="relative mx-auto grid w-full max-w-6xl items-center gap-12 px-4 sm:px-6 md:grid-cols-[1.25fr_0.75fr]">
         <div>
           <m.div
@@ -145,6 +172,7 @@ export default function Hero({ locale, dict }: HeroProps) {
 
           <m.div data-hero custom={6} variants={variants} initial="hide" animate={state} className="mt-10">
             <ProofStrip
+              start={phase === 'done'}
               figures={[
                 { value: onlineProjectCount, label: dict.proof.projects },
                 { value: certificationCount, label: dict.proof.certifications },
@@ -166,6 +194,31 @@ export default function Hero({ locale, dict }: HeroProps) {
           <span aria-hidden="true" className="absolute -left-2 -top-2 h-5 w-5 border-l-2 border-t-2 border-accent" />
           <span aria-hidden="true" className="absolute -bottom-2 -right-2 h-5 w-5 border-b-2 border-r-2 border-accent" />
         </m.div>
+
+        {stickersReady ? (
+          <>
+        <m.div
+          data-hero
+          custom={7}
+          variants={variants}
+          initial="hide"
+          animate={state}
+          className="pointer-events-none absolute inset-0 hidden md:block"
+        >
+          <DragStickers items={heroStickers(locale, false)} style={{ position: 'absolute', inset: 0, pointerEvents: 'none' }} />
+        </m.div>
+        <m.div
+          data-hero
+          custom={7}
+          variants={variants}
+          initial="hide"
+          animate={state}
+          className="pointer-events-none absolute inset-0 md:hidden"
+        >
+          <DragStickers items={heroStickers(locale, true)} style={{ position: 'absolute', inset: 0, pointerEvents: 'none' }} />
+        </m.div>
+          </>
+        ) : null}
       </div>
     </section>
   )

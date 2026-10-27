@@ -5,7 +5,7 @@ import { spokenLanguages } from './languages'
 import type { Locale } from './locales'
 import { mascotText } from './mascotText'
 import { projects } from './projects'
-import { cvHref, MASCOT_NAME, SITE } from './site'
+import { cvHref, SITE } from './site'
 import { skillGroups } from './skills'
 
 export type SectionId = 'about' | 'skills' | 'projects' | 'architecture' | 'certifications' | 'journey' | 'contact'
@@ -265,7 +265,7 @@ export const intents: readonly Intent[] = [
       en: ['hello', 'hi', 'hey', 'good morning', 'good evening', 'greetings', 'yo'],
       tr: ['merhaba', 'selam', 'gunaydin', 'iyi aksamlar', 'slm'],
     },
-    reply: (locale) => mascotText[locale].welcome.replace('{name}', MASCOT_NAME),
+    reply: (locale) => mascotText[locale].welcome,
   },
   {
     id: 'thanks',

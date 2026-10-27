@@ -6,7 +6,6 @@ export const FIRST_VERSION_URL = 'https://mon-portfolio-phi-swart.vercel.app'
 
 export const SITE_URL = 'https://portfolio-v2-eight-eta.vercel.app'
 
-export const MASCOT_NAME = 'Steeve'
 
 export const PORTRAIT_FOCUS = { position: '43% 50%', scale: 1.3 } as const
 

@@ -1,14 +1,14 @@
 'use client'
 
+import { Briefcase, FileDown, FolderKanban, Mail, SendHorizontal, User, Wrench, X, type LucideIcon } from 'lucide-react'
 import Link from 'next/link'
-import { useCallback, useEffect, useId, useRef, useState, type FormEvent } from 'react'
+import { useCallback, useEffect, useId, useRef, useState, type FormEvent, type KeyboardEvent } from 'react'
 import { actionHref, type AssistantAction, type SectionId } from '@/content/assistantKb'
 import type { Locale } from '@/content/locales'
-import { fill, mascotText } from '@/content/mascotText'
-import { MASCOT_NAME } from '@/content/site'
+import { fill, mascotText, type QuickQuestion } from '@/content/mascotText'
 import type { Dictionary } from '@/content/types'
 import { answerQuestion } from '@/lib/assistant'
-import type { Expression } from './pose'
+import AssistantMark from './AssistantMark'
 
 interface Message {
   readonly id: number
@@ -23,11 +23,22 @@ interface AssistantPanelProps {
   readonly locale: Locale
   readonly dict: Dictionary
   readonly reduceMotion: boolean
-  readonly onMood: (expression: Expression, holdMs?: number) => void
+  readonly closing: boolean
   readonly onClose: () => void
 }
 
-const THINK_MS = 400
+const THINK_MS = 650
+
+const quickIcons: Readonly<Record<QuickQuestion['id'], LucideIcon>> = {
+  who: User,
+  skills: Wrench,
+  projects: FolderKanban,
+  internship: Briefcase,
+  contact: Mail,
+  cv: FileDown,
+}
+
+const FOCUSABLE = 'button:not([disabled]), a[href], input:not([disabled]), [tabindex]:not([tabindex="-1"])'
 
 function TypedText({
   text,
@@ -73,24 +84,33 @@ function TypedText({
   return <>{text.slice(0, animate ? count : text.length)}</>
 }
 
-export default function AssistantPanel({ locale, dict, reduceMotion, onMood, onClose }: AssistantPanelProps) {
+/** « En train de répondre » : trois repères de calque qui se tracent l'un après l'autre. */
+function Working({ label }: { readonly label: string }) {
+  return (
+    <div role="status" className="inline-flex items-center gap-2 rounded-sm border border-line2 bg-bg2 px-3 py-2.5">
+      <span className="sr-only">{label}</span>
+      <span aria-hidden="true" className="flex items-center gap-1.5">
+        {[0, 1, 2].map((i) => (
+          <span key={i} className="assistant-tick block h-3 w-3 border border-accent" style={{ animationDelay: `${i * 0.16}s` }} />
+        ))}
+      </span>
+    </div>
+  )
+}
+
+export default function AssistantPanel({ locale, dict, reduceMotion, closing, onClose }: AssistantPanelProps) {
   const text = mascotText[locale]
   const titleId = useId()
   const nextId = useRef(2)
+  const rootRef = useRef<HTMLDivElement>(null)
   const listRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
   const timers = useRef<number[]>([])
   const [input, setInput] = useState('')
-  const [live, setLive] = useState(() => fill(text.welcome, { name: MASCOT_NAME }))
+  const [pending, setPending] = useState(false)
+  const [live, setLive] = useState(text.welcome)
   const [messages, setMessages] = useState<readonly Message[]>(() => [
-    {
-      id: 1,
-      role: 'bot',
-      text: fill(text.welcome, { name: MASCOT_NAME }),
-      actions: [],
-      suggestions: [],
-      done: false,
-    },
+    { id: 1, role: 'bot', text: text.welcome, actions: [], suggestions: [], done: false },
   ])
 
   const sectionLabel = useCallback(
@@ -123,26 +143,15 @@ export default function AssistantPanel({ locale, dict, reduceMotion, onMood, onC
 
   useEffect(() => {
     inputRef.current?.focus()
-    const pending = timers.current
+    const pendingTimers = timers.current
     return () => {
-      pending.forEach((id) => window.clearTimeout(id))
+      pendingTimers.forEach((id) => window.clearTimeout(id))
     }
   }, [])
 
   useEffect(() => {
-    const onKey = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        event.stopPropagation()
-        onClose()
-      }
-    }
-    document.addEventListener('keydown', onKey)
-    return () => document.removeEventListener('keydown', onKey)
-  }, [onClose])
-
-  useEffect(() => {
     scrollToBottom()
-  }, [messages, scrollToBottom])
+  }, [messages, pending, scrollToBottom])
 
   const markDone = useCallback((id: number) => {
     setMessages((current) => current.map((message) => (message.id === id && !message.done ? { ...message, done: true } : message)))
@@ -151,7 +160,7 @@ export default function AssistantPanel({ locale, dict, reduceMotion, onMood, onC
   const submit = useCallback(
     (raw: string) => {
       const question = raw.trim()
-      if (question.length === 0) return
+      if (question.length === 0 || pending) return
       const userId = nextId.current
       const botId = nextId.current + 1
       nextId.current += 2
@@ -160,24 +169,23 @@ export default function AssistantPanel({ locale, dict, reduceMotion, onMood, onC
         ...current.map((message) => (message.done ? message : { ...message, done: true })),
         { id: userId, role: 'user', text: question, actions: [], suggestions: [], done: true },
       ])
-      onMood('thinking')
+      setPending(!reduceMotion)
       const timer = window.setTimeout(() => {
         const reply = answerQuestion(question, locale)
+        setPending(false)
         setMessages((current) => [
           ...current,
           { id: botId, role: 'bot', text: reply.text, actions: reply.actions, suggestions: reply.suggestions, done: false },
         ])
         setLive(reply.text)
-        onMood(reply.found ? 'happy' : 'curious', 2800)
         const first = reply.actions[0]
         if (first && first.kind === 'scroll' && window.matchMedia('(min-width: 768px)').matches) {
-          const scrollTimer = window.setTimeout(() => goTo(first.section), 500)
-          timers.current.push(scrollTimer)
+          timers.current.push(window.setTimeout(() => goTo(first.section), 500))
         }
       }, reduceMotion ? 0 : THINK_MS)
       timers.current.push(timer)
     },
-    [goTo, locale, onMood, reduceMotion],
+    [goTo, locale, pending, reduceMotion],
   )
 
   const onSubmit = (event: FormEvent) => {
@@ -185,9 +193,30 @@ export default function AssistantPanel({ locale, dict, reduceMotion, onMood, onC
     submit(input)
   }
 
+  /** Échap ferme ; Tab reste dans le panneau (focus piégé). */
+  const onKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === 'Escape') {
+      event.stopPropagation()
+      onClose()
+      return
+    }
+    if (event.key !== 'Tab') return
+    const nodes = Array.from(rootRef.current?.querySelectorAll<HTMLElement>(FOCUSABLE) ?? []).filter((n) => n.offsetParent !== null)
+    const first = nodes[0]
+    const last = nodes.at(-1)
+    if (!first || !last) return
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault()
+      last.focus()
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault()
+      first.focus()
+    }
+  }
+
   const renderAction = (action: AssistantAction) => {
     const className =
-      'inline-flex items-center gap-1.5 rounded-lg border border-accent/40 bg-accent/10 px-3 py-1.5 font-mono text-[11px] text-accent transition-colors hover:bg-accent/20'
+      'inline-flex min-h-11 items-center gap-1.5 rounded-sm border border-accent/40 bg-accent/10 px-3 py-1.5 font-mono text-[11px] text-accent transition-colors hover:bg-accent/20'
     switch (action.kind) {
       case 'scroll':
         return (
@@ -232,24 +261,28 @@ export default function AssistantPanel({ locale, dict, reduceMotion, onMood, onC
 
   return (
     <div
+      ref={rootRef}
       role="dialog"
-      aria-modal="false"
+      aria-modal="true"
       aria-labelledby={titleId}
-      className="pointer-events-auto flex max-h-[min(540px,calc(100svh-12rem))] w-[min(calc(100vw-1.5rem),380px)] md:max-h-[min(540px,calc(100svh-15rem))] xl:max-h-[min(540px,calc(100svh-17rem))] flex-col overflow-hidden rounded-2xl border border-line2 bg-bg3 shadow-[0_24px_60px_-16px_rgba(11,31,77,0.45),0_0_0_1px_rgba(200,144,31,0.18)]"
+      onKeyDown={onKeyDown}
+      data-state={closing ? 'closing' : 'open'}
+      className="assistant-panel pointer-events-auto flex max-h-[min(560px,calc(100svh-7.5rem))] w-[min(calc(100vw-1.5rem),380px)] flex-col overflow-hidden rounded-md border border-line2 bg-bg3 shadow-[0_24px_60px_-18px_rgba(20,33,61,0.45),0_0_0_1px_rgba(31,79,216,0.12)]"
     >
-      <div className="flex items-center justify-between gap-3 border-b border-line2 bg-bg2 px-4 py-3">
-        <h2 id={titleId} className="font-display text-lg text-navy">
-          {fill(text.panelTitle, { name: MASCOT_NAME })}
-        </h2>
+      <div className="flex items-center justify-between gap-3 border-b border-line2 bg-bg2 px-4 py-2.5">
+        <div className="flex items-center gap-2.5">
+          <AssistantMark size={30} className="text-accent" />
+          <h2 id={titleId} className="font-display text-base font-semibold text-navy">
+            {text.panelTitle}
+          </h2>
+        </div>
         <button
           type="button"
           onClick={onClose}
           aria-label={text.close}
-          className="grid h-8 w-8 place-items-center rounded-lg border border-line2 text-text2 transition-colors hover:border-gold hover:text-text"
+          className="grid h-11 w-11 place-items-center rounded-sm border border-line2 text-text2 transition-colors hover:border-accent hover:text-text"
         >
-          <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true">
-            <path d="M1 1l10 10M11 1L1 11" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-          </svg>
+          <X size={16} aria-hidden="true" />
         </button>
       </div>
 
@@ -258,16 +291,16 @@ export default function AssistantPanel({ locale, dict, reduceMotion, onMood, onC
           <div key={message.id} className={message.role === 'user' ? 'flex justify-end' : 'flex justify-start'}>
             <div className="max-w-[92%]">
               <p className="mb-1 font-mono text-[10px] uppercase tracking-[0.16em] text-text2">
-                {message.role === 'user' ? text.you : MASCOT_NAME}
+                {message.role === 'user' ? text.you : text.assistantName}
               </p>
               {message.role === 'user' ? (
-                <p className="whitespace-pre-line rounded-xl rounded-tr-sm bg-accent px-3 py-2 text-sm text-on-accent">{message.text}</p>
+                <p className="whitespace-pre-line rounded-sm bg-accent px-3 py-2 text-sm text-on-accent">{message.text}</p>
               ) : (
                 <div
                   aria-hidden={!message.done}
                   title={message.done ? undefined : text.skipTyping}
                   onClick={() => markDone(message.id)}
-                  className="cursor-default whitespace-pre-line rounded-xl rounded-tl-sm border border-line2 bg-bg2 px-3 py-2 text-sm leading-relaxed text-text"
+                  className="cursor-default whitespace-pre-line rounded-sm border border-line2 bg-bg2 px-3 py-2 text-sm leading-relaxed text-text"
                 >
                   <TypedText
                     text={message.text}
@@ -287,7 +320,7 @@ export default function AssistantPanel({ locale, dict, reduceMotion, onMood, onC
                       key={suggestion}
                       type="button"
                       onClick={() => submit(suggestion)}
-                      className="rounded-full border border-line2 bg-bg px-3 py-1 text-xs text-text2 transition-colors hover:border-gold hover:text-text"
+                      className="min-h-11 rounded-sm border border-line2 bg-bg px-3 py-1 text-xs text-text2 transition-colors hover:border-accent hover:text-text"
                     >
                       {suggestion}
                     </button>
@@ -297,6 +330,14 @@ export default function AssistantPanel({ locale, dict, reduceMotion, onMood, onC
             </div>
           </div>
         ))}
+        {pending ? (
+          <div className="flex justify-start">
+            <div>
+              <p className="mb-1 font-mono text-[10px] uppercase tracking-[0.16em] text-text2">{text.assistantName}</p>
+              <Working label={text.thinking} />
+            </div>
+          </div>
+        ) : null}
       </div>
 
       <div className="sr-only" aria-live="polite" aria-atomic="true">
@@ -306,16 +347,20 @@ export default function AssistantPanel({ locale, dict, reduceMotion, onMood, onC
       <div className="border-t border-line2 bg-bg2 px-4 pb-3 pt-3">
         <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.16em] text-text2">{text.quickTitle}</p>
         <div className="mb-3 flex flex-wrap gap-1.5">
-          {text.quick.map((question) => (
-            <button
-              key={question.id}
-              type="button"
-              onClick={() => submit(question.label)}
-              className="rounded-full border border-line2 bg-bg px-2.5 py-1 text-xs text-text2 transition-colors hover:border-gold hover:text-text"
-            >
-              {question.label}
-            </button>
-          ))}
+          {text.quick.map((question) => {
+            const Icon = quickIcons[question.id]
+            return (
+              <button
+                key={question.id}
+                type="button"
+                onClick={() => submit(question.label)}
+                className="inline-flex min-h-11 items-center gap-1.5 rounded-sm border border-line2 bg-bg px-2.5 py-1 text-xs text-text2 transition-colors hover:border-accent hover:text-text"
+              >
+                <Icon size={14} aria-hidden="true" className="shrink-0 text-accent" />
+                {question.label}
+              </button>
+            )
+          })}
         </div>
         <form onSubmit={onSubmit} className="flex gap-2">
           <label htmlFor={`${titleId}-input`} className="sr-only">
@@ -329,13 +374,14 @@ export default function AssistantPanel({ locale, dict, reduceMotion, onMood, onC
             maxLength={200}
             autoComplete="off"
             placeholder={text.placeholder}
-            className="min-w-0 flex-1 rounded-lg border border-line2 bg-bg px-3 py-2 text-sm text-text placeholder:text-text2 focus:border-gold focus:outline-none"
+            className="min-h-11 min-w-0 flex-1 rounded-sm border border-line2 bg-bg px-3 py-2 text-sm text-text placeholder:text-text2 focus:border-accent focus:outline-none"
           />
           <button
             type="submit"
-            className="rounded-lg bg-accent px-3.5 py-2 text-sm font-medium text-on-accent transition-colors hover:bg-accent-hover"
+            aria-label={text.send}
+            className="grid min-h-11 min-w-11 place-items-center rounded-sm bg-accent text-on-accent transition-colors hover:bg-accent-hover"
           >
-            {text.send}
+            <SendHorizontal size={17} aria-hidden="true" />
           </button>
         </form>
       </div>
