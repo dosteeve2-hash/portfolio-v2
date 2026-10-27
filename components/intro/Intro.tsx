@@ -5,7 +5,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { introTimelines } from '@/content/intro'
 import type { Locale } from '@/content/locales'
 import type { Dictionary } from '@/content/types'
-import { INTRO_STORAGE_KEY } from '@/lib/introKey'
+import { INTRO_LEAN_QUERY, INTRO_STORAGE_KEY } from '@/lib/introKey'
 import { getIntroPhase, setIntroHandoff, setIntroPhase, useIntroPhase } from '@/lib/introStore'
 import { useIntroVoice } from './IntroVoice'
 import Scene, { emptyFlight, type Flight, type FrameSize } from './Scene'
@@ -102,6 +102,11 @@ export default function Intro({ locale, dict }: IntroProps) {
       seen = false
     }
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const lean = window.matchMedia(INTRO_LEAN_QUERY).matches
+    if (lean && !seen && !reduceMotion) {
+      setIntroPhase('done')
+      return undefined
+    }
     if (seen || reduceMotion) {
       setIntroPhase('done')
       if (!seen && voice.available) voice.offer()

@@ -1,14 +1,16 @@
 'use client'
 
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
+import dynamic from 'next/dynamic'
 import { useCallback, useEffect, useId, useRef, useState } from 'react'
 import type { Locale } from '@/content/locales'
 import { fill, mascotText } from '@/content/mascotText'
 import { MASCOT_NAME } from '@/content/site'
 import { getDictionary } from '@/content'
-import AssistantPanel from './AssistantPanel'
 import MascotFigure from './MascotFigure'
 import { clamp, createLookTarget, wakeLook, type Expression, type LookTarget } from './pose'
+
+const AssistantPanel = dynamic(() => import('./AssistantPanel'), { ssr: false })
 
 const STORAGE_KEY = 'mascot-hidden'
 const IDLE_MS = 30_000

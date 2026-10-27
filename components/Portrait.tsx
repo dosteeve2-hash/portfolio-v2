@@ -16,6 +16,7 @@ export default function Portrait({ alt, sizes, priority = false }: PortraitProps
         fill
         sizes={sizes}
         priority={priority}
+        quality={70}
         className="object-cover"
         style={{
           objectPosition: PORTRAIT_FOCUS.position,

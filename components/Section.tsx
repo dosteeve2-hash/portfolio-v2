@@ -21,7 +21,7 @@ const toneClass: Readonly<Record<SectionTone, string>> = {
 
 export default function Section({ id, index, label, title, intro, tone = 'plain', children }: SectionProps) {
   return (
-    <section id={id} aria-labelledby={`${id}-title`} className={`scroll-mt-16 py-20 md:py-28 ${toneClass[tone]}`}>
+    <section id={id} aria-labelledby={`${id}-title`} className={`cv-auto scroll-mt-16 py-20 md:py-28 ${toneClass[tone]}`}>
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <Reveal className="mb-10 max-w-2xl md:mb-14">
           <p className="flex items-center gap-3 font-mono text-xs uppercase tracking-[0.2em] text-accent">

@@ -1,6 +1,7 @@
 'use client'
 
-import { motion, useInView, useReducedMotion } from 'motion/react'
+import { motion, useInView } from 'motion/react'
+import { useReducedMotionSafe } from '@/lib/useReducedMotionSafe'
 import { useId, useRef } from 'react'
 import type { Dictionary } from '@/content/types'
 import { desktopLayout, mobileLayout, type Layout } from '@/lib/architectureLayout'
@@ -13,7 +14,7 @@ interface DiagramProps {
 }
 
 function Diagram({ layout, dict, className }: DiagramProps) {
-  const reduce = useReducedMotion()
+  const reduce = useReducedMotionSafe()
   const titleId = useId()
   const descId = useId()
   const t = (at: number) => (reduce ? 0 : at)

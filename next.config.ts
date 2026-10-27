@@ -11,6 +11,10 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   turbopack: { root: process.cwd() },
+  images: {
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384, 480],
+    qualities: [70, 75],
+  },
   async headers() {
     return [{ source: '/:path*', headers: securityHeaders }]
   },

@@ -217,6 +217,18 @@ html[data-intro='seen'] .intro-root {
   display: none;
 }
 
+/* Sans intro automatique sur téléphone et petit écran : identique à INTRO_LEAN_QUERY (lib/introKey.ts). */
+@media (max-width: 767px), (hover: none), (pointer: coarse) {
+  .intro-root {
+    display: none;
+  }
+  /* L'accueil est lisible dès le premier affichage, sans attendre l'hydratation (meilleur LCP). */
+  [data-hero] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
 /* --- Révélation au défilement : transition composité, déclenchée par Reveal.tsx --- */
 [data-reveal] {
   opacity: 0;
@@ -888,4 +900,11 @@ html[data-intro='seen'] .intro-root {
     transform: none !important;
     transition: none !important;
   }
+}
+
+/* Sections sous la ligne de flottaison : le navigateur saute leur mise en page tant qu'elles
+   ne sont pas proches de l'écran (gain de temps de rendu au chargement, aucun changement visuel). */
+.cv-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 900px;
 }
