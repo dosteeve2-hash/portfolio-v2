@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation'
 import About from '@/components/About'
 import Architecture from '@/components/Architecture'
 import Atmosphere from '@/components/Atmosphere'
-import MascotLoader from '@/components/mascot/MascotLoader'
+import AssistantLauncher from '@/components/assistant/AssistantLauncher'
 import Certifications from '@/components/Certifications'
 import Contact from '@/components/Contact'
 import FirstVersion from '@/components/FirstVersion'
@@ -14,6 +14,7 @@ import Intro from '@/components/intro/Intro'
 import Journey from '@/components/Journey'
 import Projects from '@/components/Projects'
 import Skills from '@/components/Skills'
+import StackBand from '@/components/StackBand'
 import { getDictionary } from '@/content'
 import { isLocale } from '@/content/locales'
 import { githubUrl, SITE, SITE_URL } from '@/content/site'
@@ -48,6 +49,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       <Header locale={locale} dict={dict} />
       <main>
         <Hero locale={locale} dict={dict} />
+        <StackBand locale={locale} />
         <About locale={locale} dict={dict} />
         <Skills locale={locale} dict={dict} />
         <Projects locale={locale} dict={dict} />
@@ -60,7 +62,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       </main>
       <Footer dict={dict} />
       <Atmosphere />
-      <MascotLoader locale={locale} />
+      <AssistantLauncher locale={locale} dict={dict} />
     </>
   )
 }

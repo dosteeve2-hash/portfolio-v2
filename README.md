@@ -29,10 +29,10 @@ npx tsc --noEmit
 - **Contact, LinkedIn, CV** : `content/site.ts`. `linkedinUrl` vide masque le bloc LinkedIn. Pour activer le CV, déposer `public/cv/Steeve-Donald-Compaore-CV-{fr|en|tr}.pdf` puis passer `cvAvailable` à `true` ; sinon le bouton mène à la page « CV bientôt disponible ».
 - **Photo** : remplacer `public/portrait.jpg` (ou changer `PORTRAIT_SRC` et le cadrage `PORTRAIT_FOCUS` dans `content/site.ts`).
 
-## Mascotte et assistant
+## Assistant et mouvement
 
-- `components/mascot/` : personnage SVG (`MascotFigure`, expressions dans `pose.ts`), mascotte flottante (`Mascot`, chargée en différé par `MascotLoader`), panneau de discussion (`AssistantPanel`).
-- Page de revue non référencée : `/fr/mascot-lab` (toutes les expressions, boutons pour les déclencher).
+- `components/assistant/` : bouton rond sans visage (`AssistantLauncher`, monté après le premier geste), symbole `AssistantMark` (réticule de calque + monogramme SDC + étincelle), panneau de discussion (`AssistantPanel` : dialogue modal, focus piégé, Échap, état « en train de répondre », icônes lucide).
+- `kit/` : copie du dépôt `motion-kit` (défilement fluide Lenis, compteurs, bandeau, cartes inclinables, scène épinglée, tracés SVG, étiquettes déplaçables, masques de titres, grille vivante). `components/PageMotion.tsx` branche le défilement fluide et la grille. Contrôles : `node scripts/capture-motion.mjs check|shots|video|assistant|cls`.
 - `content/assistantKb.ts` : base de connaissances de l'assistant (intentions, mots-clés FR/EN/TR, réponses construites à partir de `content/` et `content/cv-data.json`). `lib/assistant.ts` : moteur local de mots-clés, sans réseau.
-- Textes de l'interface de la mascotte et libellés de l'accueil : `content/mascotText.ts`. Nom du personnage : `MASCOT_NAME` dans `content/site.ts`.
+- Textes de l'assistant et libellés de l'accueil : `content/mascotText.ts` ; textes du mouvement (étiquettes, scène, bandeau) : `content/waouh.ts`.
 - Lumière du curseur et projecteur des cartes : `components/Atmosphere.tsx` (carte avec l'attribut `data-spotlight`). Écriture progressive de l'accueil : `components/TypedLine.tsx`.

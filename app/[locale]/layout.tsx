@@ -3,6 +3,7 @@ import { Inter, JetBrains_Mono, Space_Grotesk } from 'next/font/google'
 import { notFound } from 'next/navigation'
 import IntroVoiceProvider from '@/components/intro/IntroVoice'
 import MotionProvider from '@/components/MotionProvider'
+import PageMotion from '@/components/PageMotion'
 import RevealController from '@/components/RevealController'
 import { getDictionary } from '@/content'
 import { introTimelines } from '@/content/intro'
@@ -103,6 +104,7 @@ export default async function LocaleLayout({
           <IntroVoiceProvider src={introTimelines[locale].audio} labels={voiceLabels}>
             {children}
             <RevealController />
+            <PageMotion />
           </IntroVoiceProvider>
         </MotionProvider>
       </body>

@@ -1,5 +1,4 @@
 import type { Locale } from './locales'
-import type { Expression } from '@/components/mascot/pose'
 
 export interface QuickQuestion {
   readonly id: 'who' | 'skills' | 'projects' | 'internship' | 'contact' | 'cv'
@@ -11,9 +10,9 @@ export interface MascotText {
   readonly hint: string
   readonly open: string
   readonly close: string
-  readonly hide: string
-  readonly show: string
   readonly panelTitle: string
+  readonly assistantName: string
+  readonly thinking: string
   readonly dialogLabel: string
   readonly quickTitle: string
   readonly quick: readonly QuickQuestion[]
@@ -28,26 +27,19 @@ export interface MascotText {
   readonly openGithub: string
   readonly openLinkedin: string
   readonly heroLabels: readonly string[]
-  readonly lab: {
-    readonly title: string
-    readonly intro: string
-    readonly play: string
-    readonly follow: string
-    readonly expressions: Readonly<Record<Expression, string>>
-  }
 }
 
 // TODO relecture TR : traduction à faire relire par un locuteur natif.
 export const mascotText: Readonly<Record<Locale, MascotText>> = {
   fr: {
     welcome:
-      'Salut, c’est {name} ! Je suis la version dessinée de ce site. Je réponds seulement avec ce qui y est écrit.',
-    hint: 'Une question ? Clique sur moi.',
-    open: 'Discuter avec {name}',
+      'Bonjour, je suis l’assistant de ce site. Je réponds seulement avec ce qui y est écrit.',
+    hint: 'Une question ?',
+    open: 'Ouvrir l’assistant du portfolio',
     close: 'Fermer',
-    hide: 'Masquer la mascotte',
-    show: 'Afficher la mascotte',
-    panelTitle: 'Discuter avec {name}',
+    panelTitle: 'Assistant du portfolio',
+    assistantName: 'Assistant',
+    thinking: 'Réflexion en cours',
     dialogLabel: 'Assistant du portfolio',
     quickTitle: 'Questions rapides',
     quick: [
@@ -74,33 +66,15 @@ export const mascotText: Readonly<Record<Locale, MascotText>> = {
       'Intégration d’IA',
       'Orchestration d’agents IA',
     ],
-    lab: {
-      title: 'Laboratoire de la mascotte',
-      intro: 'Toutes les expressions et tous les gestes. Page de revue, non référencée.',
-      play: 'Déclencher',
-      follow: 'Suivre le pointeur',
-      expressions: {
-        neutral: 'Neutre',
-        happy: 'Content',
-        laugh: 'Rire',
-        wow: 'Surpris',
-        thinking: 'Réfléchit',
-        wink: 'Clin d’œil',
-        proud: 'Fier',
-        wave: 'Salue',
-        curious: 'Curieux',
-        sleepy: 'Endormi',
-      },
-    },
   },
   en: {
-    welcome: 'Hi, I’m {name}! I’m the drawn version of this site. I only answer with what is written on it.',
-    hint: 'A question? Click me.',
-    open: 'Chat with {name}',
+    welcome: 'Hello, I’m this site’s assistant. I only answer with what is written on it.',
+    hint: 'A question?',
+    open: 'Open the portfolio assistant',
     close: 'Close',
-    hide: 'Hide the mascot',
-    show: 'Show the mascot',
-    panelTitle: 'Chat with {name}',
+    panelTitle: 'Portfolio assistant',
+    assistantName: 'Assistant',
+    thinking: 'Working on it',
     dialogLabel: 'Portfolio assistant',
     quickTitle: 'Quick questions',
     quick: [
@@ -127,33 +101,15 @@ export const mascotText: Readonly<Record<Locale, MascotText>> = {
       'AI integration',
       'AI agent orchestration',
     ],
-    lab: {
-      title: 'Mascot lab',
-      intro: 'Every expression and gesture. Review page, not indexed.',
-      play: 'Play',
-      follow: 'Follow the pointer',
-      expressions: {
-        neutral: 'Neutral',
-        happy: 'Happy',
-        laugh: 'Laugh',
-        wow: 'Wow',
-        thinking: 'Thinking',
-        wink: 'Wink',
-        proud: 'Proud',
-        wave: 'Wave',
-        curious: 'Curious',
-        sleepy: 'Sleepy',
-      },
-    },
   },
   tr: {
-    welcome: 'Merhaba, ben {name}! Bu sitenin çizilmiş hâliyim. Yalnızca sitede yazanlarla cevap veririm.',
-    hint: 'Bir sorun mu var? Bana tıkla.',
-    open: '{name} ile sohbet et',
+    welcome: 'Merhaba, ben bu sitenin asistanıyım. Yalnızca sitede yazanlarla cevap veririm.',
+    hint: 'Bir sorun mu var?',
+    open: 'Portföy asistanını aç',
     close: 'Kapat',
-    hide: 'Maskotu gizle',
-    show: 'Maskotu göster',
-    panelTitle: '{name} ile sohbet',
+    panelTitle: 'Portföy asistanı',
+    assistantName: 'Asistan',
+    thinking: 'Cevap hazırlanıyor',
     dialogLabel: 'Portföy asistanı',
     quickTitle: 'Hızlı sorular',
     quick: [
@@ -180,24 +136,6 @@ export const mascotText: Readonly<Record<Locale, MascotText>> = {
       'Yapay zekâ entegrasyonu',
       'Yapay zekâ ajanı orkestrasyonu',
     ],
-    lab: {
-      title: 'Maskot laboratuvarı',
-      intro: 'Tüm ifadeler ve hareketler. İnceleme sayfası, dizine eklenmez.',
-      play: 'Oynat',
-      follow: 'İşaretçiyi izle',
-      expressions: {
-        neutral: 'Nötr',
-        happy: 'Mutlu',
-        laugh: 'Gülme',
-        wow: 'Şaşkın',
-        thinking: 'Düşünüyor',
-        wink: 'Göz kırpma',
-        proud: 'Gururlu',
-        wave: 'Selam',
-        curious: 'Meraklı',
-        sleepy: 'Uykulu',
-      },
-    },
   },
 }
 

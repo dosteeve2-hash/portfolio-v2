@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import MaskReveal from '@/kit/components/MaskReveal'
 import Reveal from './Reveal'
 
 export type SectionTone = 'plain' | 'soft' | 'navy'
@@ -10,6 +11,8 @@ interface SectionProps {
   readonly title: string
   readonly intro?: string
   readonly tone?: SectionTone
+  /** Contenu pleine largeur placé sous l'en-tête (scène épinglée) ; la section n'est alors pas différée (hauteur fiable). */
+  readonly bleed?: ReactNode
   readonly children: ReactNode
 }
 
@@ -19,26 +22,33 @@ const toneClass: Readonly<Record<SectionTone, string>> = {
   navy: 'theme-navy section-navy text-text',
 }
 
-export default function Section({ id, index, label, title, intro, tone = 'plain', children }: SectionProps) {
+export default function Section({ id, index, label, title, intro, tone = 'plain', bleed, children }: SectionProps) {
+  const header = (
+    <Reveal className="mb-10 max-w-2xl md:mb-14">
+      <p className="flex items-center gap-3 font-mono text-xs uppercase tracking-[0.2em] text-accent">
+        <span aria-hidden="true" className="border border-accent px-1.5 py-0.5 text-[11px] tracking-[0.1em]">
+          {String(index).padStart(2, '0')}
+        </span>
+        <span className="sr-only">{String(index).padStart(2, '0')} — </span>
+        {label}
+      </p>
+      <h2 id={`${id}-title`} className="mt-4 pb-1 font-display text-3xl font-semibold leading-tight md:text-4xl">
+        <MaskReveal>{title}</MaskReveal>
+      </h2>
+      <span aria-hidden="true" className="rule mt-3" />
+      {intro ? <p className="mt-5 text-text2">{intro}</p> : null}
+    </Reveal>
+  )
+
   return (
-    <section id={id} aria-labelledby={`${id}-title`} className={`cv-auto scroll-mt-16 py-20 md:py-28 ${toneClass[tone]}`}>
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <Reveal className="mb-10 max-w-2xl md:mb-14">
-          <p className="flex items-center gap-3 font-mono text-xs uppercase tracking-[0.2em] text-accent">
-            <span aria-hidden="true" className="border border-accent px-1.5 py-0.5 text-[11px] tracking-[0.1em]">
-              {String(index).padStart(2, '0')}
-            </span>
-            <span className="sr-only">{String(index).padStart(2, '0')} — </span>
-            {label}
-          </p>
-          <h2 id={`${id}-title`} className="mt-4 pb-1 font-display text-3xl font-semibold leading-tight md:text-4xl">
-            {title}
-          </h2>
-          <span aria-hidden="true" className="rule mt-3" />
-          {intro ? <p className="mt-5 text-text2">{intro}</p> : null}
-        </Reveal>
-        {children}
-      </div>
+    <section
+      id={id}
+      aria-labelledby={`${id}-title`}
+      className={`${bleed ? '' : 'cv-auto '}scroll-mt-16 py-20 md:py-28 ${toneClass[tone]}`}
+    >
+      <div className="mx-auto max-w-6xl px-4 sm:px-6">{header}</div>
+      {bleed}
+      <div className={`mx-auto max-w-6xl px-4 sm:px-6 ${bleed ? 'cv-auto' : ''}`}>{children}</div>
     </section>
   )
 }

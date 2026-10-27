@@ -9,7 +9,7 @@ const INTERACTION_EVENTS = ['pointerdown', 'pointermove', 'keydown', 'touchstart
 
 /**
  * Vrai au premier geste du visiteur, ou au bout de `maxDelay` ms s'il ne bouge pas, puis une fois
- * le navigateur au repos : sert à différer les décors non essentiels (braises, mascotte) pour que
+ * le navigateur au repos : sert à différer les décors non essentiels (décors) pour que
  * le chargement reste léger, sans les supprimer.
  */
 export function useAfterInteraction(maxDelay = 8000, enabled = true): boolean {

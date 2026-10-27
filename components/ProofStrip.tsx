@@ -6,15 +6,15 @@ export interface ProofFigure {
   readonly label: string
 }
 
-/** Trois chiffres vérifiables, en cotes de plan : valeur en grand, légende en étiquette mono. */
-export default function ProofStrip({ figures }: { readonly figures: readonly ProofFigure[] }) {
+/** Trois chiffres vérifiables, en cotes de plan : valeur en grand, légende en étiquette mono. `start` retient les compteurs tant que l'intro cache la page. */
+export default function ProofStrip({ figures, start = true }: { readonly figures: readonly ProofFigure[]; readonly start?: boolean }) {
   return (
     <dl className="grid max-w-xl grid-cols-3 gap-x-4 border-t border-line2 pt-4">
       {figures.map((figure) => (
         <div key={figure.label} className="flex flex-col-reverse justify-end">
           <dt className="mt-2 font-mono text-[10.5px] uppercase leading-snug tracking-[0.1em] text-text2">{figure.label}</dt>
           <dd className="font-display text-3xl font-semibold leading-none text-navy sm:text-4xl">
-            <CountUp value={figure.value} />
+            <CountUp value={figure.value} start={start} />
             {figure.suffix ? <span className="ml-0.5 text-lg text-text2">{figure.suffix}</span> : null}
           </dd>
         </div>
