@@ -143,7 +143,7 @@ const fr: EntryLocale = {
     metaDescription:
       'Applications testées et déployées : Next.js, TypeScript, PostgreSQL, Vercel. Études de cas avec architecture et preuves, CV et contact.',
     kicker: 'Emploi · Développement logiciel',
-    title: 'Je livre des applications testées et déployées, pas des maquettes.',
+    title: 'Je livre des applications testées et déployées de A à Z.',
     lead: "Étudiant en génie logiciel (3e année, Université de Tokat Gaziosmanpaşa). Next.js, TypeScript, PostgreSQL, déploiement sur Vercel, tests automatisés, interfaces en trois langues. Ouvert aux opportunités en Turquie ou à distance.",
     contact: 'Me contacter',
     cv: 'ou télécharger le CV',
@@ -234,7 +234,7 @@ const en: EntryLocale = {
     metaDescription:
       'Tested, deployed applications: Next.js, TypeScript, PostgreSQL, Vercel. Case studies with architecture and evidence, CV and contact.',
     kicker: 'Job · Software development',
-    title: 'I ship tested, deployed applications, not mockups.',
+    title: 'I ship tested, deployed applications from start to finish.',
     lead: 'Software engineering student (year 3, Tokat Gaziosmanpaşa University). Next.js, TypeScript, PostgreSQL, deployment on Vercel, automated tests, interfaces in three languages. Open to opportunities in Turkey or remotely.',
     contact: 'Get in touch',
     cv: 'or download the CV',
@@ -324,7 +324,7 @@ const tr: EntryLocale = {
     metaDescription:
       'Test edilmiş ve yayına alınmış uygulamalar: Next.js, TypeScript, PostgreSQL, Vercel. Mimari ve kanıtlarla örnek çalışmalar, CV ve iletişim.',
     kicker: 'İş · Yazılım geliştirme',
-    title: 'Maket değil, test edilmiş ve yayına alınmış uygulamalar teslim ederim.',
+    title: 'Baştan sona test edilmiş ve yayına alınmış uygulamalar teslim ederim.',
     lead: 'Yazılım mühendisliği öğrencisi (3. sınıf, Tokat Gaziosmanpaşa Üniversitesi). Next.js, TypeScript, PostgreSQL, Vercel’de yayına alma, otomatik testler, üç dilli arayüzler. Türkiye’de veya uzaktan fırsatlara açığım.',
     contact: 'Benimle iletişime geç',
     cv: 'ya da CV’yi indir',
